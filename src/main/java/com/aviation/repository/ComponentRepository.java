@@ -1,6 +1,8 @@
 package com.aviation.repository;
 
 import java.io.Serializable;
+
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +17,7 @@ import com.aviation.vo.ComponentVO;
 
 public interface ComponentRepository extends CrudRepository<Component, Serializable>{
 
-	@Query("SELECT  comp FROM Component comp where comp.statusUpdatedDate between :fromDate and :toDate")
-	public List<ComponentVO> getComponent(@Param("fromDate")final Date fromDate, @Param("toDate")final Date toDate);
+	@Query("SELECT  comp as comp FROM Component comp where comp.statusUpdatedDate between :fromDate and :toDate")
+	public List<Component> getComponent(@Param("fromDate")final Date fromDate, @Param("toDate")final Date toDate);
 	
 }

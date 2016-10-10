@@ -3,6 +3,8 @@ package com.aviation.controller;
 
 
 import java.text.ParseException;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aviation.bo.service.ComponentService;
+import com.aviation.entity.Component;
 
 
 
@@ -50,10 +53,11 @@ public class AviationController {
 	
 	
 	@RequestMapping(value = "/loadComponent/{startDate}/{endDate}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public void loadComponentData(@PathVariable final String startDate,@PathVariable final String endDate, HttpSession session)throws ParseException {
+	public List<Component> loadComponentData(@PathVariable final String startDate,@PathVariable final String endDate, HttpSession session)throws ParseException {
 		
-		componentService.getComponent(startDate, endDate);
+		List<Component> comp=	componentService.getComponent(startDate, endDate);
 		System.out.println("abc");
+		return comp;
 	}
 
 
