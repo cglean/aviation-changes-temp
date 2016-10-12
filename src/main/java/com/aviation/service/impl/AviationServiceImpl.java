@@ -1,6 +1,6 @@
 package com.aviation.service.impl;
 
-import java.time.ZonedDateTime;
+
 import java.util.Date;
 import java.util.List;
 
@@ -14,9 +14,11 @@ import com.aviation.entity.Component;
 import com.aviation.entity.Filter;
 import com.aviation.repository.ComponentHistoryRepository;
 import com.aviation.repository.ComponentRepository;
+import com.aviation.repository.FilterByRepository;
 import com.aviation.repository.FilterRepository;
 import com.aviation.service.AviationService;
-import com.aviation.vo.ComponentVO;
+
+
 
 
 @Service
@@ -30,6 +32,12 @@ public class AviationServiceImpl implements AviationService{
 	
 	@Autowired
 	private FilterRepository filterRepository;
+	
+	
+
+	@Autowired
+	private FilterByRepository filterByRepository;
+	
 	
 	
 	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
@@ -46,6 +54,15 @@ public class AviationServiceImpl implements AviationService{
 		
 		return component;
 	}
+	
+	
+	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+	public void saveFilter(Filter filter) {
+		//filterByRepository.save(filter.getFilterBy());
+		filterRepository.save(filter);	
+	}
+	
+	
 
 	
 }

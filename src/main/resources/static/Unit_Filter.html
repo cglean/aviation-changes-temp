@@ -6,15 +6,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Aviation Filter</title>
-<link rel="stylesheet" href="css/bootstrap.min.css">
+<script src="js/jquery.min.js"></script>
 
+<script src="js/bootstrap.min.js"></script>
 <link href="css/dashboard.css" rel="stylesheet">
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/sidebar.css">
 <link rel="stylesheet" href="css/unit-sidebar-wrapper.css">
 <script src="Utility.js"></script>
 <script src="js/jquery-1.11.2.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+
 <script src="js/menu.js"></script>
 <link href="css/dashboard.css" rel="stylesheet">
 
@@ -23,7 +24,7 @@
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script
 	src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-<!-- <script src="js/jquery-1.11.2.min.js"></script> -->
+<script src="js/jquery-1.11.2.min.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 <style>
@@ -83,7 +84,7 @@
 			<center><label for="dateRange" class="label_date" style="color: brown;">Date Range</label></center>
 			<div class="date_range_select ">
 			<label for="fromDate" class="label_date" >From:</label> 
-			<input type="date"	 style="margin-bottom: 4px;" id="fromDate"  >
+			<input type="date"	 style="margin-bottom: 4px;" id="fromDate"  ><br>
 			 <label for="toDate" class="label_date">To:</label>
 				<input type="date" style="margin-bottom: 4px;"  id="toDate" onchange="functionFromDate();" >
 			</div>
@@ -96,14 +97,14 @@
 					
 		<div class="form-group filter_left_p2">
 			<label for="sortBy" class="sort_color">Sort by:</label> <select class="form-control"
-				id="sortBy" name="sortBy" onchange="displaySn()">
-				<option>--Select--</option>
-				<option value="1">Fleet</option>
-				<option value="2">Sub Fleet</option>
-				<option value="3">ATA System Number</option>
-				<option value="4">Tail Number</option>
-				<option value="5">Company Part Number</option>
-				<option value="6">MFG Number</option>
+				id="sortBy" name="sortBy" onchange="functionsort()">
+				<option value="null">--Select--</option>
+				<option value="Fleet">Fleet</option>
+				<option value="Sub Fleet">Sub Fleet</option>
+				<option value="ATA System Number">ATA System Number</option>
+				<option value="Tail Number">Tail Number</option>
+				<option value="Company Part Number">Company Part Number</option>
+				<option value="MFG Number">MFG Number</option>
 			</select>
 		</div>
 		
@@ -115,22 +116,22 @@
 				
 				<tr>
 					<td><label><input type="checkbox"
-							name="installed Unit">Installed Unit</label></td>
+						id="installedUnit"	name="installedUnit">Installed Unit</label></td>
 				</tr>
 
 				<tr>
-				<td><label><input type="checkbox" name="newUnit">New Unit</label></td>
+				<td><label><input type="checkbox"  id="newUnit" name="newUnit">New Unit</label></td>
 				</tr>
 				<tr>
-				<td><label><input type="checkbox" name="nonActiveUnit">Non-Active Unit</label></td>
+				<td><label><input type="checkbox"  id="nonActiveUnit" name="nonActiveUnit">Non-Active Unit</label></td>
 			   </tr>
 				
 				
 				<tr>
-				<td><label><input type="checkbox" name="problemUnit">Problem Unit</label></td>
+				<td><label><input type="checkbox"  id="problemUnit" name="problemUnit">Problem Unit</label></td>
 			   </tr>
 				<tr>
-				<td><label><input type="checkbox" name="overhauledUnit">Overhauled Unit</label>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+				<td><label><input type="checkbox"  id="overhauledUnit" name="overhauledUnit">Overhauled Unit</label>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 				</tr>
 				</table>
 			</div>
@@ -155,39 +156,32 @@
 				<div class="col-sm-3">
 					<label for="fleet" class="list-label">Fleet</label>
 					<form action="form_action.asp">
-						<select name="fleet" class="sort_option" style="height: 150px;"
+						<select name="fleet" class="sort_option" style="height: 150px;" id="fleetValue"
 							multiple>
-							<option value="volvo">item1</option>
-							<option value="volvo">item2</option>
-							<option value="volvo">item3</option>
-							<option value="volvo">item4</option>
-						</select> <br> <input type="reset" value="Clear" class="list-clear-btn">
-						<input type="reset" value="Submit" class="list-clear-btn">
+						
+						</select> <br> <input type="reset" value="Clear" class="list-clear-btn" id="fleetValueClear">
+						<input type="button" value="Submit" class="list-clear-btn" id="fleetValueSubmit" onclick="getFleets()" >
 					</form>
 				</div>
 				<div class="col-sm-3">
 					<label for="subFleet" class="list-label">Sub-Fleet</label>
 					<form action="form_action.asp">
-						<select name="subFleet" class="sort_option" style="height: 150px;"
+						<select name="subFleet" class="sort_option" style="height: 150px;" id="subfleetvalue"
 							multiple>
-							<option value="volvo">sub-fleet-1</option>
-							<option value="volvo">sub-fleet-2</option>
-							<option value="volvo">sub-fleet-3</option>
-							<option value="volvo">sub-fleet-4</option>
+						
 						</select> <br>
 						 <input type="reset" value="Clear" class="list-clear-btn">
-						 <input type="reset" value="Submit" class="list-clear-btn">
+						 <input type="button" value="Submit" class="list-clear-btn">
 					</form>
 				</div>
 				<div class="col-sm-3">
 					<label for="tailNumber" class="list-label">Tail Numbers</label>
 					<form action="form_action.asp">
-						<select name="cars" class="sort_option" style="height: 150px;"
+						<select name="cars" class="sort_option" style="height: 150px;" id="tailvalue"
 							multiple>
-							<option value="volvo">tail number -1</option>
-							<option value="volvo">tail number -2</option>
+						
 						</select> <br><input type="reset" value="Clear" class="list-clear-btn">
-						<input type="reset" value="Submit" class="list-clear-btn">
+						<input type="button" value="Submit" class="list-clear-btn">
 					</form>
 				</div>
 				<div class="col-sm-3">
@@ -195,12 +189,10 @@
 						Part Numbers</label>
 					<form action="form_action.asp">
 						<select name="companyPartNumber" class="sort_option"
-							style="height: 150px;" multiple>
-							<option value="volvo">company part-1</option>
-							<option value="volvo">company part-2</option>
-							<option value="volvo">company part-3</option>
+							style="height: 150px;" id="cpnvalue" multiple>
+						
 						</select> <br> <input type="reset" value="Clear" class="list-clear-btn">
-						<input type="reset" value="Submit" class="list-clear-btn">
+						<input type="button" value="Submit" class="list-clear-btn">
 					</form>
 				</div>
 				</div>
@@ -211,10 +203,10 @@
 							Numbers</label>
 						<form action="form_action.asp">
 							<select name="mfgPartNumber" class="sort_option"
-								style="height: 150px;" multiple>
-								<option value="volvo">Volvo</option>
+								style="height: 150px;" id="mfgvalue" multiple>
+								
 							</select> <br> <input type="reset" value="Clear" class="list-clear-btn">
-							<input type="reset" value="Submit" class="list-clear-btn">
+							<input type="button" value="Submit" class="list-clear-btn">
 						</form>
 					</div>
 					<div class="col-sm-3">
@@ -222,11 +214,10 @@
 							Numbers</label>
 						<form action="form_action.asp">
 							<select name="ataSystemNumber" class="sort_option"
-								style="height: 150px;" multiple>
-								<option value="volvo">number-1</option>
-								<option value="volvo">number-2</option>
+								style="height: 150px;" id="atavalue" multiple>
+								
 							</select> <br><input type="reset" value="Clear" class="list-clear-btn">
-							<input type="reset" value="Submit" class="list-clear-btn">
+							<input type="button" value="Submit" class="list-clear-btn">
 						</form>
 					</div>
 					<div class="col-sm-3">
@@ -234,11 +225,10 @@
 							Numbers</label>
 						<form action="form_action.asp">
 							<select name="serialNuber" class="sort_option"
-								style="height: 150px;" multiple>
-								<option value="volvo">serial-1</option>
-								<option value="volvo">serial-2</option>
+								style="height: 150px;" id="serialvalue" multiple>
+							
 							</select> <br><input type="reset" value="Clear" class="list-clear-btn">
-							<input type="reset" value="Submit" class="list-clear-btn">
+							<input type="button" value="Submit" class="list-clear-btn">
 						</form>
 					</div>
 				</div>
@@ -273,7 +263,7 @@
 			<div>
 				<div class="row text-center" style="padding: 5px;">
 					<div class="col-sm-4">
-						<button type="button" class="btn btn-primary_1">Save Filter</button>
+						<button type="button" class="btn btn-primary_1" onclick="saveFilter();">Save Filter</button>
 					</div>
 					<div class="col-sm-4">
 						<button type="button" class="btn btn-primary_1">Save As

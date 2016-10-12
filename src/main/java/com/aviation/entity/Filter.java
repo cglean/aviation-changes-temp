@@ -4,14 +4,23 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+
+
+
+import com.aviation.vo.FilterByVO;
 
 @Entity
 @Table(name="filter")
@@ -23,9 +32,8 @@ public class Filter implements Serializable {
 	private static final long serialVersionUID = 334665167725503216L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="filterID")
-	private long filterID;
+	private Long filterID;
 	
 	@Column(name="filterName",unique=true)
 	private String filterName;
@@ -38,12 +46,17 @@ public class Filter implements Serializable {
 	
 	@Column(name="sortBy")
 	private String sortBy;
+	
+	@MapsId
+	 @JoinColumn(name = "filterID")
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private FilterBy filterBy;
 
-	public long getFilterID() {
+	public Long getFilterID() {
 		return filterID;
 	}
 
-	public void setFilterID(long filterID) {
+	public void setFilterID(Long filterID) {
 		this.filterID = filterID;
 	}
 
@@ -78,7 +91,15 @@ public class Filter implements Serializable {
 	public void setSortBy(String sortBy) {
 		this.sortBy = sortBy;
 	}
+
+	public FilterBy getFilterBy() {
+		return filterBy;
+	}
+
+	public void setFilterBy(FilterBy filterBy) {
+		this.filterBy = filterBy;
+	}
+	
 	
 
-	
 }

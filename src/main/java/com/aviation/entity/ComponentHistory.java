@@ -18,10 +18,10 @@ public class ComponentHistory {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="historyID")
-	private long historyID;
+	private Long historyID;
 	
 	@Column(name="componentID")
-	private long componentID;
+	private Long componentID;
 	
 	@Column(name="status")
 	private String status;
@@ -34,23 +34,19 @@ public class ComponentHistory {
 	@Column(name="toDate")
 	private Date toDate;
 
-	public long getHistoryID() {
+	public Long getHistoryID() {
 		return historyID;
 	}
 
-	public void setHistoryID(long historyID) {
+	public void setHistoryID(Long historyID) {
 		this.historyID = historyID;
 	}
 
-	
-
-	
-
-	public long getComponentID() {
+	public Long getComponentID() {
 		return componentID;
 	}
 
-	public void setComponentID(long componentID) {
+	public void setComponentID(Long componentID) {
 		this.componentID = componentID;
 	}
 
@@ -77,7 +73,5 @@ public class ComponentHistory {
 	public void setToDate(Date toDate) {
 		this.toDate = toDate;
 	}
-	
-	
 
-}
+	}

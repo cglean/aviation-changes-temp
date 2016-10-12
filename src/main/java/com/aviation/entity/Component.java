@@ -21,7 +21,7 @@ public class Component {
 	@Id
 	@Column(name="componentID")
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private long componentID;
+	private Long componentID;
 	
 	@Column(name="serialNo",unique=true)
 	private String serialNo;
@@ -52,11 +52,11 @@ public class Component {
 	@Column(name="status")
 	private String status;
 
-	public long getComponentID() {
+	public Long getComponentID() {
 		return componentID;
 	}
 
-	public void setComponentID(long componentID) {
+	public void setComponentID(Long componentID) {
 		this.componentID = componentID;
 	}
 
@@ -132,12 +132,6 @@ public class Component {
 		this.status = status;
 	}
 
-	
-	
-	
-	
-	
-	
 	
 	
 	
