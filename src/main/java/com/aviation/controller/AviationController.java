@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aviation.bo.service.ComponentService;
@@ -57,7 +58,8 @@ public class AviationController {
 	
 	
 	@RequestMapping(value = "/getFilters", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Filter> saveFilter()  {
+	@ResponseBody 
+	public List<Filter> getFilters()  {
 		List<Filter> filter= componentService.getFilters();
 		return filter;
 	}

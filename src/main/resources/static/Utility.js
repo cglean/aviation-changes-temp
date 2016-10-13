@@ -201,7 +201,8 @@ var getFilters = function(){
 	 $.ajax({
 		 url : "/getFilters",
 		 success : function(data) {
-        	 alert(data);
+			 filterJson= JSON.stringify(data);
+			 alert(filterJson);
          }
          
   });

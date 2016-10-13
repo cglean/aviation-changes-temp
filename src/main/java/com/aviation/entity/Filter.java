@@ -18,7 +18,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
-
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import com.aviation.vo.FilterByVO;
 
@@ -49,7 +49,7 @@ public class Filter implements Serializable {
 	
 	@MapsId
 	 @JoinColumn(name = "filterID")
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private FilterBy filterBy;
 
 	public Long getFilterID() {
