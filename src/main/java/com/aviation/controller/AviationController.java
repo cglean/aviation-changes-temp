@@ -32,22 +32,7 @@ public class AviationController {
 	@Autowired
 	private ComponentService componentService;
 	
-	/*
-	public void getFilter(){
-		
-	}
-
-	public void loadFilter(){
-			
-		}
 	
-	public void saveFilter(){
-		
-	}
-	
-	public void saveAsDefaultFilter(){
-		
-	}*/
 	
 	@RequestMapping(value = "/check", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public void check(){
@@ -66,14 +51,16 @@ public class AviationController {
 	
 	@RequestMapping(value = "/saveFilter", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public void saveFilter(@RequestBody   Filter filter )throws ParseException {
-		
-		
-		
-		//System.out.println("saveFiltter");
-		
-		
 		componentService.saveFilter(filter);
 		
 	}
+	
+	
+	@RequestMapping(value = "/getFilters", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<Filter> saveFilter()  {
+		List<Filter> filter= componentService.getFilters();
+		return filter;
+	}
+	
 
 }

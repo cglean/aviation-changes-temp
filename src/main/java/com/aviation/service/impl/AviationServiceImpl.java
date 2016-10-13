@@ -33,13 +33,7 @@ public class AviationServiceImpl implements AviationService{
 	@Autowired
 	private FilterRepository filterRepository;
 	
-	
-
-	@Autowired
-	private FilterByRepository filterByRepository;
-	
-	
-	
+		
 	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void persistFillter(Filter filter) {
 		filterRepository.save(filter);	
@@ -49,7 +43,6 @@ public class AviationServiceImpl implements AviationService{
 	@Override
 	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public List<Component> getComponent(Date fromDate, Date toDate) {
-		// TODO Auto-generated method stub
 		final List<Component> component = compRepository.getComponent(fromDate, toDate);
 		
 		return component;
@@ -58,11 +51,16 @@ public class AviationServiceImpl implements AviationService{
 	
 	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public void saveFilter(Filter filter) {
-		//filterByRepository.save(filter.getFilterBy());
 		filterRepository.save(filter);	
 	}
 	
 	
-
+	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+	public List<Filter> getFilters() {
+		return filterRepository.getFilters();	
+	}
+	
+	
+	
 	
 }

@@ -23,11 +23,9 @@ var check= function(){
 //Display component based on date
 var getComponent = function(start,end){
        
-       //alert('start' + start + 'end' + end);
        $.ajax({
               url : "/loadComponent/" + start + "/" + end,
               success : function(data) {
-                     //alert('in getComponent' + data);
                      var text = "";
                      AllData=data;
                      var x=document.getElementById("fleetValue");
@@ -98,7 +96,6 @@ var getComponent = function(start,end){
 
 function functionsort(){
        var sortSelected=document.getElementById("sortBy").value;     
-       //alert(sortSelected);
        var sortValue = ["fleetValue", "subfleetvalue", "atavalue", "tailvalue", "cpnvalue", "mfgvalue","serialvalue"];
        
        
@@ -107,7 +104,7 @@ for (i = 0; i < sortValue.length; i++) {
        
               if(sortSelected != sortValue[i]){
                      
-                     //alert(sortValue[i]);
+                    
               document.getElementById(sortValue[i]).disabled = true;
               }else{
                      document.getElementById(sortValue[i]).disabled = false;
@@ -127,7 +124,6 @@ for (i = 0; i < sortValue.length; i++) {
        
        
        
-       //alert(AllData);
        
        
        
@@ -180,20 +176,8 @@ var saveFilter = function(){
 	var problemUnit =  document.getElementById("problemUnit").checked ? true:false;
 	var overhauledUnit =   document.getElementById("overhauledUnit").checked ? true:false;
 		
-	//var $filterByJson = {installedUnit,newUnit,nonActiveUnit,problemUnit,overhauledUnit};
-	/*$filterByJson.each(function() {
-	    alert(this);
-	})
-	var $items = {}*/
-	
-	alert(sortBySelected);
-	
-	var filterJson = {"filterName":filterName, "fromDate":fromDate,"toDate":toDate,  "filterBy":{"installedUnit":installedUnit, "newUnit":newUnit, "nonActive":nonActiveUnit, "problemUnit" :problemUnit , "overhauledUnit":overhauledUnit} };
+	var filterJson = {"filterName":filterName, "fromDate":fromDate,"toDate":toDate, "sortBy": sortBySelected, "filterBy":{"installedUnit":installedUnit, "newUnit":newUnit, "nonActive":nonActiveUnit, "problemUnit" :problemUnit , "overhauledUnit":overhauledUnit} };
 	 filterJson= JSON.stringify(filterJson);
-	
-	
-	alert(filterJson);
-	
 	
 	 $.ajax({
 		 type : "POST",
@@ -211,3 +195,15 @@ var saveFilter = function(){
 	
 	
 } 
+
+var getFilters = function(){
+	
+	 $.ajax({
+		 url : "/getFilters",
+		 success : function(data) {
+        	 alert(data);
+         }
+         
+  });
+	
+}

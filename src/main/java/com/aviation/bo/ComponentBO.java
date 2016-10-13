@@ -47,5 +47,9 @@ public class ComponentBO implements ComponentService{
 		
 		System.out.println("ComponentBo-- SaveFilter");
 	}
+	
+	public List<Filter> getFilters() {
+		return aviationService.getFilters();
+	}
 
 }

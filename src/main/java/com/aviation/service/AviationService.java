@@ -15,4 +15,6 @@ public interface AviationService {
 	public  List<Component> getComponent(final Date fromDate , final Date toDate);
 	
 	public void saveFilter(Filter filter);
+	
+	public List<Filter> getFilters();
 }

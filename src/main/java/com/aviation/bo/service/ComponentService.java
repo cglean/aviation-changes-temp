@@ -12,4 +12,7 @@ public interface ComponentService {
 	public  List<Component> getComponent(final String fromDate , final String toDate);
 	
 	public void saveFilter(Filter filter);
+	
+	public List<Filter> getFilters() ;
+	
 }
