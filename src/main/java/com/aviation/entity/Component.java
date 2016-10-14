@@ -7,10 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 
 
 @Entity
@@ -22,6 +22,11 @@ public class Component {
 	@Column(name="componentID")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long componentID;
+	
+	@Column(unique=true)
+	private String name;
+	
+	
 	
 	@Column(name="serialNo",unique=true)
 	private String serialNo;
@@ -132,8 +137,15 @@ public class Component {
 		this.status = status;
 	}
 
-	
-	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+}
 	
 	
 
@@ -147,5 +159,5 @@ public class Component {
 	@PrePersist	
 	public void populateCreatedDate(){
 		createdTime =new Date();
-	}*/
-}
+	}
+}*/

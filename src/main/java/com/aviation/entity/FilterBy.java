@@ -12,13 +12,15 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 
+
+
+
+
 @Entity
 @Table(name="filter_by")
 public class FilterBy implements Serializable{
 	
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 8962186185912836733L;
 
 	

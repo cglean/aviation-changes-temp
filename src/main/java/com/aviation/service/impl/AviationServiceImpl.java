@@ -14,7 +14,6 @@ import com.aviation.entity.Component;
 import com.aviation.entity.Filter;
 import com.aviation.repository.ComponentHistoryRepository;
 import com.aviation.repository.ComponentRepository;
-import com.aviation.repository.FilterByRepository;
 import com.aviation.repository.FilterRepository;
 import com.aviation.service.AviationService;
 
@@ -54,12 +53,32 @@ public class AviationServiceImpl implements AviationService{
 		filterRepository.save(filter);	
 	}
 	
+	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+	public void saveAsDefaultFilter(Filter filter) {
+		Filter defaultFilter = getDefaultFilter();
+		if(defaultFilter!=null){
+			defaultFilter.setDefaultFilter(false);
+			filterRepository.save(defaultFilter);
+			
+		}
+		
+			filter.setDefaultFilter(true);
+			filterRepository.save(filter);	
+		
+		
+	}
+	
 	
 	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 	public List<Filter> getFilters() {
 		return filterRepository.getFilters();	
 	}
 	
+	
+	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+	public Filter getDefaultFilter() {
+		return filterRepository.getDefaultFilter();	
+	}
 	
 	
 	

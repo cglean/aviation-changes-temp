@@ -11,6 +11,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+
+
+
 @Entity
 @Table(name="component_history")
 public class ComponentHistory {
@@ -74,4 +77,4 @@ public class ComponentHistory {
 		this.toDate = toDate;
 	}
 
-	}
+}

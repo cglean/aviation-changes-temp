@@ -78,6 +78,7 @@
 					<div class="form-group filter_left_p1">
 			<label for="filterName">Filter Name:</label> <input type="text"
 				class="form-control" id="filterName" placeholder="Enter filter name">
+				 <input type="hidden" id="filterId" >
 		</div>
 		<hr id="date_line">	
 		<div class="form-group date-range ">
@@ -266,7 +267,7 @@
 						<button type="button" class="btn btn-primary_1" onclick="saveFilter();">Save Filter</button>
 					</div>
 					<div class="col-sm-4">
-						<button type="button" class="btn btn-primary_1">Save As
+						<button type="button" class="btn btn-primary_1" id="saveAsDefault" onclick="saveAsDefaultFilter();">Save As
 							Default</button>
 					</div>
 					<div class="col-sm-4">

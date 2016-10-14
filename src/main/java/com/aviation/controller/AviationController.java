@@ -3,9 +3,9 @@ package com.aviation.controller;
 
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
-
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -16,10 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.aviation.bo.service.ComponentService;
 import com.aviation.entity.Component;
 import com.aviation.entity.Filter;
-import com.aviation.vo.FilterVO;
+import com.aviation.service.AviationService;
 
 
 
@@ -31,28 +30,48 @@ public class AviationController {
 	
 	
 	@Autowired
-	private ComponentService componentService;
+	private AviationService aviationService;
 	
 	
 	
-	@RequestMapping(value = "/check", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public void check(){
-		System.out.println("abc");
-	}
+	
 	
 	
 	@RequestMapping(value = "/loadComponent/{startDate}/{endDate}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Component> loadComponentData(@PathVariable final String startDate,@PathVariable final String endDate)throws ParseException {
 		
-		List<Component> comp=	componentService.getComponent(startDate, endDate);
-		System.out.println("abc");
-		return comp;
+		String pattern = "YYYY-MM-DD";
+		Date sDate=null;
+		Date eDate=null;
+		try {
+			sDate =  new SimpleDateFormat(pattern).parse(startDate);
+			 eDate =  new SimpleDateFormat(pattern).parse(endDate);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println(AviationController.class + "loadComponentData");
+		
+		return aviationService.getComponent(sDate, eDate);
+		
+		
 	}
 
 	
 	@RequestMapping(value = "/saveFilter", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public void saveFilter(@RequestBody   Filter filter )throws ParseException {
-		componentService.saveFilter(filter);
+		aviationService.saveFilter(filter);
+		
+		System.out.println(AviationController.class + "saveFilter");
+		
+	}
+	
+	
+	@RequestMapping(value = "/saveAsDefaultFilter", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public void saveAsDefaultFilter(@RequestBody   Filter filter )throws ParseException {
+		aviationService.saveAsDefaultFilter(filter);
+		
+		System.out.println(AviationController.class + "saveAsDefaultFilter");
 		
 	}
 	
@@ -60,8 +79,10 @@ public class AviationController {
 	@RequestMapping(value = "/getFilters", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody 
 	public List<Filter> getFilters()  {
-		List<Filter> filter= componentService.getFilters();
-		return filter;
+		
+		System.out.println(AviationController.class + "getFilters"); 
+		return aviationService.getFilters();
+		
 	}
 	
 

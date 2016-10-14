@@ -16,5 +16,9 @@ public interface AviationService {
 	
 	public void saveFilter(Filter filter);
 	
+	public void saveAsDefaultFilter(Filter filter);
+	
 	public List<Filter> getFilters();
+	
+	public Filter getDefaultFilter();
 }

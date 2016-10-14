@@ -2,50 +2,58 @@ package com.aviation.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.hibernate.annotations.Type;
 
-import com.aviation.vo.FilterByVO;
+
+
+
+
+
 
 @Entity
 @Table(name="filter")
 public class Filter implements Serializable {
 	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 334665167725503216L;
 
 	@Id
 	@Column(name="filterID")
 	private Long filterID;
 	
+	@NotNull
 	@Column(name="filterName",unique=true)
 	private String filterName;
 	
+	@NotNull
 	@Column(name="toDate")
+	@Temporal(TemporalType.DATE)
 	private Date toDate;
 	
+	@NotNull
 	@Column(name="fromDate")
+	@Temporal(TemporalType.DATE)
 	private Date fromDate;
 	
 	@Column(name="sortBy")
 	private String sortBy;
+	
+	@Type(type = "org.hibernate.type.NumericBooleanType")
+	private boolean defaultFilter;
 	
 	@MapsId
 	 @JoinColumn(name = "filterID")
@@ -98,6 +106,14 @@ public class Filter implements Serializable {
 
 	public void setFilterBy(FilterBy filterBy) {
 		this.filterBy = filterBy;
+	}
+
+	public boolean isDefaultFilter() {
+		return defaultFilter;
+	}
+
+	public void setDefaultFilter(boolean defaultFilter) {
+		this.defaultFilter = defaultFilter;
 	}
 	
 	

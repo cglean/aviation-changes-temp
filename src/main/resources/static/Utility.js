@@ -161,9 +161,9 @@ for (var i=0, iLen=options.length; i<iLen; i++) {
 }
 
 
-
-
-var saveFilter = function(){
+function getFilterValue(){
+	
+	var  filterID = $('#filterId').val();
 	var  filterName = $('#filterName').val();
 	var fromDate =  $('#fromDate').val();
 	var toDate =  $('#toDate').val();
@@ -176,14 +176,19 @@ var saveFilter = function(){
 	var problemUnit =  document.getElementById("problemUnit").checked ? true:false;
 	var overhauledUnit =   document.getElementById("overhauledUnit").checked ? true:false;
 		
-	var filterJson = {"filterName":filterName, "fromDate":fromDate,"toDate":toDate, "sortBy": sortBySelected, "filterBy":{"installedUnit":installedUnit, "newUnit":newUnit, "nonActive":nonActiveUnit, "problemUnit" :problemUnit , "overhauledUnit":overhauledUnit} };
-	 filterJson= JSON.stringify(filterJson);
+	var filterJson = {"filterID" :filterID, "filterName":filterName, "fromDate":fromDate,"toDate":toDate, "sortBy": sortBySelected, "filterBy":{"installedUnit":installedUnit, "newUnit":newUnit, "nonActive":nonActiveUnit, "problemUnit" :problemUnit , "overhauledUnit":overhauledUnit} };
+	 return  JSON.stringify(filterJson)
+}
+
+var saveFilter = function(){
+	
+	
 	
 	 $.ajax({
 		 type : "POST",
 		 contentType : "application/json",
 		 url : "/saveFilter",
-		 data : filterJson,
+		 data : getFilterValue(),
 		 dataType : 'json',
          success : function(data) {
                 
@@ -197,12 +202,28 @@ var saveFilter = function(){
 } 
 
 var getFilters = function(){
-	
 	 $.ajax({
 		 url : "/getFilters",
 		 success : function(data) {
 			 filterJson= JSON.stringify(data);
 			 alert(filterJson);
+         }
+         
+  });
+	
+}
+
+var saveAsDefaultFilter = function(){
+	
+	$.ajax({
+		 type : "POST",
+		 contentType : "application/json",
+		 url : "/saveAsDefaultFilter",
+		 data : getFilterValue(),
+		 dataType : 'json',
+         success : function(data) {
+                
+                
          }
          
   });

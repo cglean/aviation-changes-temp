@@ -1,8 +1,6 @@
 package com.aviation.repository;
 
 import java.io.Serializable;
-
-import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +9,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.aviation.entity.Component;
-import com.aviation.vo.ComponentVO;
+
+
 
 
 
