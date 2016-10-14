@@ -21,4 +21,6 @@ public interface AviationService {
 	public List<Filter> getFilters();
 	
 	public Filter getDefaultFilter();
+	
+	public Filter loadRecentSavedFilter();
 }

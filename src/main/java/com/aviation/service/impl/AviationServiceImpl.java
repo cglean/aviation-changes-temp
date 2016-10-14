@@ -81,5 +81,11 @@ public class AviationServiceImpl implements AviationService{
 	}
 	
 	
+	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+	public Filter loadRecentSavedFilter() {
+		
+		Long maxVal = filterRepository.loadRecentSavedFilter();
+		return null;
+	}
 	
 }

@@ -43,6 +43,10 @@ ul.nav.navbar-nav.navbar-right {
     margin: 10px;
     border-radius: 10px;
 }
+
+label#todate {
+    padding-right: 21px;
+}
 #row_all {
     margin: 10px;
 }
@@ -86,12 +90,12 @@ ul.nav.navbar-nav.navbar-right {
 	
 }
 #tab-caption {
-    
     padding-bottom: 8px;
-    color: brown;
+    color: #191919;
     text-align: left;
     font-weight: 700;
-    font-size:17px;
+    font-size: 17px;
+    margin-left: 8px;
 }
 
 
@@ -120,7 +124,7 @@ ul.nav.navbar-nav.navbar-right {
     }
     .date_range_select {
         color: black;
-    	    width: 80%;
+    	   /* width: 80%;*/
     margin-left: 10px;
    
     }
@@ -292,14 +296,17 @@ a.up-arrow {
 }
 /* End of Footer */
 .sort_option {
-	width: 150px;
+	width: 167px;
 }
-
+ .search{
+ 
+ width: 167px;
+ }
 label.list-label {
 	font-size: 14px;
 	color: #f5f5f5;
 	background: #6062b5;
-	width: 149px;
+	width: 167px;
 }
 
 input.list-clear-btn {

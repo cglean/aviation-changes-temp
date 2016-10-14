@@ -85,5 +85,10 @@ public class AviationController {
 		
 	}
 	
+	@RequestMapping(value = "/getDefaultFilter", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Filter getDefaultFilter() {
+		System.out.println("data "+aviationService.getDefaultFilter());
+		return aviationService.getDefaultFilter();	
+	}
 
 }
