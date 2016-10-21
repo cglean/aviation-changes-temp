@@ -5,13 +5,11 @@ server:
 spring:
   profiles: local-mssql
   datasource:
-    url: jdbc:mysql://localhost:3306/aviation?useSSL=false
-    username: root
-    password: root
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: create-drop
+    url: jdbc:mysql://us-cdbr-iron-east-04.cleardb.net/ad_f33ba6ada231ff9?user=ba97973a969749&password=99ad927b
+    username: ba97973a969749
+    password: 99ad927b
+    port: 3306
+  
 ---
 server:
   context-path: /
@@ -25,9 +23,5 @@ spring:
 spring:
   datasource:
     url:
-      jdbc:mysql://localhost:3306/aviation?useSSL=false
----
-spring:
-  jpa:
-    hibernate:
-      ddl-auto: create-drop
+      mysql://ba97973a969749:99ad927b@us-cdbr-iron-east-04.cleardb.net:3306/ad_f33ba6ada231ff9?reconnect=true
+
