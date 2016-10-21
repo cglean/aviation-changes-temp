@@ -36,15 +36,11 @@ public class FilterBy implements Serializable{
 	private boolean newUnit;
 	
 	@Type(type = "org.hibernate.type.NumericBooleanType")
-	private boolean nonActive;
-	
-	@Type(type = "org.hibernate.type.NumericBooleanType")
-	private boolean problemUnit;
+	private boolean removedUnit;
 	
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	private boolean overhauledUnit;
-	
-	
+
 	public Long getFilterID() {
 		return filterID;
 	}
@@ -53,46 +49,38 @@ public class FilterBy implements Serializable{
 		this.filterID = filterID;
 	}
 
-	public Boolean getInstalledUnit() {
+	public boolean isInstalledUnit() {
 		return installedUnit;
 	}
 
-	public void setInstalledUnit(Boolean installedUnit) {
+	public void setInstalledUnit(boolean installedUnit) {
 		this.installedUnit = installedUnit;
 	}
 
-	public Boolean getNewUnit() {
+	public boolean isNewUnit() {
 		return newUnit;
 	}
 
-	public void setNewUnit(Boolean newUnit) {
+	public void setNewUnit(boolean newUnit) {
 		this.newUnit = newUnit;
 	}
 
-	public Boolean getNonActive() {
-		return nonActive;
+	public boolean isRemovedUnit() {
+		return removedUnit;
 	}
 
-	public void setNonActive(Boolean nonActive) {
-		this.nonActive = nonActive;
+	public void setRemovedUnit(boolean removedUnit) {
+		this.removedUnit = removedUnit;
 	}
 
-	public Boolean getProblemUnit() {
-		return problemUnit;
-	}
-
-	public void setProblemUnit(Boolean problemUnit) {
-		this.problemUnit = problemUnit;
-	}
-
-	public Boolean getOverhauledUnit() {
+	public boolean isOverhauledUnit() {
 		return overhauledUnit;
 	}
 
-	public void setOverhauledUnit(Boolean overhauledUnit) {
+	public void setOverhauledUnit(boolean overhauledUnit) {
 		this.overhauledUnit = overhauledUnit;
 	}
-
-
-
+	
+	
+	
 }

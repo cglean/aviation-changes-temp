@@ -24,12 +24,14 @@ public class Component {
 	private Long componentID;
 	
 	@Column(unique=true)
-	private String name;
+	private String description;
 	
+	private String cmpySerialNo;
 	
+	private String mnfgSerialNo;
 	
-	@Column(name="serialNo",unique=true)
-	private String serialNo;
+	private String classification;
+	
 	
 	@Column(name="fleetNo")
 	private String fleetNo;
@@ -65,12 +67,36 @@ public class Component {
 		this.componentID = componentID;
 	}
 
-	public String getSerialNo() {
-		return serialNo;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setSerialNo(String serialNo) {
-		this.serialNo = serialNo;
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getCmpySerialNo() {
+		return cmpySerialNo;
+	}
+
+	public void setCmpySerialNo(String cmpySerialNo) {
+		this.cmpySerialNo = cmpySerialNo;
+	}
+
+	public String getMnfgSerialNo() {
+		return mnfgSerialNo;
+	}
+
+	public void setMnfgSerialNo(String mnfgSerialNo) {
+		this.mnfgSerialNo = mnfgSerialNo;
+	}
+
+	public String getClassification() {
+		return classification;
+	}
+
+	public void setClassification(String classification) {
+		this.classification = classification;
 	}
 
 	public String getFleetNo() {
@@ -136,28 +162,8 @@ public class Component {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
+	
+	
+	
 
 }
-	
-	
-
-/*
-	@Override
-	public String toString() {
-		return "Usage [id=" + usageId + ", cpu=" + cpu + ", memory=" + memory + ", disk=" + disk + ", time=" + createdTime
-				+ ", orgName=" + orgName + ", appname=" + appname + ", spaceName=" + spaceName + ", instanceIndex="
-				+ instanceIndex + "]";
-	}
-	@PrePersist	
-	public void populateCreatedDate(){
-		createdTime =new Date();
-	}
-}*/

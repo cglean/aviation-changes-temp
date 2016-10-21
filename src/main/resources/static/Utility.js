@@ -1,13 +1,18 @@
 
 var filters=[];
 var checkedStatus = [];
-var AllData;
-var serialNoSelected;
+var AllData=[];
+var sortChecked=null;
 var globalData=[]
 function functionFromDate(){
 	var fromDate=document.getElementById("fromDate").value;       
 	var toDate=document.getElementById("toDate").value;
+
+	clearData();
+	
 	getComponent(fromDate,toDate); 
+	
+	
 }
 
 
@@ -21,240 +26,157 @@ var check= function(){
 }
 //Display component based on date
 var getComponent = function(start,end){
-	
-	//alert('start' + start + 'end' + end);
+////alert('I m in getcomponent');
+
 	$.ajax({
 		url : "/loadComponent/" + start + "/" + end,
 		success : function(data) {
-			//alert('in getComponent' + data);
-			var text = "";
-			AllData=data;
-			var x=document.getElementById("fleetNo");
-			for (var i = 0; i < data.length; i++) {
-				  var option = document.createElement("option");
-				    option.text = data[i].fleetNo;
-				    x.add(option);
-			}
-
-			var text = "";
-			
-			var x=document.getElementById("subfleetNo");
-			for (var i = 0; i < data.length; i++) {
-				  var option = document.createElement("option");
-				    option.text = data[i].subfleetNo;
-				    x.add(option);
-			}
-			var text = "";
-			
-			var x=document.getElementById("tailNo");
-			for (var i = 0; i < data.length; i++) {
-				  var option = document.createElement("option");
-				    option.text = data[i].tailNo;
-				    x.add(option);
-			}
-			var text = "";
-			
-			var x=document.getElementById("companyPartNo");
-			for (var i = 0; i < data.length; i++) {
-				  var option = document.createElement("option");
-				    option.text = data[i].companyPartNo;
-				    x.add(option);
-			}
-			var text = "";
-			
-			var x=document.getElementById("mfgPartNo");
-			for (var i = 0; i < data.length; i++) {
-				  var option = document.createElement("option");
-				    option.text = data[i].mfgPartNo;
-				    
-				    x.add(option);
-				   
-			}
-			var text = "";
-			
-			var x=document.getElementById("ataSystemNo");
-			for (var i = 0; i < data.length; i++) {
-				  var option = document.createElement("option");
-				    option.text = data[i].ataSystemNo;
-				    x.add(option);
-			}
-			var text = "";
-			
-			var x=document.getElementById("serialNo");
-			for (var i = 0; i < data.length; i++) {
-				  var option = document.createElement("option");
-				    option.text = data[i].serialNo;
-				    x.add(option);
-			}
-			
 		
+			AllData=data;
+			if(sortChecked != 0){
+				filterByStatus();
+			}
+			
 			
 		}
 	
 
 	});
+	
+	
+	
+	
 }
 
-
-
-function functionsort(){
-	var sortSelected=document.getElementById("sortBy").value;	
-	//alert(sortSelected);
-	var sortValue = ["fleetNo", "subfleetNo", "ataSystemNo", "tailNo", "companyPartNo", "mfgPartNo","serialNo"];
-	var AllValue = ["fleetNo", "subfleetNo", "ataSystemNo", "tailNo", "companyPartNo", "mfgPartNo","serialNo"];
-	if(sortSelected != "null"){
-for (i = 0; i < sortValue.length; i++) {
+function filterSort(){
 	
-		if(sortSelected != sortValue[i]){
-			
-			//alert(sortValue[i]);
-		//document.getElementById(sortValue[i]).disabled = false;
+	if(sortChecked == null){
+		////alert("Please select any one of the component")
+	}else{
+		
+		
+		radioOnClick(sortChecked);
+		
+	}
+	
+	
 
-		document.getElementById(sortValue[i]).options.length = 0;
-		}else{
-			document.getElementById(sortValue[i]).disabled = false;
+}
+
+function radioOnClick(value){
+		var sortSelected=value;
+		sortChecked=value;
+		
+		var r = new Array(); 
+		var sortValue = ["fleetNo", "subfleetNo", "ataSystemNo", "tailNo", "companyPartNo", "mfgPartNo"];
+		var AllValue = ["fleetNo", "subfleetNo", "ataSystemNo", "tailNo", "companyPartNo", "mfgPartNo"];
+		
+		if(AllData.length == 0){
+			functionFromDate();
+			
+		}
+		
+		////alert("sortChecked"+sortChecked)
+	for (i = 0; i < sortValue.length; i++) {
+		////alert("hii");
+		
+			if(sortSelected != sortValue[i]){
+
+
 			document.getElementById(sortValue[i]).options.length = 0;
-			//alert("Hello"+ AllData);
-			var text = "";
-			var temp=sortValue[i];
-			var x=document.getElementById(sortValue[i]);
-			for (var j = 0; j < AllData.length; j++) {
-			  var option = document.createElement("option");
-			  if(temp == "fleetNo"){
-				  if(checkedStatus.length > 0){
-						checkedOperation(j,i,option);
-							 continue;
-						 }
+			}else{
+				document.getElementById(sortValue[i]).disabled = false;
+				document.getElementById(sortValue[i]).options.length = 0;
+
+				var text = "";
+				var temp=sortValue[i];
+				var x=document.getElementById(sortValue[i]);
+				f:for (var j = 0; j < AllData.length; j++) {
+				  var option = document.createElement("option");
+				  if(temp == "fleetNo"){
+					  if(checkedStatus.length > 0){
+							checkedOperation(j,i,option,r);
+								 continue;
+							 }
+					   for(var z = 0; z < r.length; z++){  
+				            if(r[z]==AllData[j].fleetNo) continue f;}  
+				        r[r.length] = AllData[j].fleetNo;
+					
+				  option.text = AllData[j].fleetNo;
+				
 				  
-			  option.text = AllData[j].fleetNo;
-			// alert("true");
-			  
-			  }else if(temp == "subfleetNo"){
-				  if(checkedStatus.length > 0){
-						checkedOperation(j,i,option);
-							 continue;
-						 }
-				  option.text = AllData[j].subfleetNo;
-			  }else if(temp == "ataSystemNo"){
-				  if(checkedStatus.length > 0){
-						checkedOperation(j,i,option);
-							 continue;
-						 }
-				  option.text = AllData[j].ataSystemNo;
-			  } else if(temp == "tailNo"){
-				  if(checkedStatus.length > 0){
-						checkedOperation(j,i,option);
-							 continue;
-						 }
-				  option.text = AllData[j].tailNo;
-			  } else if(temp == "companyPartNo"){
-				  if(checkedStatus.length > 0){
-						checkedOperation(j,i,option);
-							 continue;
-						 }
-				  option.text = AllData[j].companyPartNo;
-			  } else if(temp == "mfgPartNo"){
-				  if(checkedStatus.length > 0){
-						checkedOperation(j,i,option);
-							 continue;
-						 }
-				  option.text = AllData[j].mfgPartNo;
-			  } 
-			  x.add(option);
+				  }else if(temp == "subfleetNo"){
+					  if(checkedStatus.length > 0){
+							checkedOperation(j,i,option,r);
+								 continue;
+							 }
+					   for(var z = 0; z < r.length; z++){  
+				            if(r[z]==AllData[j].subfleetNo) continue f;}  
+				        r[r.length] = AllData[j].subfleetNo;
+					  
+					  option.text = AllData[j].subfleetNo;
+				  }else if(temp == "ataSystemNo"){
+					  if(checkedStatus.length > 0){
+							checkedOperation(j,i,option,r);
+								 continue;
+							 }
+					   for(var z = 0; z < r.length; z++){  
+				            if(r[z]==AllData[j].ataSystemNo) continue f;}  
+				        r[r.length] = AllData[j].ataSystemNo;
+					  option.text = AllData[j].ataSystemNo;
+				  } else if(temp == "tailNo"){
+					  if(checkedStatus.length > 0){
+							checkedOperation(j,i,option,r);
+								 continue;
+							 }
+					   for(var z = 0; z < r.length; z++){  
+				            if(r[z]==AllData[j].tailNo) continue f;}  
+				        r[r.length] = AllData[j].tailNo;
+					  option.text = AllData[j].tailNo;
+				  } else if(temp == "companyPartNo"){
+					  if(checkedStatus.length > 0){
+							checkedOperation(j,i,option,r);
+								 continue;
+							 }
+					   for(var z = 0; z < r.length; z++){  
+				            if(r[z]==AllData[j].companyPartNo) continue f;}  
+				        r[r.length] = AllData[j].companyPartNo;
+					  option.text = AllData[j].companyPartNo;
+				  } else if(temp == "mfgPartNo"){
+					  if(checkedStatus.length > 0){
+							checkedOperation(j,i,option,r);
+								 continue;
+							 }
+					   for(var z = 0; z < r.length; z++){  
+				            if(r[z]==AllData[j].mfgPartNo) continue f;}  
+				        r[r.length] = AllData[j].mfgPartNo;
+					  option.text = AllData[j].mfgPartNo;
+				  } 
+				  x.add(option);
+				}
 			}
 		}
-	}
-	}else{
-		//alert("in else");
-		for (i = 0; i < sortValue.length; i++){
-			document.getElementById(sortValue[i]).options.length = 0;
-		}
+		
+			
+		
+	
+		
+	////alert("in end of for loop")
 		
 		
-		for (i = 0; i < sortValue.length; i++) {
-			document.getElementById(sortValue[i]).disabled = false;	
-			var text = "";
-			//alert("i value"+i);
-			var y=document.getElementById(sortValue[i]);
-			for (var j = 0; j < AllData.length; j++) {
-				  var option = document.createElement("option");
-
-				  if(sortValue[i] == "fleetNo"){
-					  
-					  if(checkedStatus.length > 0){
-						checkedOperation(j,i,option);
-							 continue;
-						 }
-					  option.text = AllData[j].fleetNo;
-					// alert("true");
-					  
-					  }else if(sortValue[i] == "subfleetNo"){
-						  if(checkedStatus.length > 0){
-								checkedOperation(j,i,option);
-									 continue;
-								 }
-						  option.text = AllData[j].subfleetNo;
-					  }else if(sortValue[i] == "ataSystemNo"){
-						  if(checkedStatus.length > 0){
-								checkedOperation(j,i,option);
-									 continue;
-								 }
-						  option.text = AllData[j].ataSystemNo;
-					  } else if(sortValue[i] == "tailNo"){
-						  if(checkedStatus.length > 0){
-								checkedOperation(j,i,option);
-									 continue;
-								 }
-						  option.text = AllData[j].tailNo;
-					  } else if(sortValue[i] == "companyPartNo"){
-						  if(checkedStatus.length > 0){
-								checkedOperation(j,i,option);
-									 continue;
-								 }
-						  option.text = AllData[j].companyPartNo;
-					  } else if(sortValue[i] == "mfgPartNo"){
-						  if(checkedStatus.length > 0){
-								checkedOperation(j,i,option);
-									 continue;
-								 }
-						  option.text = AllData[j].mfgPartNo;
-					  }  else if(sortValue[i] == "serialNo"){
-						  if(checkedStatus.length > 0){
-								checkedOperation(j,i,option);
-									 continue;
-								 }
-						  option.text = AllData[j].serialNo;
-					  } 
-				 
-				  y.add(option);
-				  
-}
-		}
-		}
-	
-	var buttonDisable = ["fleetNo", "subfleetNo", "ataSystemNo", "tailNo", "companyPartNo", "mfgPartNo","serialNo"];
-	
-	for(var i=0; i<buttonDisable.length; i++ ){
-	
-	document.getElementById(buttonDisable[i]+"Clear").disabled = false;
-	document.getElementById(buttonDisable[i]+"Submit").disabled = false;
-	document.getElementById(buttonDisable[i]).disabled = false;
-	}
-	
-	
-	//alert(AllData);
-	
-	
-	
+		
 	
 }
+	
+
+	
 
 
-function checkedOperation(j,i,option){
+function checkedOperation(j,i,option,r){
 	
 	
 	var sortValue = ["fleetNo", "subfleetNo", "ataSystemNo", "tailNo", "companyPartNo", "mfgPartNo","serialNo"];
-	//alert("i value"+i+" sortValue[i] "+sortValue[i]);
+	//////////alert("i value"+i+" sortValue[i] "+sortValue[i]);
 		var y=document.getElementById(sortValue[i]);
 
 				  
@@ -263,19 +185,38 @@ function checkedOperation(j,i,option){
 					  if(AllData[j].status == "Installed Unit" || AllData[j].status == "New Unit"){
 
 							  if(sortValue[i] == "fleetNo"){
-								 // alert("true");
+								  for(var z = 0; z < r.length; z++){  
+							            if(r[z]==AllData[j].fleetNo) return}  
+							        r[r.length] = AllData[j].fleetNo;
+								 
+								 
 								  option.text = AllData[j].fleetNo;
 								
 								  }else if(sortValue[i] == "subfleetNo"){
-									//  alert("true");
+									  for(var z = 0; z < r.length; z++){  
+								            if(r[z]==AllData[j].subfleetNo) return}  
+								        r[r.length] = AllData[j].subfleetNo;
+									
 									  option.text = AllData[j].subfleetNo;
 								  }else if(sortValue[i] == "ataSystemNo"){
+									  for(var z = 0; z < r.length; z++){  
+								            if(r[z]==AllData[j].ataSystemNo) return}  
+								        r[r.length] = AllData[j].ataSystemNo;
 									  option.text = AllData[j].ataSystemNo;
 								  } else if(sortValue[i] == "tailNo"){
+									  for(var z = 0; z < r.length; z++){  
+								            if(r[z]==AllData[j].tailNo) return}  
+								        r[r.length] = AllData[j].tailNo;
 									  option.text = AllData[j].tailNo;
 								  } else if(sortValue[i] == "companyPartNo"){
+									  for(var z = 0; z < r.length; z++){  
+								            if(r[z]==AllData[j].companyPartNo) return}  
+								        r[r.length] = AllData[j].companyPartNo;
 									  option.text = AllData[j].companyPartNo;
 								  } else if(sortValue[i] == "mfgPartNo"){
+									  for(var z = 0; z < r.length; z++){  
+								            if(r[z]==AllData[j].mfgPartNo) return}  
+								        r[r.length] = AllData[j].mfgPartNo;
 									  option.text = AllData[j].mfgPartNo;
 								  } else if(sortValue[i] == "serialNo"){
 									  option.text = AllData[j].serialNo;
@@ -292,19 +233,37 @@ function checkedOperation(j,i,option){
 					  if(AllData[j].status == "Installed Unit" ){
 						 
 						  if(sortValue[i] == "fleetNo"){
-								 // alert("true");
+							   for(var z = 0; z < r.length; z++){  
+						            if(r[z]==AllData[j].fleetNo) return}  
+						        r[r.length] = AllData[j].fleetNo;
+								 // ////////alert("true");
 								  option.text = AllData[j].fleetNo;
 								
 								  }else if(sortValue[i] == "subfleetNo"){
-									  //alert("true");
+									  for(var z = 0; z < r.length; z++){  
+								            if(r[z]==AllData[j].subfleetNo) return}  
+								        r[r.length] = AllData[j].subfleetNo;
+									  //////////alert("true");
 									  option.text = AllData[j].subfleetNo;
 								  }else if(sortValue[i] == "ataSystemNo"){
+									  for(var z = 0; z < r.length; z++){  
+								            if(r[z]==AllData[j].ataSystemNo) return}  
+								        r[r.length] = AllData[j].ataSystemNo;
 									  option.text = AllData[j].ataSystemNo;
 								  } else if(sortValue[i] == "tailNo"){
+									  for(var z = 0; z < r.length; z++){  
+								            if(r[z]==AllData[j].tailNo) return}  
+								        r[r.length] = AllData[j].tailNo;
 									  option.text = AllData[j].tailNo;
 								  } else if(sortValue[i] == "companyPartNo"){
+									  for(var z = 0; z < r.length; z++){  
+								            if(r[z]==AllData[j].companyPartNo) return}  
+								        r[r.length] = AllData[j].companyPartNo;
 									  option.text = AllData[j].companyPartNo;
 								  } else if(sortValue[i] == "mfgPartNo"){
+									  for(var z = 0; z < r.length; z++){  
+								            if(r[z]==AllData[j].mfgPartNo) return}  
+								        r[r.length] = AllData[j].mfgPartNo;
 									  option.text = AllData[j].mfgPartNo;
 								  } else if(sortValue[i] == "serialNo"){
 									  option.text = AllData[j].serialNo;
@@ -319,21 +278,42 @@ function checkedOperation(j,i,option){
 				  if(checkedStatus == "New Unit"){
 					  if(AllData[j].status == "New Unit" ){
 						  if(sortValue[i] == "fleetNo"){
-								 // alert("true");
+							  for(var z = 0; z < r.length; z++){  
+						            if(r[z]==AllData[j].fleetNo) return}  
+						        r[r.length] = AllData[j].fleetNo;
+								 // ////////alert("true");
 								  option.text = AllData[j].fleetNo;
 								
 								  }else if(sortValue[i] == "subfleetNo"){
-									  //alert("true");
+									  for(var z = 0; z < r.length; z++){  
+								            if(r[z]==AllData[j].subfleetNo) return}  
+								        r[r.length] = AllData[j].subfleetNo;
+									  //////////alert("true");
 									  option.text = AllData[j].subfleetNo;
 								  }else if(sortValue[i] == "ataSystemNo"){
+									  for(var z = 0; z < r.length; z++){  
+								            if(r[z]==AllData[j].ataSystemNo) return}  
+								        r[r.length] = AllData[j].ataSystemNo;
 									  option.text = AllData[j].ataSystemNo;
 								  } else if(sortValue[i] == "tailNo"){
+									  for(var z = 0; z < r.length; z++){  
+								            if(r[z]==AllData[j].tailNo) return}  
+								        r[r.length] = AllData[j].tailNo;
 									  option.text = AllData[j].tailNo;
 								  } else if(sortValue[i] == "companyPartNo"){
+									  for(var z = 0; z < r.length; z++){  
+								            if(r[z]==AllData[j].companyPartNo) return}  
+								        r[r.length] = AllData[j].companyPartNo;
 									  option.text = AllData[j].companyPartNo;
 								  } else if(sortValue[i] == "mfgPartNo"){
+									  for(var z = 0; z < r.length; z++){  
+								            if(r[z]==AllData[j].mfgPartNo) return}  
+								        r[r.length] = AllData[j].mfgPartNo;
 									  option.text = AllData[j].mfgPartNo;
 								  } else if(sortValue[i] == "serialNo"){
+									  for(var z = 0; z < r.length; z++){  
+								            if(r[z]==AllData[j].serialNo) return}  
+								        r[r.length] = AllData[j].serialNo;
 									  option.text = AllData[j].serialNo;
 								  }
 						
@@ -342,24 +322,45 @@ function checkedOperation(j,i,option){
 					  }
 					  
 					  }
-				  if(checkedStatus == "Non Active Unit"){
-					  if(AllData[j].status == "Non Active Unit" ){
+				  if(checkedStatus == "Inactive"){
+					  if(AllData[j].status == "Inactive" ){
 						  if(sortValue[i] == "fleetNo"){
-								 // alert("true");
+							  for(var z = 0; z < r.length; z++){  
+						            if(r[z]==AllData[j].fleetNo) return}  
+						        r[r.length] = AllData[j].fleetNo;
+								 // ////////alert("true");
 								  option.text = AllData[j].fleetNo;
 								
 								  }else if(sortValue[i] == "subfleetNo"){
-									  //alert("true");
+									  for(var z = 0; z < r.length; z++){  
+								            if(r[z]==AllData[j].subfleetNo) return}  
+								        r[r.length] = AllData[j].subfleetNo;
+									  //////////alert("true");
 									  option.text = AllData[j].subfleetNo;
 								  }else if(sortValue[i] == "ataSystemNo"){
+									  for(var z = 0; z < r.length; z++){  
+								            if(r[z]==AllData[j].ataSystemNo) return}  
+								        r[r.length] = AllData[j].ataSystemNo;
 									  option.text = AllData[j].ataSystemNo;
 								  } else if(sortValue[i] == "tailNo"){
+									  for(var z = 0; z < r.length; z++){  
+								            if(r[z]==AllData[j].tailNo) return}  
+								        r[r.length] = AllData[j].tailNo;
 									  option.text = AllData[j].tailNo;
 								  } else if(sortValue[i] == "companyPartNo"){
+									  for(var z = 0; z < r.length; z++){  
+								            if(r[z]==AllData[j].companyPartNo) return}  
+								        r[r.length] = AllData[j].companyPartNo;
 									  option.text = AllData[j].companyPartNo;
 								  } else if(sortValue[i] == "mfgPartNo"){
+									  for(var z = 0; z < r.length; z++){  
+								            if(r[z]==AllData[j].mfgPartNo) return}  
+								        r[r.length] = AllData[j].mfgPartNo;
 									  option.text = AllData[j].mfgPartNo;
 								  } else if(sortValue[i] == "serialNo"){
+									  for(var z = 0; z < r.length; z++){  
+								            if(r[z]==AllData[j].serialNoo) return}  
+								        r[r.length] = AllData[j].serialNo;
 									  option.text = AllData[j].serialNo;
 								  }
 						
@@ -375,379 +376,846 @@ function checkedOperation(j,i,option){
 	
 	
 }
-function getFleets(){
-	var fleetSelected=document.getElementById("fleetNo");	
+
+
+function PushToSelectedList(SelectId,pushId){
+	var SelectedId=document.getElementById(SelectId);	
 
 	 var result = [];
- var options = fleetSelected && fleetSelected.options;
- var opt;
+var options = SelectedId && SelectedId.options;
+var opt;
 
- for (var i=0, iLen=options.length; i<iLen; i++) {
-   opt = options[i];
+for (var i=0, iLen=options.length; i<iLen; i++) {
+  opt = options[i];
 
-   if (opt.selected) {
-     result.push(opt.value || opt.text);
-   }	
+  if (opt.selected) {
+    result.push(opt.value || opt.text);
+  }	
 }
+
+
+
+var x=document.getElementById(pushId);
+	for (var i = 0; i < result.length; i++){
+		
+	
+				
+				 var option = document.createElement("option");
+				 option.text = result[i];
+				
+				 x.add(option);
+			}
+	
+	
+	
+	var y=document.getElementById(SelectId);
+	for (var i = 0; i < y.length; i++){
+		//////alert("in for"+x.options[i].value);
+		for(var j = 0; j < result.length; j++){
+		  if (y.options[i].value == result[j]){
+		  // ////alert("in if"+result[i])
+			  y.remove(i);
+		  }
+		}
+		  }
+	
+	
+		
+	} 
+	
+	
+function ClearSelectedList(SelectId,pushId){
+	var SelectedId=document.getElementById(SelectId);	
+
+	 var result = [];
+var options = SelectedId && SelectedId.options;
+var opt;
+
+for (var i=0, iLen=options.length; i<iLen; i++) {
+  opt = options[i];
+
+  if (opt.selected) {
+    result.push(opt.value || opt.text);
+  }	
+}
+
+////alert(result);
+	
+
+var x=document.getElementById(SelectId);
+	for (var i = 0; i < x.length; i++){
+		//////alert("in for"+x.options[i].value);
+		for(var j = 0; j < result.length; j++){
+		  if (x.options[i].value == result[j]){
+		  // ////alert("in if"+result[i])
+			  x.remove(i);
+		  }
+		}
+		  }
+	
+	
+	
+	var y=document.getElementById(pushId);
+	for (var i = 0; i < result.length; i++){
+		
+	
+				
+				 var option = document.createElement("option");
+				 option.text = result[i];
+				
+				 y.add(option);
+			}
+				
+		
+		
+	} 
+
+
+function disableAfterSubmit(listValues){
+	////alert("in disableAfterSubmit "+listValues)
+	
+	for(i=0;i<listValues.length;i++){
+	
+	document.getElementById(listValues[i]).disabled = true;
+	}
+	} 
+
+
+
+
+
+
+function operationFleet(result,idValue){
+	////alert(result,idValue);
+	var  radioBtn= ["fleetRdio", "subFleetRdio", "tailRdio", "ataRdio", "cpnRdio", "mfgRdio"];
+	for(var i=0;i<radioBtn.length;i++){
+		document.getElementById(radioBtn[i]).disabled=true;
+		}
+	
+	
+	var text = "";
+	var r = new Array(); 
+	var temp=idValue;
+	var x=document.getElementById(temp);
+	for(var i = 0; i < result.length; i++)
+		f:for (var j = 0; j < AllData.length; j++) {
+	  var option = document.createElement("option");
+	  if(temp == "fleetNo"){
+		
+		  if(result[i] == AllData[j].fleetNo){
+
+				        for(var z = 0; z < r.length; z++){  
+				            if(r[z]==AllData[j].fleetNo) continue f;}  
+				        r[r.length] = AllData[j].fleetNo;
+			  
+			  
+			  option.text = AllData[j].fleetNo;
+			  x.add(option);
+			  }
+		  
+	
+	  
+	  }else if(temp == "subfleetNo"){
+		  if(result[i] == AllData[j].fleetNo){
+			  
+			  
+
+		        for(var z = 0; z < r.length; z++){  
+		            if(r[z]==AllData[j].subfleetNo) continue f;}  
+		        r[r.length] = AllData[j].subfleetNo;
+
+		  option.text = AllData[j].subfleetNo;
+		  x.add(option);
+		  
+		  }
+	  }else if(temp == "ataSystemNo"){
+		  if(result[i] == AllData[j].fleetNo){
+			  for(var z = 0; z < r.length; z++){  
+		            if(r[z]==AllData[j].ataSystemNo) continue f;}  
+		        r[r.length] = AllData[j].ataSystemNo;
+		  option.text = AllData[j].ataSystemNo;
+		  x.add(option);
+		  }
+	  } else if(temp == "tailNo"){
+		  if(result[i] == AllData[j].fleetNo){
+			  for(var z = 0; z < r.length; z++){  
+		            if(r[z]==AllData[j].tailNo) continue f;}  
+		        r[r.length] = AllData[j].tailNo;
+		  option.text = AllData[j].tailNo;
+		  x.add(option);
+		  }
+	  } else if(temp == "companyPartNo"){
+		  if(result[i] == AllData[j].fleetNo){
+			  for(var z = 0; z < r.length; z++){  
+		            if(r[z]==AllData[j].companyPartNo) continue f;}  
+		        r[r.length] = AllData[j].companyPartNo;
+		        
+		  option.text = AllData[j].companyPartNo;
+		  x.add(option);
+		  }
+	  } else if(temp == "mfgPartNo"){
+		  if(result[i] == AllData[j].fleetNo){
+			  for(var z = 0; z < r.length; z++){  
+		            if(r[z]==AllData[j].mfgPartNo) continue f;}  
+		        r[r.length] = AllData[j].mfgPartNo;
+		  option.text = AllData[j].mfgPartNo;
+		  x.add(option);
+		  }
+	  } 
+	  
+	}
+}
+
+
+function getFleets(){
+	var fleetSelected=document.getElementById("fleetValue");	
+	var insertValues = ["fleetNo", "subfleetNo", "ataSystemNo", "tailNo", "companyPartNo", "mfgPartNo"];
+	var listValues = ["fleetNo", "fleetValue", "fleetPush", "fleetClear", "fleetNoSubmit"];
+	var result = [];
+	    
+	    for (var i = 0; i < fleetSelected.length; i++) {
+	    	result.push(fleetSelected.options[i].value);
+	    }
+	   
+
 
  if(result.length != 0){
  
+	 
+	 for (var i = 0; i <insertValues.length ; i++){
+		 if(insertValues[i] != 'fleetNo'){
+			 operationFleet(result,insertValues[i]);
+		 }
+	 }
+	
+	disableAfterSubmit(listValues);
  
- var x=document.getElementById("subfleetNo");
-	for (var i = 0; i < result.length; i++){
-		
-		var text = "";
-		for (var j = 0; j < AllData.length; j++){
-			//alert("result[i] "+result[i]+"AllData[j].fleetNo "+AllData[j].fleetNo);
-			if(result[i] == AllData[j].fleetNo){
-				
-				 var option = document.createElement("option");
-				 option.text = AllData[j].subfleetNo;
-				 //alert("true "+option.text);
-				 x.add(option);
-			}
-		}
-	} 
-	document.getElementById("fleetNo").disabled = true;
-	document.getElementById("fleetNoClear").disabled = true;	
-	document.getElementById("fleetNoSubmit").disabled = true;	
- 
- }else{
-	 alert("Atleast Select One Fleet Number To Proceed");
  }
  
 }
 
-function getSubFleets(){
-	var subFleetSelected=document.getElementById("subfleetNo");
-	var fleetLength=document.getElementById("fleetNo").options.length;
 
+function operationSubFleet(result,idValue){
 	
-	 var result = [];
-	 var options = subFleetSelected && subFleetSelected.options;
-	 var opt;
-
-	 for (var i=0, iLen=options.length; i<iLen; i++) {
-	   opt = options[i];
-
-	   if (opt.selected) {
-	     result.push(opt.value || opt.text);
-	   }	
-	}
-	 
-	 
-	 if(result.length != 0){
-	 
-	 var x=document.getElementById("tailNo");
-		for (var i = 0; i < result.length; i++){
+	var components = ["ataSystemNo", "tailNo", "companyPartNo", "mfgPartNo"];
+	var  radioBtn= ["fleetRdio", "subFleetRdio", "tailRdio", "ataRdio", "cpnRdio", "mfgRdio"];
+	if(idValue == 'fleetNo' && document.getElementById("fleetNo").length >0){
+		
 			
-			var text = "";
-			for (var j = 0; j < AllData.length; j++){
-				//alert("result[i] "+result[i]+"AllData[j].fleetNo "+AllData[j].fleetNo);
-				if(result[i] == AllData[j].subfleetNo){
-					
-					 var option = document.createElement("option");
-					 option.text = AllData[j].tailNo;
-					 //alert("true "+option.text);
-					 x.add(option);
-				}
-			}
-		} 
-		document.getElementById("subfleetNo").disabled = true;
-		document.getElementById("subfleetNoClear").disabled = true;	
-		document.getElementById("subfleetNoSubmit").disabled = true;
 		
-		
-		if(fleetLength == 0){
-			fleetOperation(result,"subfleetNo");
-			 
-			//alert("done")
+		return; 
+	}else{
+		for(var i=0;i<radioBtn.length;i++){
+		document.getElementById(radioBtn[i]).disabled=true;
 		}
-	 
-}else{
-	 alert("Atleast Select One SubFleet Number To Proceed");
-}
-}
-
-
-function getTailNo(){
-	//alert("hello");
-	var tailNoSelected=document.getElementById("tailNo");
-	var fleetLength=document.getElementById("fleetNo").options.length;
-	var subFleetLength=document.getElementById("subfleetNo").options.length;
-	
-	
-	
-	 var result = [];
-	 var options = tailNoSelected && tailNoSelected.options;
-	 var opt;
-
-	 for (var i=0, iLen=options.length; i<iLen; i++) {
-	   opt = options[i];
-
-	   if (opt.selected) {
-	     result.push(opt.value || opt.text);
-	   }	
+		document.getElementById(idValue).options.length=0;
 	}
-	 if(result.length != 0){
 	
-	 var x=document.getElementById("companyPartNo");
-		for (var i = 0; i < result.length; i++){
-			
-			var text = "";
-			for (var j = 0; j < AllData.length; j++){
-				//alert("result[i] "+result[i]+"AllData[j].fleetNo "+AllData[j].fleetNo);
-				if(result[i] == AllData[j].tailNo){
-					
-					 var option = document.createElement("option");
-					 option.text = AllData[j].companyPartNo;
-					 //alert("true "+option.text);
-					 x.add(option);
-				}
-			}
-		} 
 	
+	var r = new Array(); 
+	var temp=idValue;
+	var x=document.getElementById(temp);
+	for(var i = 0; i < result.length; i++)
+		f:for (var j = 0; j < AllData.length; j++) {
+	  var option = document.createElement("option");
+	  if(temp == "fleetNo"){
 		
-		 var x=document.getElementById("mfgPartNo");
-			for (var i = 0; i < result.length; i++){
-				
-				var text = "";
-				for (var j = 0; j < AllData.length; j++){
-					//alert("result[i] "+result[i]+"AllData[j].fleetNo "+AllData[j].fleetNo);
-					if(result[i] == AllData[j].tailNo){
-						
-						 var option = document.createElement("option");
-						 option.text = AllData[j].mfgPartNo;
-						 //alert("true "+option.text);
-						 x.add(option);
-					}
-				}
+		  if(result[i] == AllData[j].subfleetNo){
+			  for(var z = 0; z < r.length; z++){  
+		            if(r[z]==AllData[j].fleetNo) continue f;}  
+		        r[r.length] = AllData[j].fleetNo;
+			  option.text = AllData[j].fleetNo;
+			  x.add(option);
+			  }
+	
+	  
+	  }else if(temp == "subfleetNo"){
+		  if(result[i] == AllData[j].subfleetNo){
+
+		        for(var z = 0; z < r.length; z++){  
+		            if(r[z]==AllData[j].subfleetNo) continue f;}  
+		        r[r.length] = AllData[j].subfleetNo;
+
+		  option.text = AllData[j].subfleetNo;
+		  x.add(option);
+		  
+		  }
+	  }else if(temp == "ataSystemNo"){
+		  if(result[i] == AllData[j].subfleetNo){
+			  for(var z = 0; z < r.length; z++){  
+		            if(r[z]==AllData[j].ataSystemNo) continue f;}  
+		        r[r.length] = AllData[j].ataSystemNo;
+		  option.text = AllData[j].ataSystemNo;
+		  x.add(option);
+		  }
+	  } else if(temp == "tailNo"){
+		  if(result[i] == AllData[j].subfleetNo){
+			  for(var z = 0; z < r.length; z++){  
+		            if(r[z]==AllData[j].tailNo) continue f;}  
+		        r[r.length] = AllData[j].tailNo;
+		  option.text = AllData[j].tailNo;
+		  x.add(option);
+		  }
+	  } else if(temp == "companyPartNo"){
+		  if(result[i] == AllData[j].subfleetNo){
+			  for(var z = 0; z < r.length; z++){  
+		            if(r[z]==AllData[j].companyPartNo) continue f;}  
+		        r[r.length] = AllData[j].companyPartNo;
+		  option.text = AllData[j].companyPartNo;
+		  x.add(option);
+		  }
+	  } else if(temp == "mfgPartNo"){
+		  if(result[i] == AllData[j].subfleetNo){
+			  for(var z = 0; z < r.length; z++){  
+		            if(r[z]==AllData[j].mfgPartNo) continue f;}  
+		        r[r.length] = AllData[j].mfgPartNo;
+		  option.text = AllData[j].mfgPartNo;
+		  x.add(option);
+		  }
+	  } 
+	  
+	}
+}
+
+
+function getSubFleets(){
+	var fleetSelected=document.getElementById("subfleetValue");	
+	var insertValues = ["fleetNo", "subfleetNo", "ataSystemNo", "tailNo", "companyPartNo", "mfgPartNo"];
+	var listFleet = ["fleetNo", "fleetValue", "fleetPush", "fleetClear", "fleetNoSubmit"];
+	var listSubFleet= ["subfleetNo", "subfleetValue", "subfleetPush", "subfleetClear", "subfleetSubmit"];
+	var result = [];
+	    
+	    for (var i = 0; i < fleetSelected.length; i++) {
+	    	result.push(fleetSelected.options[i].value);
+	    }
+	 
+	 
+	 if(result.length != 0){
+		 for (var i = 0; i <insertValues.length ; i++){
+			 if(insertValues[i] != 'subfleetNo'){
+				 
+				 operationSubFleet(result,insertValues[i]);
+			 }
+		 }
+		
+		disableAfterSubmit(listFleet);
+		disableAfterSubmit(listSubFleet);
+	 
+		
+	 
+}
+}
+
+
+
+
+
+function operationTail(result,idValue){
+	var  radioBtn= ["fleetRdio", "subFleetRdio", "tailRdio", "ataRdio", "cpnRdio", "mfgRdio"];
+	var components = ["ataSystemNo", "companyPartNo", "mfgPartNo"];
+	if(idValue == 'fleetNo' && document.getElementById("fleetNo").length >0){
+		
+			
+		
+		return; 
+	}else if(idValue == 'subfleetNo' && document.getElementById("subfleetNo").length >0){
+		return;
+	}else{
+		for(var i=0;i<radioBtn.length;i++){
+			document.getElementById(radioBtn[i]).disabled=true;
 			}
-			
-			if(fleetLength ==0 || subfleetLength == 0 ){
-				fleetOperation(result,"tailNo");
-				subFleetOperation(result,"tailNo");
-			}
-			
-			
-			document.getElementById("tailNo").disabled = true;
-			document.getElementById("tailNoClear").disabled = true;	
-			document.getElementById("tailNoSubmit").disabled = true;
-}else{
-	 alert("Atleast Select One Tail Number To Proceed");
+		document.getElementById(idValue).options.length=0;
+	}
+	
+	
+	var r = new Array(); 
+	var temp=idValue;
+	var x=document.getElementById(temp);
+	for(var i = 0; i < result.length; i++)
+		f:for (var j = 0; j < AllData.length; j++) {
+	  var option = document.createElement("option");
+	  if(temp == "fleetNo"){
+		
+		  if(result[i] == AllData[j].tailNo){
+			  for(var z = 0; z < r.length; z++){  
+		            if(r[z]==AllData[j].fleetNo) continue f;}  
+		        r[r.length] = AllData[j].fleetNo;
+			  option.text = AllData[j].fleetNo;
+			  x.add(option);
+			  }
+	
+	  
+	  }else if(temp == "subfleetNo"){
+		  if(result[i] == AllData[j].tailNo){
+
+		        for(var z = 0; z < r.length; z++){  
+		            if(r[z]==AllData[j].subfleetNo) continue f;}  
+		        r[r.length] = AllData[j].subfleetNo;
+
+		  option.text = AllData[j].subfleetNo;
+		  x.add(option);
+		  
+		  }
+	  }else if(temp == "ataSystemNo"){
+		  for(var z = 0; z < r.length; z++){  
+	            if(r[z]==AllData[j].ataSystemNo) continue f;}  
+	        r[r.length] = AllData[j].ataSystemNo;
+		  if(result[i] == AllData[j].tailNo){
+		  option.text = AllData[j].ataSystemNo;
+		  x.add(option);
+		  }
+	  } else if(temp == "tailNo"){
+		  if(result[i] == AllData[j].tailNo){
+			  for(var z = 0; z < r.length; z++){  
+		            if(r[z]==AllData[j].tailNo) continue f;}  
+		        r[r.length] = AllData[j].tailNo;
+		  option.text = AllData[j].tailNo;
+		  x.add(option);
+		  }
+	  } else if(temp == "companyPartNo"){
+		  if(result[i] == AllData[j].tailNo){
+			  for(var z = 0; z < r.length; z++){  
+		            if(r[z]==AllData[j].companyPartNo) continue f;}  
+		        r[r.length] = AllData[j].companyPartNo;
+		  option.text = AllData[j].companyPartNo;
+		  x.add(option);
+		  }
+	  } else if(temp == "mfgPartNo"){
+		  if(result[i] == AllData[j].tailNo){
+			  for(var z = 0; z < r.length; z++){  
+		            if(r[z]==AllData[j].mfgPartNo) continue f;}  
+		        r[r.length] = AllData[j].mfgPartNo;
+		  option.text = AllData[j].mfgPartNo;
+		  x.add(option);
+		  }
+	  } 
+	  
+	}
+}
+function getTailNo(){
+	var fleetSelected=document.getElementById("tailValue");	
+	var insertValues = ["fleetNo", "subfleetNo", "ataSystemNo", "tailNo", "companyPartNo", "mfgPartNo"];
+	var listFleet = ["fleetNo", "fleetValue", "fleetPush", "fleetClear", "fleetNoSubmit"];
+	var listSubFleet= ["subfleetNo", "subfleetValue", "subfleetPush", "subfleetClear", "subfleetSubmit"];
+	var listTail= ["tailNo", "tailValue", "tailPush", "tailClear", "tailSubmit"];
+	var result = [];
+	    
+	    for (var i = 0; i < fleetSelected.length; i++) {
+	    	result.push(fleetSelected.options[i].value);
+	    }
+	 
+	 
+	 if(result.length != 0){
+		 
+		 for (var i = 0; i <insertValues.length ; i++){
+			 if(insertValues[i] != 'tailNo'){
+				 
+				 operationTail(result,insertValues[i]);
+			 }
+		 }
+		
+		disableAfterSubmit(listFleet);
+		disableAfterSubmit(listSubFleet);
+		disableAfterSubmit(listTail);
+	
+	 
 }
 	
 }
+
+
+
+
+
+
+function operationATA(result,idValue){
+	var  radioBtn= ["fleetRdio", "subFleetRdio", "tailRdio", "ataRdio", "cpnRdio", "mfgRdio"];
+	var components = ["companyPartNo", "mfgPartNo"];
+	if(idValue == 'fleetNo' && document.getElementById("fleetNo").length >0){
+
+		return; 
+	}else if(idValue == 'subfleetNo' && document.getElementById("subfleetNo").length >0){
+		return;
+	}
+	else if(idValue == 'tailNo' && document.getElementById("tailNo").length >0){
+		return;
+	}else{
+		for(var i=0;i<radioBtn.length;i++){
+			document.getElementById(radioBtn[i]).disabled=true;
+			}
+		document.getElementById(idValue).options.length=0;
+	}
+	
+	
+	var r = new Array(); 
+	var temp=idValue;
+	var x=document.getElementById(temp);
+	for(var i = 0; i < result.length; i++)
+		f:for (var j = 0; j < AllData.length; j++) {
+	  var option = document.createElement("option");
+	  if(temp == "fleetNo"){
+		
+		  if(result[i] == AllData[j].ataSystemNo){
+			  for(var z = 0; z < r.length; z++){  
+		            if(r[z]==AllData[j].fleetNo) continue f;}  
+		        r[r.length] = AllData[j].fleetNo;
+			  option.text = AllData[j].fleetNo;
+			  x.add(option);
+			  }
+	
+	  
+	  }else if(temp == "subfleetNo"){
+		  if(result[i] == AllData[j].ataSystemNo){
+
+		        for(var z = 0; z < r.length; z++){  
+		            if(r[z]==AllData[j].subfleetNo) continue f;}  
+		        r[r.length] = AllData[j].subfleetNo;
+
+		  option.text = AllData[j].subfleetNo;
+		  x.add(option);
+		  
+		  }
+	  }else if(temp == "ataSystemNo"){
+		  for(var z = 0; z < r.length; z++){  
+	            if(r[z]==AllData[j].ataSystemNo) continue f;}  
+	        r[r.length] = AllData[j].ataSystemNo;
+		  if(result[i] == AllData[j].ataSystemNo){
+		  option.text = AllData[j].ataSystemNo;
+		  x.add(option);
+		  }
+	  } else if(temp == "tailNo"){
+		  if(result[i] == AllData[j].ataSystemNo){
+			  for(var z = 0; z < r.length; z++){  
+		            if(r[z]==AllData[j].tailNo) continue f;}  
+		        r[r.length] = AllData[j].tailNo;
+		  option.text = AllData[j].tailNo;
+		  x.add(option);
+		  }
+	  } else if(temp == "companyPartNo"){
+		  if(result[i] == AllData[j].ataSystemNo){
+			  for(var z = 0; z < r.length; z++){  
+		            if(r[z]==AllData[j].companyPartNo) continue f;}  
+		        r[r.length] = AllData[j].companyPartNo;
+		  option.text = AllData[j].companyPartNo;
+		  x.add(option);
+		  }
+	  } else if(temp == "mfgPartNo"){
+		  if(result[i] == AllData[j].ataSystemNo){
+			  for(var z = 0; z < r.length; z++){  
+		            if(r[z]==AllData[j].mfgPartNo) continue f;}  
+		        r[r.length] = AllData[j].mfgPartNo;
+		  option.text = AllData[j].mfgPartNo;
+		  x.add(option);
+		  }
+	  } 
+	  
+	}
+}
+
+
+
+function getATASystemNo(){
+	 
+	var fleetSelected=document.getElementById("ataSystemNo");	
+	var insertValues = ["fleetNo", "subfleetNo", "ataSystemNo", "tailNo", "companyPartNo", "mfgPartNo"];
+	var listFleet = ["fleetNo", "fleetValue", "fleetPush", "fleetClear", "fleetNoSubmit"];
+	var listSubFleet= ["subfleetNo", "subfleetValue", "subfleetPush", "subfleetClear", "subfleetSubmit"];
+	var listata= ["ataSystemNo", "ataValue", "ataPush", "ataClear", "ataSubmit"];
+	var listTail= ["tailNo", "tailValue", "tailPush", "tailClear", "tailSubmit"];
+	var result = [];
+	    
+	    for (var i = 0; i < fleetSelected.length; i++) {
+	    	result.push(fleetSelected.options[i].value);
+	    }
+	 
+	 
+	 if(result.length != 0){
+		 
+		 for (var i = 0; i <insertValues.length ; i++){
+			 if(insertValues[i] != 'ataSystemNo'){
+				 
+				 operationATA(result,insertValues[i]);
+			 }
+		 }
+		
+		disableAfterSubmit(listFleet);
+		disableAfterSubmit(listSubFleet);
+		disableAfterSubmit(listTail);
+		disableAfterSubmit(listata);
+	
+	 
+}
+	
+	
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+function operationCPN(result,idValue){
+	var  radioBtn= ["fleetRdio", "subFleetRdio", "tailRdio", "ataRdio", "cpnRdio", "mfgRdio"];
+	var components = ["mfgPartNo"];
+	if(idValue == 'fleetNo' && document.getElementById("fleetNo").length >0){
+	return; 
+	}else if(idValue == 'subfleetNo' && document.getElementById("subfleetNo").length >0){
+		return;
+	}else if(idValue == 'tailNo' && document.getElementById("tailNo").length >0){
+	return;
+	}else if(idValue == 'ataSystemNo' && document.getElementById("ataSystemNo").length >0){
+	return;
+	}else{
+		for(var i=0;i<radioBtn.length;i++){
+			document.getElementById(radioBtn[i]).disabled=true;
+			}
+		document.getElementById(idValue).options.length=0;
+	}
+	
+	var r = new Array(); 
+	
+	var temp=idValue;
+	var x=document.getElementById(temp);
+	for(var i = 0; i < result.length; i++)
+		f:for (var j = 0; j < AllData.length; j++) {
+	  var option = document.createElement("option");
+	  if(temp == "fleetNo"){
+		
+		  if(result[i] == AllData[j].companyPartNo){
+			  for(var z = 0; z < r.length; z++){  
+		            if(r[z]==AllData[j].fleetNo) continue f;}  
+		        r[r.length] = AllData[j].fleetNo;
+			  option.text = AllData[j].fleetNo;
+			  x.add(option);
+			  }
+	
+	  
+	  }else if(temp == "subfleetNo"){
+		  if(result[i] == AllData[j].companyPartNo){
+
+		        for(var z = 0; z < r.length; z++){  
+		            if(r[z]==AllData[j].subfleetNo) continue f;}  
+		        r[r.length] = AllData[j].subfleetNo;
+		  option.text = AllData[j].subfleetNo;
+		  x.add(option);
+		  
+		  }
+	  }else if(temp == "ataSystemNo"){
+		  for(var z = 0; z < r.length; z++){  
+	            if(r[z]==AllData[j].ataSystemNo) continue f;}  
+	        r[r.length] = AllData[j].ataSystemNo;
+		  if(result[i] == AllData[j].companyPartNo){
+		  option.text = AllData[j].ataSystemNo;
+		  x.add(option);
+		  }
+	  } else if(temp == "tailNo"){
+		  if(result[i] == AllData[j].companyPartNo){
+			  for(var z = 0; z < r.length; z++){  
+		            if(r[z]==AllData[j].tailNo) continue f;}  
+		        r[r.length] = AllData[j].tailNo;
+		  option.text = AllData[j].tailNo;
+		  x.add(option);
+		  }
+	  } else if(temp == "companyPartNo"){
+		  if(result[i] == AllData[j].companyPartNo){
+			  for(var z = 0; z < r.length; z++){  
+		            if(r[z]==AllData[j].companyPartNo) continue f;}  
+		        r[r.length] = AllData[j].companyPartNo;
+		  option.text = AllData[j].companyPartNo;
+		  x.add(option);
+		  }
+	  } else if(temp == "mfgPartNo"){
+		  if(result[i] == AllData[j].companyPartNo){
+			  for(var z = 0; z < r.length; z++){  
+		            if(r[z]==AllData[j].mfgPartNo) continue f;}  
+		        r[r.length] = AllData[j].mfgPartNo;
+		  option.text = AllData[j].mfgPartNo;
+		  x.add(option);
+		  }
+	  } 
+	  
+	}
+}
+
+
 
 
 function getCompanyPartNo(){
-	var cpnSelected=document.getElementById("companyPartNo");
-	var fleetLength=document.getElementById("fleetNo").options.length;
-	var subfleetLength=document.getElementById("subfleetNo").options.length;
-	var tailLength=document.getElementById("tailNo").options.length;
-	var mfgLength=document.getElementById("mfgPartNo").options.length;
-
-	
-	 var result = [];
-	 var options = cpnSelected && cpnSelected.options;
-	 var opt;
-
-	 for (var i=0, iLen=options.length; i<iLen; i++) {
-	   opt = options[i];
-
-	   if (opt.selected) {
-	     result.push(opt.value || opt.text);
-	   }	
-	}
+	var fleetSelected=document.getElementById("companyPartNo");	
+	var insertValues = ["fleetNo", "subfleetNo", "ataSystemNo", "tailNo", "companyPartNo", "mfgPartNo"];
+	var listFleet = ["fleetNo", "fleetValue", "fleetPush", "fleetClear", "fleetNoSubmit"];
+	var listSubFleet= ["subfleetNo", "subfleetValue", "subfleetPush", "subfleetClear", "subfleetSubmit"];
+	var listTail= ["tailNo", "tailValue", "tailPush", "tailClear", "tailSubmit"];
+	var listATA= ["ataSystemNo", "ataValue", "ataPush", "ataClear", "ataSubmit"];	
+	var listCPN= ["companyPartNo", "companyValue", "companyPush", "companyClear", "companySubmit"];
+	var result = [];
+	    
+	    for (var i = 0; i < fleetSelected.length; i++) {
+	    	result.push(fleetSelected.options[i].value);
+	    }
 	 
 	 
 	 if(result.length != 0){
-	 if(mfgLength ==0 ){
-	 var x=document.getElementById("mfgPartNo");
-		for (var i = 0; i < result.length; i++){
-			
-			var text = "";
-			for (var j = 0; j < AllData.length; j++){
-				//alert("result[i] "+result[i]+"AllData[j].fleetNo "+AllData[j].fleetNo);
-				if(result[i] == AllData[j].companyPartNo){
-					
-					 var option = document.createElement("option");
-					 option.text = AllData[j].mfgPartNo;
-					 //alert("true "+option.text);
-					 x.add(option);
-				}
-			}
-		} 
-	 }
-		if(fleetLength ==0 || subfleetLength == 0 || tailLength == 0 ){
-			fleetOperation(result,"companyPartNo");
-			subFleetOperation(result,"companyPartNo");
-			tailOperation(result,"companyPartNo");
-		}
-		document.getElementById("companyPartNo").disabled = true;
-		document.getElementById("companyPartNoClear").disabled = true;	
-		document.getElementById("companyPartNoSubmit").disabled = true;
+		 
+		 for (var i = 0; i <insertValues.length ; i++){
+			 if(insertValues[i] != 'companyPartNo'){
+				 
+				 operationCPN(result,insertValues[i]);
+			 }
+		 }
 		
-		
-}else{
-	 alert("Atleast Select One Company Part Number To Proceed");
-}
-	 
+		disableAfterSubmit(listFleet);
+		disableAfterSubmit(listSubFleet);
+		disableAfterSubmit(listTail);
+		disableAfterSubmit(listATA);
+		disableAfterSubmit(listCPN);
 	
+	 
+}
+	
+}
+
+
+
+
+
+
+function operationMFG(result,idValue){
+	
+	var  radioBtn= ["fleetRdio", "subFleetRdio", "tailRdio", "ataRdio", "cpnRdio", "mfgRdio"];
+	if(idValue == 'fleetNo' && document.getElementById("fleetNo").length >0){
+	return; 
+	}else if(idValue == 'subfleetNo' && document.getElementById("subfleetNo").length >0){
+		return;
+	}else if(idValue == 'tailNo' && document.getElementById("tailNo").length >0){
+	return;
+	}else if(idValue == 'ataSystemNo' && document.getElementById("ataSystemNo").length >0){
+	return;
+	}else if(idValue == 'companyPartNo' && document.getElementById("companyPartNo").length >0){
+	return;
+	}else{
+		for(var i=0;i<radioBtn.length;i++){
+			document.getElementById(radioBtn[i]).disabled=true;
+			}
+	}
+	var r = new Array(); 
+	
+	var temp=idValue;
+	var x=document.getElementById(temp);
+	for(var i = 0; i < result.length; i++)
+		f:for (var j = 0; j < AllData.length; j++) {
+	  var option = document.createElement("option");
+	  if(temp == "fleetNo"){
+		
+		  if(result[i] == AllData[j].mfgPartNo){
+			  for(var z = 0; z < r.length; z++){  
+		            if(r[z]==AllData[j].fleetNo) continue f;}  
+		        r[r.length] = AllData[j].fleetNo;
+			  option.text = AllData[j].fleetNo;
+			  x.add(option);
+			  }
+	
+	  
+	  }else if(temp == "subfleetNo"){
+		  if(result[i] == AllData[j].mfgPartNo){
+
+		        for(var z = 0; z < r.length; z++){  
+		            if(r[z]==AllData[j].subfleetNo) continue f;}  
+		        r[r.length] = AllData[j].subfleetNo;
+		  option.text = AllData[j].subfleetNo;
+		  x.add(option);
+		  
+		  }
+	  }else if(temp == "ataSystemNo"){
+		  for(var z = 0; z < r.length; z++){  
+	            if(r[z]==AllData[j].ataSystemNo) continue f;}  
+	        r[r.length] = AllData[j].ataSystemNo;
+		  if(result[i] == AllData[j].mfgPartNo){
+		  option.text = AllData[j].ataSystemNo;
+		  x.add(option);
+		  }
+	  } else if(temp == "tailNo"){
+		  if(result[i] == AllData[j].mfgPartNo){
+			  for(var z = 0; z < r.length; z++){  
+		            if(r[z]==AllData[j].tailNo) continue f;}  
+		        r[r.length] = AllData[j].tailNo;
+		  option.text = AllData[j].tailNo;
+		  x.add(option);
+		  }
+	  } else if(temp == "companyPartNo"){
+		  if(result[i] == AllData[j].mfgPartNo){
+			  for(var z = 0; z < r.length; z++){  
+		            if(r[z]==AllData[j].companyPartNo) continue f;}  
+		        r[r.length] = AllData[j].companyPartNo;
+		  option.text = AllData[j].companyPartNo;
+		  x.add(option);
+		  }
+	  } else if(temp == "mfgPartNo"){
+		  if(result[i] == AllData[j].mfgPartNo){
+			  for(var z = 0; z < r.length; z++){  
+		            if(r[z]==AllData[j].mfgPartNo) continue f;}  
+		        r[r.length] = AllData[j].mfgPartNo;
+		  option.text = AllData[j].mfgPartNo;
+		  x.add(option);
+		  }
+	  } 
+	  
+	}
 }
 
 
 
 
 function getMFGPartNo(){
+
+	var fleetSelected=document.getElementById("mfgPartNo");	
+	var insertValues = ["fleetNo", "subfleetNo", "ataSystemNo", "tailNo", "companyPartNo", "mfgPartNo"];
+	var listFleet = ["fleetNo", "fleetValue", "fleetPush", "fleetClear", "fleetNoSubmit"];
+	var listSubFleet= ["subfleetNo", "subfleetValue", "subfleetPush", "subfleetClear", "subfleetSubmit"];
+	var listTail= ["tailNo", "tailValue", "tailPush", "tailClear", "tailSubmit"];
+	var listATA= ["ataSystemNo", "ataValue", "ataPush", "ataClear", "ataSubmit"];	
+	var listCPN= ["companyPartNo", "companyValue", "companyPush", "companyClear", "companySubmit"];
+	var listMFG= ["mfgPartNo", "mfgValue", "mfgPush", "mfgClear", "mfgSubmit"];
 	
-	var mfgSelected=document.getElementById("mfgPartNo");
-	var fleetLength=document.getElementById("fleetNo").options.length;
-	var subfleetLength=document.getElementById("subfleetNo").options.length;
-	var tailLength=document.getElementById("tailNo").options.length;
-	var cpnLength=document.getElementById("companyPartNo").options.length;
-
-	
-	 var result = [];
-	 var options = mfgSelected && mfgSelected.options;
-	 var opt;
-
-	 for (var i=0, iLen=options.length; i<iLen; i++) {
-	   opt = options[i];
-
-	   if (opt.selected) {
-	     result.push(opt.value || opt.text);
-	   }	
-	}
-	 if(result.length != 0){
-	 
-	 
-	
-	 var x=document.getElementById("ataSystemNo");
-		for (var i = 0; i < result.length; i++){
-			
-			var text = "";
-			for (var j = 0; j < AllData.length; j++){
-				//alert("result[i] "+result[i]+"AllData[j].fleetNo "+AllData[j].fleetNo);
-				if(result[i] == AllData[j].mfgPartNo){
-					
-					 var option = document.createElement("option");
-					 option.text = AllData[j].ataSystemNo;
-					 //alert("true "+option.text);
-					 x.add(option);
-				}
-			}
-		} 
-	 
-		if(fleetLength ==0 || subfleetLength == 0 || tailLength == 0 || cpnLength == 0){
-			fleetOperation(result,"mfgPartNo");
-			subFleetOperation(result,"mfgPartNo");
-			tailOperation(result,"mfgPartNo");
-			cpnOperation(result,"mfgPartNo");
-		}
-		document.getElementById("mfgPartNo").disabled = true;
-		document.getElementById("mfgPartNoClear").disabled = true;	
-		document.getElementById("mfgPartNoSubmit").disabled = true;
-		
-		
-	
-}else{
-	 alert("Atleast Select One MFG Part Number To Proceed");
-}
-	
-}
-
-
-function getATASystemNo(){
-	
-	var ataSelected=document.getElementById("ataSystemNo");
-	var fleetLength=document.getElementById("fleetNo").options.length;
-	var subfleetLength=document.getElementById("subfleetNo").options.length;
-	var tailLength=document.getElementById("tailNo").options.length;
-	var cpnLength=document.getElementById("companyPartNo").options.length;
-	var mfgLength=document.getElementById("mfgPartNo").options.length;
-
-	
-	 var result = [];
-	 var options = ataSelected && ataSelected.options;
-	 var opt;
-
-	 for (var i=0, iLen=options.length; i<iLen; i++) {
-	   opt = options[i];
-
-	   if (opt.selected) {
-	     result.push(opt.value || opt.text);
-	   }	
-	}
+	var result = [];
+	    
+	    for (var i = 0; i < fleetSelected.length; i++) {
+	    	result.push(fleetSelected.options[i].value);
+	    }
 	 
 	 
 	 if(result.length != 0){
-	
-	 var x=document.getElementById("serialNo");
-		for (var i = 0; i < result.length; i++){
-			
-			var text = "";
-			for (var j = 0; j < AllData.length; j++){
-				//alert("result[i] "+result[i]+"AllData[j].fleetNo "+AllData[j].fleetNo);
-				if(result[i] == AllData[j].ataSystemNo){
-					
-					 var option = document.createElement("option");
-					 option.text = AllData[j].serialNo;
-					 //alert("true "+option.text);
-					 x.add(option);
-				}
-			}
-		} 
-	 
-		if(fleetLength ==0 || subfleetLength == 0 || tailLength == 0 || cpnLength == 0 || mfgLength == 0){
-			fleetOperation(result,"ataSystemNo");
-			subFleetOperation(result,"ataSystemNo");
-			tailOperation(result,"ataSystemNo");
-			cpnOperation(result,"ataSystemNo");
-			mfgOperation(result,"ataSystemNo")
-		}
-		document.getElementById("ataSystemNo").disabled = true;
-		document.getElementById("ataSystemNoClear").disabled = true;	
-		document.getElementById("ataSystemNoSubmit").disabled = true;
+		 
+		 for (var i = 0; i <insertValues.length ; i++){
+			 if(insertValues[i] != 'mfgPartNo'){
+				 
+				 operationMFG(result,insertValues[i]);
+			 }
+		 }
 		
-		
-}else{
-	 alert("Atleast Select One ATA System Number To Proceed");
-}
-	 
+		disableAfterSubmit(listFleet);
+		disableAfterSubmit(listSubFleet);
+		disableAfterSubmit(listTail);
+		disableAfterSubmit(listATA);
+		disableAfterSubmit(listCPN);
+		disableAfterSubmit(listMFG);
 	
-}
-
-function getSerialNo(){
-	var serialSelected=document.getElementById("serialNo");
-	
-	
-	 var result = [];
-	 var options = serialSelected && serialSelected.options;
-	 var opt;
-
-	 for (var i=0, iLen=options.length; i<iLen; i++) {
-	   opt = options[i];
-
-	   if (opt.selected) {
-	     result.push(opt.value || opt.text);
-	   }	
-	}
-	 if(result.length != 0){
-	 serialNoSelected=result;
-	 //alert("all "+result+" from variable "+serialNoSelected);
-	 
-		document.getElementById("serialNo").disabled = true;
-		document.getElementById("serialNoClear").disabled = true;	
-		document.getElementById("serialNoSubmit").disabled = true;
-}else{
-	 alert("Atleast Select One Serial Number To Proceed");
-}
 	 
 }
 
+}
 
-function fleetOperation(result,idValue){
+
+
+
+/*function fleetOperation(result,idValue){
 	
 	 var x=document.getElementById("fleetNo");
 		for (var i = 0; i < result.length; i++){
@@ -760,35 +1228,35 @@ function fleetOperation(result,idValue){
 							if(result[i] == AllData[j].subfleetNo){
 								 var option = document.createElement("option");
 								 option.text = AllData[j].fleetNo;
-								 //alert("true "+option.text);
+								 //////////alert("true "+option.text);
 								 x.add(option);
 							}
 					  }else if(idValue == "ataSystemNo"){
 							if(result[i] == AllData[j].ataSystemNo){
 								 var option = document.createElement("option");
 								 option.text = AllData[j].fleetNo;
-								 //alert("true "+option.text);
+								 //////////alert("true "+option.text);
 								 x.add(option);
 							}
 					  } else if(idValue == "tailNo"){
 							if(result[i] == AllData[j].tailNo){
 								 var option = document.createElement("option");
 								 option.text = AllData[j].fleetNo;
-								 //alert("true "+option.text);
+								 //////////alert("true "+option.text);
 								 x.add(option);
 							}
 					  } else if(idValue == "companyPartNo"){
 							if(result[i] == AllData[j].companyPartNo){
 								 var option = document.createElement("option");
 								 option.text = AllData[j].fleetNo;
-								 //alert("true "+option.text);
+								 //////////alert("true "+option.text);
 								 x.add(option);
 							}
 					  } else if(idValue == "mfgPartNo"){
 							if(result[i] == AllData[j].mfgPartNo){
 								 var option = document.createElement("option");
 								 option.text = AllData[j].fleetNo;
-								 //alert("true "+option.text);
+								 //////////alert("true "+option.text);
 								 x.add(option);
 							}
 					  } 
@@ -813,7 +1281,7 @@ function fleetOperation(result,idValue){
 
 function subFleetOperation(result,idValue){
 
-	//alert("hello1"+idValue)
+	//////////alert("hello1"+idValue)
 	 var x=document.getElementById("subfleetNo");
 		for (var i = 0; i < result.length; i++){
 			
@@ -825,35 +1293,35 @@ function subFleetOperation(result,idValue){
 							if(result[i] == AllData[j].subfleetNo){
 								 var option = document.createElement("option");
 								 option.text = AllData[j].subfleetNo;
-								 //alert("true "+option.text);
+								 //////////alert("true "+option.text);
 								 x.add(option);
 							}
 					  }else if(idValue == "ataSystemNo"){
 							if(result[i] == AllData[j].ataSystemNo){
 								 var option = document.createElement("option");
 								 option.text = AllData[j].subfleetNo;
-								 //alert("true "+option.text);
+								 //////////alert("true "+option.text);
 								 x.add(option);
 							}
 					  } else if(idValue == "tailNo"){
 							if(result[i] == AllData[j].tailNo){
 								 var option = document.createElement("option");
 								 option.text = AllData[j].subfleetNo;
-								 //alert("true "+option.text);
+								 //////////alert("true "+option.text);
 								 x.add(option);
 							}
 					  } else if(idValue == "companyPartNo"){
 							if(result[i] == AllData[j].companyPartNo){
 								 var option = document.createElement("option");
 								 option.text = AllData[j].subfleetNo;
-								 //alert("true "+option.text);
+								 //////////alert("true "+option.text);
 								 x.add(option);
 							}
 					  } else if(idValue == "mfgPartNo"){
 							if(result[i] == AllData[j].mfgPartNo){
 								 var option = document.createElement("option");
 								 option.text = AllData[j].subfleetNo;
-								 //alert("true "+option.text);
+								 //////////alert("true "+option.text);
 								 x.add(option);
 							}
 					  } 
@@ -887,35 +1355,35 @@ function tailOperation(result,idValue){
 							if(result[i] == AllData[j].subfleetNo){
 								 var option = document.createElement("option");
 								 option.text = AllData[j].tailNo;
-								 //alert("true "+option.text);
+								 //////////alert("true "+option.text);
 								 x.add(option);
 							}
 					  }else if(idValue == "ataSystemNo"){
 							if(result[i] == AllData[j].ataSystemNo){
 								 var option = document.createElement("option");
 								 option.text = AllData[j].tailNo;
-								 //alert("true "+option.text);
+								 //////////alert("true "+option.text);
 								 x.add(option);
 							}
 					  } else if(idValue == "tailNo"){
 							if(result[i] == AllData[j].tailNo){
 								 var option = document.createElement("option");
 								 option.text = AllData[j].tailNo;
-								 //alert("true "+option.text);
+								 //////////alert("true "+option.text);
 								 x.add(option);
 							}
 					  } else if(idValue == "companyPartNo"){
 							if(result[i] == AllData[j].companyPartNo){
 								 var option = document.createElement("option");
 								 option.text = AllData[j].tailNo;
-								 //alert("true "+option.text);
+								 //////////alert("true "+option.text);
 								 x.add(option);
 							}
 					  } else if(idValue == "mfgPartNo"){
 							if(result[i] == AllData[j].mfgPartNo){
 								 var option = document.createElement("option");
 								 option.text = AllData[j].tailNo;
-								 //alert("true "+option.text);
+								 //////////alert("true "+option.text);
 								 x.add(option);
 							}
 					  } 
@@ -952,35 +1420,35 @@ function cpnOperation(result,idValue){
 							if(result[i] == AllData[j].subfleetNo){
 								 var option = document.createElement("option");
 								 option.text = AllData[j].companyPartNo;
-								 //alert("true "+option.text);
+								 //////////alert("true "+option.text);
 								 x.add(option);
 							}
 					  }else if(idValue == "ataSystemNo"){
 							if(result[i] == AllData[j].ataSystemNo){
 								 var option = document.createElement("option");
 								 option.text = AllData[j].companyPartNo;
-								 //alert("true "+option.text);
+								 //////////alert("true "+option.text);
 								 x.add(option);
 							}
 					  } else if(idValue == "tailNo"){
 							if(result[i] == AllData[j].tailNo){
 								 var option = document.createElement("option");
 								 option.text = AllData[j].companyPartNo;
-								 //alert("true "+option.text);
+								 //////////alert("true "+option.text);
 								 x.add(option);
 							}
 					  } else if(idValue == "companyPartNo"){
 							if(result[i] == AllData[j].companyPartNo){
 								 var option = document.createElement("option");
 								 option.text = AllData[j].companyPartNo;
-								 //alert("true "+option.text);
+								 //////////alert("true "+option.text);
 								 x.add(option);
 							}
 					  } else if(idValue == "mfgPartNo"){
 							if(result[i] == AllData[j].mfgPartNo){
 								 var option = document.createElement("option");
 								 option.text = AllData[j].companyPartNo;
-								 //alert("true "+option.text);
+								 //////////alert("true "+option.text);
 								 x.add(option);
 							}
 					  } 
@@ -1014,35 +1482,35 @@ function mfgOperation(result,idValue){
 							if(result[i] == AllData[j].subfleetNo){
 								 var option = document.createElement("option");
 								 option.text = AllData[j].mfgPartNo;
-								 //alert("true "+option.text);
+								 //////////alert("true "+option.text);
 								 x.add(option);
 							}
 					  }else if(idValue == "ataSystemNo"){
 							if(result[i] == AllData[j].ataSystemNo){
 								 var option = document.createElement("option");
 								 option.text = AllData[j].mfgPartNo;
-								 //alert("true "+option.text);
+								 //////////alert("true "+option.text);
 								 x.add(option);
 							}
 					  } else if(idValue == "tailNo"){
 							if(result[i] == AllData[j].tailNo){
 								 var option = document.createElement("option");
 								 option.text = AllData[j].mfgPartNo;
-								 //alert("true "+option.text);
+								 //////////alert("true "+option.text);
 								 x.add(option);
 							}
 					  } else if(idValue == "companyPartNo"){
 							if(result[i] == AllData[j].companyPartNo){
 								 var option = document.createElement("option");
 								 option.text = AllData[j].mfgPartNo;
-								 //alert("true "+option.text);
+								 //////////alert("true "+option.text);
 								 x.add(option);
 							}
 					  } else if(idValue == "mfgPartNo"){
 							if(result[i] == AllData[j].mfgPartNo){
 								 var option = document.createElement("option");
 								 option.text = AllData[j].mfgPartNo;
-								 //alert("true "+option.text);
+								 //////////alert("true "+option.text);
 								 x.add(option);
 							}
 					  } 
@@ -1061,6 +1529,29 @@ function mfgOperation(result,idValue){
 }
 
 
+*/
+function clearData()
+{
+	var selectBox=["fleetNo", "subfleetNo", "ataSystemNo", "tailNo", "companyPartNo", "mfgPartNo"];
+	var selectValue=["fleetValue", "subfleetValue", "ataValue", "tailValue", "companyValue", "mfgValue"];
+	for(var i=0;i<selectBox.length;i++){
+	document.getElementById(selectBox[i]).options.length=0
+	document.getElementById(selectValue[i]).options.length=0
+	document.getElementById(selectValue[i]).disabled=false;
+}
+	
+	
+	
+	
+	
+	
+	
+	
+		
+
+
+}
+
 
 function getFilterValue(){
 	
@@ -1068,23 +1559,30 @@ function getFilterValue(){
 	var  filterName = $('#filterName').val();
 	var fromDate =  $('#fromDate').val();
 	var toDate =  $('#toDate').val();
-	var sortByEle = document.getElementById("sortBy");
-	var sortBySelected = sortByEle.options[sortByEle.selectedIndex].value;
+	//var sortByEle = document.getElementById("sortBy");
+	//var sortBySelected = sortByEle.options[sortByEle.selectedIndex].value;
 	
 	var installedUnit= document.getElementById("installedUnit").checked ? true:false;
 	var newUnit =  document.getElementById("newUnit").checked ? true:false;
-	var nonActiveUnit =   document.getElementById("nonActiveUnit").checked ? true:false;
+	var removedUnit =   document.getElementById("removedUnit").checked ? true:false;
+	
+	//alert(removedUnit);
 	//var problemUnit =  document.getElementById("problemUnit").checked ? true:false;
 	//var overhauledUnit =   document.getElementById("overhauledUnit").checked ? true:false;
 		
-	var filterJson = {"filterID" :filterID, "filterName":filterName, "fromDate":fromDate,"toDate":toDate, "sortBy": sortBySelected, "filterBy":{"installedUnit":installedUnit, "newUnit":newUnit, "nonActive":nonActiveUnit/*, "problemUnit" :problemUnit , "overhauledUnit":overhauledUnit*/} };
+	var filterJson = {"filterID" :filterID, "filterName":filterName, "fromDate":fromDate,"toDate":toDate, "sortBy": sortChecked, "filterBy":{ "newUnit":newUnit, "removedUnit":removedUnit, "installedUnit":installedUnit/*, "problemUnit" :problemUnit , "overhauledUnit":overhauledUnit*/} };
 	 return  JSON.stringify(filterJson)
 }
-
 var saveFilter = function(){
+	var info=''
+		var msgType="msg";
+	
+	if(isValidSaveForm())
+		{
 	var  filterName = $('#filterName').val();
-	//alert(filterName);
-	if (isUniqueFilterName(filterName)){
+	var  fromDate = $('#fromDate').val();
+	var toDate =  $('#toDate').val();
+//alert(JSON.stringify(getFilterValue()));
 		$.ajax({
 			 type : "POST",
 			 contentType : "application/json",
@@ -1093,25 +1591,24 @@ var saveFilter = function(){
 			 dataType : 'json',
 	         success : function(data) {
 	                
-	                
+	              
 	         }
 	         
 	  });
-	}else{
-		alert("Filter Name is already in used. Please choose another one")
+		 info="Filter saved successfully"
+			
+	display(info,msgType);
+		
+	
 	}
-	
-	
-	 
-	
 	
 	
 } 
 
 
-//Suman
+/*//Suman
 var saveAsDefaultFilter = function(){
-	//alert(getFilterValue());
+	//////////alert(getFilterValue());
 	$.ajax({
 		 type : "POST",
 		 contentType : "application/json",
@@ -1125,85 +1622,17 @@ var saveAsDefaultFilter = function(){
          
   });
 	
-}
+}*/
 
 
-var getDefaultFilter = function(){
-	 $.ajax({
-		 url : "/getDefaultFilter",
-		 success : function(filter) {
-			 
-		         
-	            document.getElementById("filterName").value=filter.filterName;
-				document.getElementById("fromDate").value=filter.fromDate;
-				document.getElementById("toDate").value=filter.toDate ;
-				document.getElementById("sortBy").value=filter.sortBy;
-				document.getElementById("installedUnit").checked=filter.filterBy.installedUnit;
-				document.getElementById("newUnit").checked=filter.filterBy.neweUnit;
-				document.getElementById("nonActiveUnit").checked=filter.filterBy.nonActiveUnit;
-				//document.getElementById("problemUnit").checked=filter.filterBy.problemUnit;
-				//document.getElementById("overhauledUnit").checked=filter.filterBy.overhauledUnit;
-
-         }
-         
-  });
-	 
-	 
-	
-}
-
-
-
-/*var saveFilter = function(){
-	var  filterName = $('#filterName').val();
-	var fromDate =  $('#fromDate').val();
-	var toDate =  $('#toDate').val();
-	var sortByEle = document.getElementById("sortBy");
-	var sortBySelected = sortByEle.options[sortByEle.selectedIndex].value;
-
-	var installedUnit= document.getElementById("installedUnit").checked ? true:false;
-	var newUnit =  document.getElementById("newUnit").checked ? true:false;
-	var nonActiveUnit =   document.getElementById("nonActiveUnit").checked ? true:false;
-	var problemUnit =  document.getElementById("problemUnit").checked ? true:false;
-	var overhauledUnit =   document.getElementById("overhauledUnit").checked ? true:false;
-	
-	if (isUniqueFilterName(filterName))
-		{
-		
-		//var filterJson = {"filterName":filterName, "fromDate":fromDate,"toDate":toDate, "sortBy": sortBySelected, "filterBy":{"installedUnit":installedUnit, "newUnit":newUnit, "nonActive":nonActiveUnit, "problemUnit" :'' , "overhauledUnit":''} };
-	
-		var filterJson = {"filterName":filterName, "fromDate":fromDate,"toDate":toDate, "sortBy": sortBySelected, "filterBy":{"installedUnit":installedUnit, "newUnit":newUnit, "nonActive":nonActiveUnit, "problemUnit" :problemUnit , "overhauledUnit":overhauledUnit} };
-		filterJson= JSON.stringify(filterJson);
-
-	$.ajax({
-		type : "POST",
-		contentType : "application/json",
-		url : "/saveFilter",
-		data : filterJson,
-		dataType : 'json',
-		success : function(data) {
-			window.confirm("filtered Saved successfully");
-
-		}
-	});
-	
-}
-	else
-		{
-		alert("Filter Name is already in used. Please choose another one")
-		}
-
-
-
-} 
-*/
 var getFilters = function(){
-
+//alert('hi');
 	$.ajax({
 		url : "/getFilters",
 		success : function(data) {
-			//alert(data);
+			//////////alert(data);
 			filters=data;
+			//alert(JSON.stringify(data));
 		}
 
 	});
@@ -1214,20 +1643,18 @@ var getFilters = function(){
 
 
 
-
-/* Load filter list into popup box 
- * Author: Manwar
- *
- * */
+/*
 function loadFilterList()
 {
-
+//alert('hi I m in loadFilterList ');
 	$("#filterListTable tr").remove();
 
 	$.ajax({
 		url: '/getFilters',             
 	}).done(function (filterList) {
 		filters=filterList
+		//alert('hey');
+		//alert(JSON.stringify(filters));
 		var tr=[];
 		var preText= "onclick=loadFilter('"
 			var postText="')>"
@@ -1239,32 +1666,28 @@ function loadFilterList()
 				}
 		$('table[name=filterListTable]').append($(tr.join('')));
 	});
-}
+}*/
 
 
 
-/* 
- * Filter data according to filter by checkbox
- * author: Manwar Singh
- */
+
+ 
 function filterByStatus()
 {
+	
+	////alert(AllData+"in load filter")
 	checkedStatus=[];
 	var installedUnit= document.getElementById("installedUnit")
 	var newUnit=document.getElementById("newUnit")
-	var nonActiveUnit=document.getElementById("nonActiveUnit")
-	
-	/*var problemUnit=document.getElementById("problemUnit")
+	var removedUnit=document.getElementById("removedUnit")	
+	var problemUnit=document.getElementById("problemUnit")
 	var overhauledUnit=document.getElementById("overhauledUnit")
-	
-	*/	
-	
-	
+
 	if(installedUnit.checked || newUnit.checked){
-			nonActiveUnit.setAttribute("disabled", "true");
+			removedUnit.setAttribute("disabled", "true");
 		}
 	else{
-			document.getElementById("nonActiveUnit").disabled= false;
+			document.getElementById("removedUnit").disabled= false;
 	  }
 	
 	var serials= [];
@@ -1276,6 +1699,7 @@ function filterByStatus()
 		checkedStatus=[];
 		
 		checkedStatus.push("Installed Unit");
+		
 		
 		
 	}
@@ -1302,14 +1726,14 @@ function filterByStatus()
 		
 		}
 
-	if(nonActiveUnit.checked){
+	if(removedUnit.checked){
 		installedUnit.setAttribute("disabled", "true");
 		newUnit.setAttribute("disabled", "true");
 
 		
 		checkedStatus=[];
 		
-		checkedStatus.push("Non Active Unit");
+		checkedStatus.push("Inactive");
 		
 			
 	}
@@ -1318,42 +1742,12 @@ function filterByStatus()
 		document.getElementById("installedUnit").disabled= false;
 		document.getElementById("newUnit").disabled= false;
 		}
-/*
-	if(problemUnit.checked)
-	{
-		 filter the data base on status new
-		//alert("problemUnit unit Cheked")
-		for (var i = 0; i < globalData.length; i++) {
-		if (globalData[i].status == "Problem Unit")   {
-			serials[j++]=globalData[i]
-			//alert(AllData[i].status + ' '+AllData[i].fleet)
-		}
-		}
 
 
-	}
-
-	if(overhauledUnit.checked)
-	{
-	
-		for (var i = 0; i < AllData.length; i++) {
-			if (globalData[i].status == "Overhauled Unit") {
-				serials[j++]=globalData[i]
-			}
-		}
-
-	}
-
-	for (var i = 0; i < serials.length; i++) {
 		
-
-	alert(serials[i].status)
-	}
-*/
+	filterSort()
 	
 		
-		functionsort();
-	
 
 	
 }
@@ -1366,10 +1760,6 @@ function filterByStatus()
 
 
 
-/* Load filter list into popup box 
- * Author: Manwar Singh
- *
- * */
 function loadFilterList()
 {
 	
@@ -1380,29 +1770,41 @@ function loadFilterList()
 	}).done(function (filterList) {
 		filters=filterList
 		var tr=[];
+		tr.push('<tr style="color:#009688;">');
+		tr.push("<th>Filter Name</th>");
+		tr.push("<th>Start Date (yyyy-mm-dd)</th>");
+		tr.push("<th>End  Date (yyyy-mm-dd)</th>");
+		tr.push('</tr>');
+	
 		var preText= "onclick=loadFilter('"
 			var postText="')>"
 				for (var i = 0; i < filterList.length; i++) {
 					var filter=filterList[i].filterName;
-					tr.push('<tr>');
+					tr.push('<tr">');
 					tr.push("<td><a href='#'"+preText+filter+postText+filter + "</a></td>");
+					tr.push("<td>"+filterList[i].fromDate+"</td>");
+					tr.push("<td>"+filterList[i].toDate+"</td>");
+					
 					tr.push('</tr>');
 				}
 		$('table[name=filterListTable]').append($(tr.join('')));
 	});
+	
+	
+	
 }
 
 
 
-/* Loading filter according to the filter name click by the user and
- * will set the parameter in filter editor screen
-Author : Manwar Singh
- */
+ 
 function loadFilter(filterName){
 	document.getElementById("modelClose").click();
+	var cName=["fleetNo", "subfleetNo", "ataSystemNo", "tailNo", "companyPartNo", "mfgPartNo"];
+	var radioId=["fleetRdio", "subFleetRdio", "ataRdio", "tailRdio", "cpnRdio", "mfgRdio"];
 	
-
+	
 	var filterName;
+	clearAll();
 	
 	for (var i = 0; i < filters.length; i++) {
 		var filter=filters[i].filterName;
@@ -1412,61 +1814,97 @@ function loadFilter(filterName){
 			document.getElementById("filterName").value=filterName
 			document.getElementById("fromDate").value=filters[i].fromDate;
 			document.getElementById("toDate").value=filters[i].toDate;
-			document.getElementById("sortBy").value=filters[i].sortBy
+			//document.getElementById("sortBy").value=filters[i].sortBy
+			
+			for(var j=0; j<cName.length; j++)
+				{
+				
+				   if(cName[j]==filters[i].sortBy)
+					   {
+					       document.getElementById(radioId[j]).checked=true;
+					       sortChecked=filters[i].sortBy;
+					   }
+				}
+			
+			
 			document.getElementById("installedUnit").checked=filters[i].filterBy.installedUnit;
-			document.getElementById("newUnit").checked=filters[i].filterBy.neweUnit;
-			document.getElementById("nonActiveUnit").checked=filters[i].filterBy.nonActiveUnit;
+			document.getElementById("newUnit").checked=filters[i].filterBy.newUnit;
+			document.getElementById("removedUnit").checked=filters[i].filterBy.removedUnit;
 			//document.getElementById("problemUnit").checked=filters[i].filterBy.problemUnit;
 		//	document.getElementById("overhauledUnit").checked=filters[i].filterBy.overhauledUnit;
-		
 		}
 	}
+	
+
+/*functionsort();*/
+
+	filterByStatus();
 	
 	
 }
 
-
-
-/* Load Recent Filter
-Author : Manwar Singh
- */
+ 
 
 function loadRecentFilter()
 {
 	
 	
+	
+	var cName=["fleetNo", "subfleetNo", "ataSystemNo", "tailNo", "companyPartNo", "mfgPartNo"];
+	var radioId=["fleetRdio", "subFleetRdio", "ataRdio", "tailRdio", "cpnRdio", "mfgRdio"];
+	var radioValue;
+	
 	$.ajax({
 		url: '/getFilters',             
 	}).done(function (filterList) {
 		var filters1=filterList
+		filters=filterList
 		
-				
+				////alert(filters1)
             i=filterList.length-1;
          
             document.getElementById("filterName").value=filters1[i].filterName;
 			document.getElementById("fromDate").value=filters1[i].fromDate;
 			document.getElementById("toDate").value=filters1[i].toDate ;
-			document.getElementById("sortBy").value=filters1[i].sortBy;
+			for(var j=0; j<cName.length; j++)
+			{
+			
+			   if(cName[j]==filters1[i].sortBy)
+				   {
+				       document.getElementById(radioId[j]).checked=true;
+				       radioValue=filters1[i].sortBy;
+				       sortChecked=filters1[i].sortBy;
+
+				  
+				   }
+			}
+			
 			document.getElementById("installedUnit").checked=filters1[i].filterBy.installedUnit;
 			document.getElementById("newUnit").checked=filters1[i].filterBy.neweUnit;
-			document.getElementById("nonActiveUnit").checked=filters1[i].filterBy.nonActiveUnit;
+			document.getElementById("removedUnit").checked=filters1[i].filterBy.removedUnit;
 			//document.getElementById("problemUnit").checked=filters1[i].filterBy.problemUnit;
 			//document.getElementById("overhauledUnit").checked=filters1[i].filterBy.overhauledUnit;
-			functionsort()
-         
+
+
+			
+			
+			functionFromDate();
          
 	});
 
+	
 
 }
 
 
-/* check uniqueness of filtername
-  Author : Manwar Singh
- */
+ 
 
 function isUniqueFilterName(filterName)
 {
+	
+	
+	
+	
 	for(i=0; i<filters.length; i++)
 		{
 		 if(filterName==filters[i].filterName)
@@ -1481,34 +1919,71 @@ function isUniqueFilterName(filterName)
 }
 
 
-/* Clear the all fileds of UnitFilter
- * 
- * Author : Manwar
- */
 
 function clearAll()
 {
-	
+	var submitValues = ["fleetNo", "subfleet", "ata", "tail", "company", "mfg"];
+	var btnValues = ["fleet", "subfleet", "ata", "tail", "company", "mfg"];
+	var  radioBtn= ["fleetRdio", "subFleetRdio", "tailRdio", "ataRdio", "cpnRdio", "mfgRdio"];
+	var makeEmpty=["filterName", "fromDate", "toDate", "fleet", "fleet1", "subFleet","subFleet1", "tail", "tail1","ataNo", "ataNo1", "cpnNo","cpnNo1", "mfgNo", "mfgNo1"];
+	var selectBox=["fleetNo", "subfleetNo", "ataSystemNo", "tailNo", "companyPartNo", "mfgPartNo"];
+	var selectValue=["fleetValue", "subfleetValue", "ataValue", "tailValue", "companyValue", "mfgValue"];
 	fleet = document.getElementById("fleet")
 	
-	document.getElementById("filterName").value=""
-	document.getElementById("fromDate").value=""
-	document.getElementById("toDate").value=""
-	document.getElementById("sortBy").value=null
+	for(var i=0;i<makeEmpty.length;i++){
+		document.getElementById(makeEmpty[i]).value=""
+	}
+	
 	document.getElementById("installedUnit").checked=false
 	document.getElementById("newUnit").checked=false
-	document.getElementById("nonActiveUnit").checked=false
-	document.getElementById("fleetNo").options.length=0
+	document.getElementById("removedUnit").checked=false
+
+	for(var i=0;i<selectBox.length;i++){
+	document.getElementById(selectBox[i]).options.length=0
+	document.getElementById(selectValue[i]).options.length=0
+	document.getElementById(selectValue[i]).disabled=false;
+}
+	
+	/*	
+ * document.getElementById("fleetNo").options.length=0
+	document.getElementById("fleetValue").options.length=0
 	document.getElementById("subfleetNo").options.length=0
+	document.getElementById("subfleetValue").options.length=0
 	document.getElementById("ataSystemNo").options.length=0
+	document.getElementById("ataValue").options.length=0
 	document.getElementById("tailNo").options.length=0
+	document.getElementById("tailValue").options.length=0
 	document.getElementById("companyPartNo").options.length=0
+	document.getElementById("companyValue").options.length=0
 	document.getElementById("mfgPartNo").options.length=0
-	document.getElementById("serialNo").options.length=0
+	document.getElementById("mfgValue").options.length=0*/
+	
+	
+	for(var i=0;i<radioBtn.length;i++){
+		document.getElementById(radioBtn[i]).disabled=false;
+		document.getElementById(radioBtn[i]).checked=false;
+		}
+	for(var i=0;i<submitValues.length;i++){
+		var temp;
+		temp=submitValues[i]+'Submit';
+		document.getElementById(temp).disabled=false;
 		
-	//clearSelectList(fleet)
-   // selectbox.innerHTML = "";
-	//document.getElementById("fleet").innerHTML="";
+		}
+	for(var i=0;i<btnValues.length;i++){
+		var temp;
+		temp=btnValues[i]+'Push';
+		document.getElementById(temp).disabled=false;
+		
+		}
+	for(var i=0;i<btnValues.length;i++){
+		var temp;
+		temp=btnValues[i]+'Clear';
+		document.getElementById(temp).disabled=false;
+		
+		}
+
+	 AllData=[];
+	 sortChecked=null;
 
 }
 function clearSelectList(list) {
@@ -1519,6 +1994,110 @@ function clearSelectList(list) {
         list.remove(i);
     }
 }
+
+function isValidDisplayReport()
+{
+	fromDate=document.getElementById("fromDate").value
+	toDate=document.getElementById("toDate").value
+	if(fromDate=='' || toDate=='')
+		{
+		   //////alert()
+		 display("Please enter the date range","error")
+		
+		}
+		
+    
+
+
+
+}
+
+
+
+
+ 
+
+function isValidSaveForm()
+{
+	
+   var errorMsg=""
+	   var msgType="error";
+   var filterName=document.getElementById("filterName").value
+   var fromDate=document.getElementById("fromDate").value
+   var toDate=document.getElementById("toDate").value
+   if(filterName=='')
+   {
+   errorMsg="Please enter filter Name"
+    display(errorMsg,msgType)
+	   
+    return false
+   }
+   else if(/\s/g.test(filterName))
+   	{
+		errorMsg="No spaces are allowed in filter name"
+			display(errorMsg,msgType)
+		return false
+   	}
+   
+   if(!isUniqueFilterName(filterName))
+	   { ////alert("HI I am unique")
+	   		errorMsg="Please choose different filter name. This name is already exist in database"
+	   		 display(errorMsg,msgType)
+		    return false
+	   }
+   if(fromDate=='')
+	   {
+	   		errorMsg="Please enter From date"
+	   		 display(errorMsg,msgType)
+		    return false
+	   }
+   if(toDate=='')
+   {
+   		errorMsg="Please enter To date"
+   		 display(errorMsg,msgType)
+	    return false
+   }
+return true
+
+}
+
+
+
+function display(msg,msgType)
+{
+	//////alert("in display"+msg)
+	
+
+	var modal = document.getElementById('msgModal');
+	document.getElementById(msgType).innerHTML=msg;
+	
+	//msg.innerHTML="Filter Saved Successfully"
+	
+	// Get the <span> element that closes the modal
+	var span = document.getElementById("close");
+	    modal.style.display = "block";
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function() {
+		document.getElementById(msgType).innerHTML=''
+	    modal.style.display = "none";
+	}
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+	    if (event.target == modal) {
+	    	document.getElementById(msgType).innerHTML=''
+	        modal.style.display = "none";
+	    }
+	}
+	
+}
+
+
+
+
+
+
+
+
 
 
 

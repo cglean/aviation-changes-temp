@@ -64,14 +64,72 @@ $( document ).ready(function() {
 	});
 
 
+
 $( document ).ready(function() {
-	  $('#Serial').keyup(function(){
+	  $('#fleet1').keyup(function(){
 	   var valThis = $(this).val().toLowerCase();
-	    $('.sort_Serial>option').each(function(){
+	    $('.sort_fleet1>option').each(function(){
 	     var text = $(this).text().toLowerCase();
 	        (text.indexOf(valThis) == 0) ? $(this).show() : $(this).hide();            
 	   });
 	  });
 	});
+
+
+	$( document ).ready(function() {
+		  $('#subFleet1').keyup(function(){
+		   var valThis = $(this).val().toLowerCase();
+		    $('.sort_subFleet1>option').each(function(){
+		     var text = $(this).text().toLowerCase();
+		        (text.indexOf(valThis) == 0) ? $(this).show() : $(this).hide();            
+		   });
+		  });
+		});
+
+
+	$( document ).ready(function() {
+		  $('#tail1').keyup(function(){
+		   var valThis = $(this).val().toLowerCase();
+		    $('.sort_tail1>option').each(function(){
+		     var text = $(this).text().toLowerCase();
+		        (text.indexOf(valThis) == 0) ? $(this).show() : $(this).hide();            
+		   });
+		  });
+		});
+
+
+	$( document ).ready(function() {
+		  $('#cpnNo1').keyup(function(){
+		   var valThis = $(this).val().toLowerCase();
+		    $('.sort_cpnNo1>option').each(function(){
+		     var text = $(this).text().toLowerCase();
+		        (text.indexOf(valThis) == 0) ? $(this).show() : $(this).hide();            
+		   });
+		  });
+		});
+
+
+	$( document ).ready(function() {
+		  $('#mfgNo1').keyup(function(){
+		   var valThis = $(this).val().toLowerCase();
+		    $('.sort_mfgNo1>option').each(function(){
+		     var text = $(this).text().toLowerCase();
+		        (text.indexOf(valThis) == 0) ? $(this).show() : $(this).hide();            
+		   });
+		  });
+		});
+
+
+	$( document ).ready(function() {
+		  $('#ataNo1').keyup(function(){
+		   var valThis = $(this).val().toLowerCase();
+		    $('.sort_ataNo1>option').each(function(){
+		     var text = $(this).text().toLowerCase();
+		        (text.indexOf(valThis) == 0) ? $(this).show() : $(this).hide();            
+		   });
+		  });
+		});
+
+
 
 
