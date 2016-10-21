@@ -172,13 +172,13 @@ padding-top: 0.5%;
 		<input type="button" value="Statistics" class="statbtn list-clear-btn">
 		</div>
 		
-		<label class="right_label">Aircraft Component Removal Report</label></center>
+		<label class="right_label">Component Removal History</label></center>
 	<div class="main_left">
 		
 		<div class="left_p1">
-					<div class="checkbox filter-checkbox form-group filter_left2_p2"> 
+					<!-- <div class="checkbox filter-checkbox form-group filter_left2_p2"> 
 				 <label id="tab-caption" style="border-bottom: 1px solid;width: 100%;border-bottom-color: black;">Sort</label> 
-				<!-- <input type="string" style="width: 70px;" id="sort" value="Sort"> -->
+				<input type="string" style="width: 70px;" id="sort" value="Sort">
 			<table class="tab_change">
 				
 				<tr>
@@ -193,7 +193,7 @@ padding-top: 0.5%;
 				<td><label><input type="checkbox" name="Weekly">Weekly</label></td>
 			   </tr>
 				</table>
-			</div>
+			</div> -->
 		<hr id="date_line">	
 		<div class="form-group date-range ">
 			<!-- <center><label for="dateRange" class="label_date" style="color: brown;">Extract Date</label></center> -->
@@ -230,35 +230,132 @@ padding-top: 0.5%;
 			</div>
 			
 		</div>
+		
+		<!-- Installastion period bar Start -->
+		
+			<hr id="installationPeriodLine">
+			<div>
+				<div class="checkbox filter-checkbox form-group filter_left2_p2">
+					<table>
+						<tr>
+							<td style="padding-left: 8px;padding-top: 3px;"><input type="radio" name="instperbar" checked="true" /></td>
+					
+							<td><label id="tab-caption" style="border-bottom: 1px solid;width: 100%;border-bottom-color: black; padding-left: 4px !important;padding-bottom: 0px !important;">Installation Period Bar</label></td>
+						</tr>
+ 					</table>
+ 				</div>
+				<table style="margin-left:10px;">
+					<tr>
+						<td><label>Active ACN</label></td>
+						<td><div class="button" style="background-color:Blue;"/></td>
+					</tr>
+					<tr>
+						<td><label>Inactive ACN</label></td>
+					
+						<td><div class="button" style="background-color:white;"></td>
+					</tr>
+					<tr>
+						<td><label>Still Installed Box</label></td>
+					
+						<td><div class="button" style="background-color:Pink;"></td>
+					</tr>
+				</table>
+			</div>
+		
+		<!-- Installastion period bar END -->
+		
+		
+		<!-- Removal period bar Start -->
+		
+		<hr id="removalPeriodLine">			
 		<div>
-		<hr id="date_line">
+			
+			<div class="checkbox filter-checkbox form-group filter_left2_p2"> 
+<!-- <label id="tab-caption" style="border-bottom: 1px solid;width: 100%;border-bottom-color: black;">Removal Period Bar</label>  -->
+				<table>
+					<tr>
+						<td style="padding-left: 8px;padding-top: 3px;"><input type="radio" name="remperbar" /></td>
+					
+						<td><label id="tab-caption" style="border-bottom: 1px solid;width: 100%;border-bottom-color: black; padding-left: 4px !important;padding-bottom: 0px !important;">Removal Period Bar</label></td>
+					</tr>
+				 </table>
+			</div>
+			<table style="margin-left:10px;">
+				<tr>
+					<td><label>Scheduled</label></td>
+					<td><div class="triangle" ></div></td>
+				</tr>
+				<tr>
+					<td><label>Unscheduled</label></td>
+					
+					<td style="padding-left:6px"><div class="ycircle button" ></div></td>
+				</tr>
+				<tr>
+					<td><label>Others</label></td>
+					
+					<td style="padding-left:6px"><div class="bcircle button" ></div></td>
+				</tr>
+				</table>
+
+
+		</div>
+			
+		
+		<!-- Removal period bar END -->
+		
+		<!-- Analysis By Start -->
+		<hr id="analysisByLine">					
+		<div>
+			<div class="checkbox filter-checkbox form-group filter_left2_p2"> 
+				<label id="tab-caption" style="border-bottom: 1px solid;width: 95%;border-bottom-color: black;">Analysis By</label> 
+			</div>
+			<table style="margin-left:10px;">
+				<tr>
+					<td><input type="radio" name="filter"></td>
+					<td><label>Best First</label></td>
+				</tr>
+				<tr>
+					<td><input type="radio" name="filter"></td>
+					<td><label>Worst First</label></td>
+				</tr>
+ 			</table>
+		</div>
+	
+		
+		
+		<!-- Analysis By END -->
+		
+		
+		
+		<div>
+		<hr id="unitByLine">
 		<!-- <input type="string" style="width: 70px;" id="unit" value="Units by"> -->
-		<label id="tab-caption" style="border-bottom: 1px solid;width: 100%;border-bottom-color: black;">Units by</label> 
+		<label id="tab-caption" style="border-bottom: 1px solid;width: 95%;border-bottom-color: black;">Units by</label> 
 		<div class="checkbox filter-checkbox form-group filter_left2_p2">
 			<table class="tab_change">
 				
 				<tr>
 					<td><label><input type="checkbox"
-							name="Yearly">Fleet</label></td>
+							name="fleet">Fleet</label></td>
 				</tr>
 
 				<tr>
-				<td><label><input type="checkbox" name="Monthly">Sub Fleet</label></td>
+				<td><label><input type="checkbox" name="subFleetCheckBox">Sub Fleet</label></td>
 				</tr>
 				<tr>
-				<td><label><input type="checkbox" name="Weekly">Aircraft Numbers</label></td>
+				<td><label><input type="checkbox" name="aircraftNumbersCheckBox">Aircraft Numbers</label></td>
 			   </tr>
 			   <tr>
-				<td><label><input type="checkbox" name="Weekly">CPN</label></td>
+				<td><label><input type="checkbox" name="cpnCheckBox">CPN</label></td>
 			   </tr>
 			   <tr>
-				<td><label><input type="checkbox" name="Weekly">MPN</label></td>
+				<td><label><input type="checkbox" name="mpnCheckBox">MPN</label></td>
 			   </tr>
 			   <tr>
-				<td><label><input type="checkbox" name="Weekly">ATA Codes</label></td>
+				<td><label><input type="checkbox" name="ataCodesCheckBox">ATA Codes</label></td>
 			   </tr>
 			   <tr>
-				<td><label><input type="checkbox" name="Weekly">Component Serial Numbers</label></td>
+				<td><label><input type="checkbox" name="cpnSerialNumberCheckBox">Component Serial Numbers</label></td>
 			   </tr>
 				</table>
 			</div>
@@ -268,20 +365,20 @@ padding-top: 0.5%;
 	
 	</div>
 </form>
-<div class="main_left" style="margin-left: 11%;">
-<div class="left_p1">
-<div class="checkbox filter-checkbox form-group filter_left2_p2">
- <table>
-	<tr>
+<!-- <div class="main_left" style="margin-left: 11%;">
+	<div class="left_p1">
+		<div class="checkbox filter-checkbox form-group filter_left2_p2">
+ 			<table>
+				<tr>
 					<td style="padding-left: 8px;padding-top: 3px;"><input type="radio" name="instperbar" checked="true" /></td>
 					
 					<td><label id="tab-caption" style="border-bottom: 1px solid;width: 100%;border-bottom-color: black; padding-left: 4px !important;padding-bottom: 0px !important;">Installation Period Bar</label></td>
 				</tr>
- </table>
+ 			</table>
  
-</div>
+		</div>
 
-<table style="margin-left:10px;">
+		<table style="margin-left:10px;">
 
 				
 				<tr>
@@ -299,13 +396,14 @@ padding-top: 0.5%;
 					
 					<td><div class="button" style="background-color:Pink;"></td>
 				</tr>
-				</table>
+		</table>
 </div>
 </div>
-<div class="main_left">
+ -->
+<!-- <div class="main_left">
 <div class="left_p1" style="height: 154px;">
 <div class="checkbox filter-checkbox form-group filter_left2_p2"> 
-<!-- <label id="tab-caption" style="border-bottom: 1px solid;width: 100%;border-bottom-color: black;">Removal Period Bar</label>  -->
+<label id="tab-caption" style="border-bottom: 1px solid;width: 100%;border-bottom-color: black;">Removal Period Bar</label> 
 <table>
 	<tr>
 					<td style="padding-left: 8px;padding-top: 3px;"><input type="radio" name="remperbar" /></td>
@@ -336,7 +434,9 @@ padding-top: 0.5%;
 
 </div>
 </div>
-<div class="main_left">
+ -->
+ 
+ <!-- <div class="main_left">
 <div class="left_p1">
 <div class="checkbox filter-checkbox form-group filter_left2_p2"> 
 <label id="tab-caption" style="border-bottom: 1px solid;width: 100%;border-bottom-color: black;">Analysis By</label> 
@@ -360,20 +460,21 @@ padding-top: 0.5%;
 				</table>
 
 </div>
-</div>
-<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+</div> -->
+
+<br/><!-- <br/><br/><br/><br/><br/><br/><br/><br/> -->
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
   <script src="http://visjs.org/dist/vis.js"></script>
-  <link href="http://visjs.org/dist/vis.css" rel="stylesheet" type="text/css" />
+  <link href="http://visjs.org/dist/vis.css" rel="stylesheet" type="text/css" /> 
   <!-- <script src="http://visjs.org/examples/googleAnalytics.js"></script> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 		<div id="visualization">
 	
 	</div>
 
-</div>
-</div>
+
+
 <script type="text/javascript">
 // Instantiate our timeline object.
 
@@ -442,17 +543,23 @@ $(document).ready(function() {
     });
 	
     var groups = new vis.DataSet([
-	{id: 'serial1', content:'serial1',subgroupOrder: function (a,b) {return a.subgroupOrder - b.subgroupOrder;}},
-	{id: 'serial2', content:'serial2',subgroupOrder: function (a,b) {return a.subgroupOrder - b.subgroupOrder;}},
-	{id: 'serial3', content:'serial3',subgroupOrder: function (a,b) {return a.subgroupOrder - b.subgroupOrder;}},
-	{id: 'serial4', content:'serial4',subgroupOrder: function (a,b) {return a.subgroupOrder - b.subgroupOrder;}},
-	{id: 'serial5', content:'serial5',subgroupOrder: function (a,b) {return a.subgroupOrder - b.subgroupOrder;}},
-	{id: 'serial6', content:'serial6',subgroupOrder: function (a,b) {return a.subgroupOrder - b.subgroupOrder;}},
-	{id: 'serial7', content:'serial7',subgroupOrder: function (a,b) {return a.subgroupOrder - b.subgroupOrder;}},
-	{id: 'serial8', content:'serial8',subgroupOrder: function (a,b) {return a.subgroupOrder - b.subgroupOrder;}},
-	{id: 'serial9', content:'serial9',subgroupOrder: function (a,b) {return a.subgroupOrder - b.subgroupOrder;}},
-    {id: 'serial10', content:'serial10',subgroupOrder: function (a,b) {return a.subgroupOrder - b.subgroupOrder;} // this group has no subgroups but this would be the other method to do the sorting.
-    }]);
+	{id: 'serial1', content:'CPN1',subgroupOrder: function (a,b) {return a.subgroupOrder - b.subgroupOrder;}},
+	{id: 'serial2', content:'CPN2',subgroupOrder: function (a,b) {return a.subgroupOrder - b.subgroupOrder;}},
+	{id: 'serial3', content:'CPN3',subgroupOrder: function (a,b) {return a.subgroupOrder - b.subgroupOrder;}},
+	{id: 'serial4', content:'CPN4',subgroupOrder: function (a,b) {return a.subgroupOrder - b.subgroupOrder;}},
+	{id: 'serial5', content:'CPN5',subgroupOrder: function (a,b) {return a.subgroupOrder - b.subgroupOrder;}},
+	{id: 'serial6', content:'CPN6',subgroupOrder: function (a,b) {return a.subgroupOrder - b.subgroupOrder;}},
+	{id: 'serial7', content:'CPN7',subgroupOrder: function (a,b) {return a.subgroupOrder - b.subgroupOrder;}},
+	{id: 'serial8', content:'CPN8',subgroupOrder: function (a,b) {return a.subgroupOrder - b.subgroupOrder;}},
+	{id: 'serial9', content:'CPN9',subgroupOrder: function (a,b) {return a.subgroupOrder - b.subgroupOrder;}},
+    {id: 'serial10', content:'CPN10',subgroupOrder: function (a,b) {return a.subgroupOrder - b.subgroupOrder;}},
+    {id: 'serial11', content:'CPN11',subgroupOrder: function (a,b) {return a.subgroupOrder - b.subgroupOrder;}},
+	{id: 'serial12', content:'CPN12',subgroupOrder: function (a,b) {return a.subgroupOrder - b.subgroupOrder;}},
+	{id: 'serial13', content:'CPN13',subgroupOrder: function (a,b) {return a.subgroupOrder - b.subgroupOrder;}},
+	{id: 'serial14', content:'CPN14',subgroupOrder: function (a,b) {return a.subgroupOrder - b.subgroupOrder;}},
+	{id: 'serial15', content:'CPN15',subgroupOrder: function (a,b) {return a.subgroupOrder - b.subgroupOrder;}},
+	// this group has no subgroups but this would be the other method to do the sorting.
+    ]);
     // add items to the DataSet
     items.add([
         //{id: 'A',start: '2014-01-20', end: '2014-01-22', type: 'background', group:'foo'},
@@ -490,7 +597,25 @@ $(document).ready(function() {
 		//{id: 19, content: '', start: '2016-02-20', end: '2016-03-27',type: 'background', className: 'negative',group:'serial10', subgroup:'sg_2', subgroupOrder:2},
 		//{id: 20, content: '', start: '2016-02-20', end: '2017-03-27',group:'serial10', subgroup:'sg_2', subgroupOrder:2},
 
-
+		{id: 35, content: '', start: '2015-01-01', end: '2015-03-27',group:'serial10', subgroup:'sg_2', subgroupOrder:1},
+		{id: 36, content: '', start: '2015-06-20', end: '2016-11-27',group:'serial10', subgroup:'sg_2', subgroupOrder:2},
+		{id: 37, content: '', start: '2017-02-20', end: '2017-06-27',group:'serial10', subgroup:'sg_2', subgroupOrder:3},
+		
+		{id: 30, content: '', start: '2015-01-01', end: '2016-07-27',group:'serial11', subgroup:'sg_2', subgroupOrder:2},
+		{id: 31, content: '', start: '2016-08-20', end: '2016-12-27',group:'serial11', subgroup:'sg_2', subgroupOrder:2},
+		{id: 32, content: '', start: '2017-02-20', end: '2018-03-27',group:'serial11', subgroup:'sg_2', subgroupOrder:2},
+		{id: 33, content: '', start: '2015-01-01', end: '2016-03-27',group:'serial12', subgroup:'sg_2', subgroupOrder:2},
+		{id: 34, content: '', start: '2017-02-20', end: '2018-03-27',group:'serial12', subgroup:'sg_2', subgroupOrder:2},
+		
+		{id: 38, content: '', start: '2015-01-01', end: '2017-03-27',group:'serial13', subgroup:'sg_2', subgroupOrder:2},
+		{id: 39, content: '', start: '2018-02-20', end: '2018-03-27',group:'serial13', subgroup:'sg_2', subgroupOrder:2},
+		
+		{id: 40, content: '', start: '2016-09-20', end: '2016-09-20',type: 'background', className: 'negative',group:'serial7', subgroup:'sg_2', subgroupOrder:2},
+		{id: 41, content: '', start: '2017-02-20', end: '2018-03-27',group:'serial14', subgroup:'sg_2', subgroupOrder:2},
+		{id: 42, content: '', start: '2015-01-01', end: '2017-03-27',group:'serial14', subgroup:'sg_2', subgroupOrder:2},
+		
+        {id: 43, content: '', start: '2015-01-01', end: '2016-03-22',group:'serial15'},
+ 		{id: 44, content: '', start: '2016-04-01', end: '2016-04-01',type: 'background', className: 'negative',group:'serial15'},
 
 
 

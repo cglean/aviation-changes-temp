@@ -5,9 +5,9 @@ server:
 spring:
   profiles: local-mssql
   datasource:
-    url: jdbc:mysql://us-cdbr-iron-east-04.cleardb.net/ad_f33ba6ada231ff9?user=ba97973a969749&password=99ad927b
-    username: ba97973a969749
-    password: 99ad927b
+    url: jdbc:mysql://us-cdbr-iron-east-04.cleardb.net/ad_66a66cdd04b38e1?user=b767ff937a70e2&password=15d3196a
+    username: b767ff937a70e2
+    password: 15d3196a
     port: 3306
   
 ---
@@ -23,5 +23,5 @@ spring:
 spring:
   datasource:
     url:
-      mysql://ba97973a969749:99ad927b@us-cdbr-iron-east-04.cleardb.net:3306/ad_f33ba6ada231ff9?reconnect=true
+      mysql://b767ff937a70e2:15d3196a@us-cdbr-iron-east-04.cleardb.net:3306/ad_66a66cdd04b38e1?reconnect=true
 

@@ -17,12 +17,13 @@
 <!-- Include Required Prerequisites -->
 <script type="text/javascript" src="http://cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
  <script type="text/javascript" src="http://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<!-- <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/bootstrap/latest/css/bootstrap.css" /> -->
- 
+<link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/bootstrap/latest/css/bootstrap.css" />
+
+
 <!-- Include Date Range Picker -->
-<!-- <script type="text/javascript" src="http://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script> -->
-<!-- <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" /> -->
-<!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
+<script type="text/javascript" src="http://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+ 
  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -195,32 +196,14 @@ padding-top: 0.5%;
 		
 		<div class="left_p1">
 		
-					<div class="checkbox filter-checkbox form-group filter_left2_p2"> 
-				 <label id="tab-caption" style="border-bottom: 1px solid;width: 100%;border-bottom-color: black;">Sort</label> 
-				<!-- <input type="string" style="width: 70px;" id="sort" value="Sort"> -->
-			<table class="tab_change">
 				
-				<tr>
-					<td><label><input type="checkbox"
-							name="Yearly">Yearly</label></td>
-				</tr>
-
-				<tr>
-				<td><label><input type="checkbox" name="Monthly">Monthly</label></td>
-				</tr>
-				<tr>
-				<td><label><input type="checkbox" name="Weekly">Weekly</label></td>
-			   </tr>
-				</table>
-			</div>
-		<hr id="date_line">	
 		<div class="form-group date-range ">
 			<!-- <center><label for="dateRange" class="label_date" style="color: brown;">Extract Date</label></center> -->
 			<div class="date_range_select ">
 			<label for="fromDate" class="label_date" >Extract Date</label> 
-			<input type="date"	class="form-control" style="margin-bottom: 4px;" id="fromDate" />
+			<input type="date"	style="width:178px;"class="form-control" style="margin-bottom: 4px;" id="fromDate" />
 			<label for="fromDate" class="label_date" >Date Range</label> 
-			<input type="text" name="datefilter" value="" />
+			<input type="text" name="datefilter" value="" placeholder="mm/dd/yyyy - mm/dd/yyyy" />
 					<script type="text/javascript">
 						$(function() {
 
@@ -247,24 +230,7 @@ padding-top: 0.5%;
 		<div>
 		<hr id="date_line">
 		<!-- <input type="string" style="width: 70px;" id="unit" value="Units by"> -->
-		<label id="tab-caption" style="border-bottom: 1px solid;width: 100%;border-bottom-color: black;">Units by</label> 
-		<div class="checkbox filter-checkbox form-group filter_left2_p2">
-			<table class="tab_change">
-				
-				<tr>
-					<td><label><input type="checkbox"
-							name="Yearly">Yearly</label></td>
-				</tr>
-
-				<tr>
-				<td><label><input type="checkbox" name="Monthly">Monthly</label></td>
-				</tr>
-				<tr>
-				<td><label><input type="checkbox" name="Weekly">Weekly</label></td>
-			   </tr>
-				</table>
-			</div>
-			<hr id="date_line">	
+		
 		<div>
 		<button type="button" style="height: 54px;width: 140px;margin-left: 28px;margin-top: 25px;margin-bottom: 13px;" onclick="window.open('Unit_Filter.html','_self')">Select Component for Analysis</button>
 		</div>
@@ -292,18 +258,20 @@ padding-top: 0.5%;
 	  
         // Some raw data (not necessarily accurate)
         var datam = google.visualization.arrayToDataTable([
-         ['Month', 'USA', 'Average'],
-         ['2004/05',998,500],
-         ['2005/06',1268,250],
-         ['2006/07',807,390],
-         ['2007/08',968,609],
-         ['2008/09',1026,180]
+       
+	  
+	   ['Month', 'Stat1', 'Stat2'],
+         ['2004/05',2,1],
+         ['2005/06',4,2],
+         ['2006/07',6,2],
+         ['2007/08',8,4],
+         ['2008/09',10,1]
       ]);
 
     var optionsm = {
-      title : 'Monthly Coffee Production by Country',
-      vAxis: {title: 'Cups'},
-      hAxis: {title: 'Month'},
+      title : 'Top 10 worst performing Serial Numbers',
+      vAxis: {title: 'Number of removals'},
+      hAxis: {title: 'Company serial number'},
 	   width: 600,
         height: 400,
       seriesType: 'bars',
@@ -325,18 +293,21 @@ padding-top: 0.5%;
       function drawVisualization2() {
         // Some raw data (not necessarily accurate)
         var datam = google.visualization.arrayToDataTable([
-         ['Month', 'USA','Canada', 'Average'],
-         ['2004/05',998,0,2],
-         ['2005/06',1269,0,682],
-         ['2006/07',0,807,400],
-         ['2007/08',0,968,320.4],
-         ['2008/09',0,1026,100.6]
+       
+	  
+	    ['Month', 'Stat1','Stat2', 'stat3'],
+         ['2004/05',2,0,2],
+         ['2005/06',4,0,1],
+         ['2006/07',0,2,5],
+         ['2007/08',0,3,4],
+         ['2008/09',0,4,6]
       ]);
 
+
     var optionsm = {
-      title : 'Monthly Coffee Production by Country',
-      vAxis: {title: 'country'},
-      hAxis: {title: 'Month'},
+      title : 'Top 10 worst performing ATAs',
+      vAxis: {title: 'Number of removals'},
+      hAxis: {title: 'ATA'},
 	   width: 600,
         height: 400,
       seriesType: 'bars',
@@ -355,12 +326,15 @@ padding-top: 0.5%;
  
  function drawStacked() {
      var data = google.visualization.arrayToDataTable([
-        ['Year', 'Stat1', 'Stat2', { role: 'annotation' } ],
-        ['2010', 20, 24, ''],
-        ['2020', 16, 22, ''],
-        ['2030', 28, 19, '']
+        ['hrs', 'Stat1', 'Stat2', { role: 'annotation' } ],
+        ['5', 20, 24, ''],
+        ['10', 16, 22, ''],
+        ['15', 28, 19, '']
       ]);
       var options = {
+	    title : 'Top 10 worst performing Tails',
+		vAxis: {title: 'time in flight hours'},
+      hAxis: {title: 'Aircraft numbers'},
         width: 600,
         height: 400,
 		seriesType: 'bars',
@@ -382,14 +356,17 @@ padding-top: 0.5%;
  function drawVisualizations() {
         // Some raw data (not necessarily accurate)
        var datas = google.visualization.arrayToDataTable([
-        ['Genre', 'Fantasy & Sci Fi', 'Romance', 'Mystery/Crime', 'General',
-         'Western', 'Literature', { role: 'annotation' } ],
+        ['Stat1', 'Stat2', 'Stat3', 'Stat4', 'Stat5',
+         'Stat6', 'Stat7', { role: 'annotation' } ],
         ['2010', 10, 24, 20, 32, 18, 5, ''],
         ['2020', 16, 22, 23, 30, 16, 9, ''],
         ['2030', 28, 19, 29, 30, 12, 13, '']
       ]);
 
       var optionss = {
+	    title : 'Top 10 worst performing CPNs',
+		vAxis: {title: 'Number of removals'},
+      hAxis: {title: 'CPNs'},
         width: 600,
         height: 400,
 		seriesType: 'bars',
