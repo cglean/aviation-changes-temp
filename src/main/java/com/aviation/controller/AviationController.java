@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.aviation.entity.Component;
 import com.aviation.entity.Filter;
 import com.aviation.service.AviationService;
+import static com.aviation.util.PathConstants.*;
 
 @RestController
 public class AviationController {
@@ -24,11 +25,11 @@ public class AviationController {
 	@Autowired
 	private AviationService aviationService;
 
-	@RequestMapping(value = "/loadComponent/{startDate}/{endDate}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = LOAD_COMPONENT_BY_START_END_DATE, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Component> loadComponentData(@PathVariable final String startDate, @PathVariable final String endDate)
 			throws ParseException {
 
-		final String pattern = "YYYY-MM-DD";
+		final String pattern = DATEFORMAT;
 		Date sDate = null;
 		Date eDate = null;
 		try {
@@ -40,27 +41,24 @@ public class AviationController {
 		return aviationService.getComponent(sDate, eDate);
 	}
 
-	@RequestMapping(value = "/saveFilter", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = SAVEFILTER, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public void saveFilter(@RequestBody final Filter filter) throws ParseException {
 		aviationService.saveFilter(filter);
 	}
 
-	@RequestMapping(value = "/saveAsDefaultFilter", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = SAVE_DEFUALT_FILTER, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public void saveAsDefaultFilter(@RequestBody Filter filter) throws ParseException {
 		aviationService.saveAsDefaultFilter(filter);
 	}
 
-	@RequestMapping(value = "/getFilters", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = GET_FILTERS, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public List<Filter> getFilters() {
-
 		return aviationService.getFilters();
-
 	}
 
-	@RequestMapping(value = "/getDefaultFilter", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = GET_DEFAULT_FILTER, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Filter getDefaultFilter() {
 		return aviationService.getDefaultFilter();
 	}
-
 }

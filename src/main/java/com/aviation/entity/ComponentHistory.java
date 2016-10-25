@@ -11,30 +11,27 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
-
-
 @Entity
-@Table(name="component_history")
+@Table(name = "component_history")
 public class ComponentHistory {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="historyID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "historyID")
 	private Long historyID;
-	
-	@Column(name="componentID")
+
+	@Column(name = "componentID")
 	private Long componentID;
-	
-	@Column(name="status")
+
+	@Column(name = "status")
 	private String status;
-	
-	@Column(name="fromDate")
+
+	@Column(name = "fromDate")
 	@Temporal(TemporalType.DATE)
 	private Date fromDate;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="toDate")
+	@Column(name = "toDate")
 	private Date toDate;
 
 	public Long getHistoryID() {

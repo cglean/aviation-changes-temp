@@ -8,36 +8,27 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
-
 import org.hibernate.annotations.Type;
 
-
-
-
-
 @Entity
-@Table(name="filter_by")
-public class FilterBy implements Serializable{
-	
-	
+@Table(name = "filter_by")
+public class FilterBy implements Serializable {
+
 	private static final long serialVersionUID = 8962186185912836733L;
 
-	
-	
-	@Id 
-	@GeneratedValue(strategy=GenerationType.AUTO)
-    private Long filterID;
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long filterID;
+
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	private boolean installedUnit;
-	
+
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	private boolean newUnit;
-	
+
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	private boolean removedUnit;
-	
+
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	private boolean overhauledUnit;
 
@@ -80,7 +71,5 @@ public class FilterBy implements Serializable{
 	public void setOverhauledUnit(boolean overhauledUnit) {
 		this.overhauledUnit = overhauledUnit;
 	}
-	
-	
-	
+
 }

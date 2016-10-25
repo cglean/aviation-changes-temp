@@ -18,45 +18,38 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Type;
 
-
-
-
-
-
-
 @Entity
-@Table(name="filter")
+@Table(name = "filter")
 public class Filter implements Serializable {
-	
 
 	private static final long serialVersionUID = 334665167725503216L;
 
 	@Id
-	@Column(name="filterID")
+	@Column(name = "filterID")
 	private Long filterID;
-	
+
 	@NotNull
-	@Column(name="filterName",unique=true)
+	@Column(name = "filterName", unique = true)
 	private String filterName;
-	
+
 	@NotNull
-	@Column(name="toDate")
+	@Column(name = "toDate")
 	@Temporal(TemporalType.DATE)
 	private Date toDate;
-	
+
 	@NotNull
-	@Column(name="fromDate")
+	@Column(name = "fromDate")
 	@Temporal(TemporalType.DATE)
 	private Date fromDate;
-	
-	@Column(name="sortBy")
+
+	@Column(name = "sortBy")
 	private String sortBy;
-	
+
 	@Type(type = "org.hibernate.type.NumericBooleanType")
 	private boolean defaultFilter;
-	
+
 	@MapsId
-	 @JoinColumn(name = "filterID")
+	@JoinColumn(name = "filterID")
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private FilterBy filterBy;
 
@@ -115,7 +108,5 @@ public class Filter implements Serializable {
 	public void setDefaultFilter(boolean defaultFilter) {
 		this.defaultFilter = defaultFilter;
 	}
-	
-	
 
 }

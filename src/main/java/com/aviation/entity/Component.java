@@ -11,52 +11,47 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
-
 @Entity
-@Table(name="component")
+@Table(name = "component")
 public class Component {
 
-	
 	@Id
-	@Column(name="componentID")
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "componentID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long componentID;
-	
-	@Column(unique=true)
+
+	@Column(unique = true)
 	private String description;
-	
+
 	private String cmpySerialNo;
-	
+
 	private String mnfgSerialNo;
-	
+
 	private String classification;
-	
-	
-	@Column(name="fleetNo")
+
+	@Column(name = "fleetNo")
 	private String fleetNo;
-	
-	@Column(name="subfleetNo")
+
+	@Column(name = "subfleetNo")
 	private String subfleetNo;
-	
-	@Column(name="ataSystemNo")
+
+	@Column(name = "ataSystemNo")
 	private String ataSystemNo;
-	
-	@Column(name="tailNo")
+
+	@Column(name = "tailNo")
 	private String tailNo;
-	
-	@Column(name="companyPartNo")
+
+	@Column(name = "companyPartNo")
 	private String companyPartNo;
-	
-	@Column(name="mfgPartNo")
+
+	@Column(name = "mfgPartNo")
 	private String mfgPartNo;
-	
-	
-	@Column(name="statusUpdatedDate")
+
+	@Column(name = "statusUpdatedDate")
 	@Temporal(TemporalType.DATE)
 	private Date statusUpdatedDate;
-	
-	@Column(name="status")
+
+	@Column(name = "status")
 	private String status;
 
 	public Long getComponentID() {
@@ -162,8 +157,5 @@ public class Component {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
-	
-	
 
 }
