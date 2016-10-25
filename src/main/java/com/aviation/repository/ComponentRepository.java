@@ -10,13 +10,9 @@ import org.springframework.data.repository.query.Param;
 
 import com.aviation.entity.Component;
 
-
-
-
-
 public interface ComponentRepository extends CrudRepository<Component, Serializable>{
 
-	@Query("SELECT  comp as comp FROM Component comp where comp.statusUpdatedDate between :fromDate and :toDate")
+	@Query("SELECT comp as comp FROM Component comp where comp.statusUpdatedDate between :fromDate and :toDate")
 	public List<Component> getComponent(@Param("fromDate")final Date fromDate, @Param("toDate")final Date toDate);
 	
 }

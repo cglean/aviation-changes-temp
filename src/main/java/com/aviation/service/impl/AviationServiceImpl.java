@@ -1,6 +1,5 @@
 package com.aviation.service.impl;
 
-
 import java.util.Date;
 import java.util.List;
 
@@ -17,75 +16,62 @@ import com.aviation.repository.ComponentRepository;
 import com.aviation.repository.FilterRepository;
 import com.aviation.service.AviationService;
 
-
-
-
 @Service
-public class AviationServiceImpl implements AviationService{
+public class AviationServiceImpl implements AviationService {
 
 	@Autowired
 	private ComponentRepository compRepository;
-	
-	@Autowired
-	private ComponentHistoryRepository compHisRepository;
-	
+
 	@Autowired
 	private FilterRepository filterRepository;
-	
-		
-	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
-	public void persistFillter(Filter filter) {
-		filterRepository.save(filter);	
-	}
 
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public void persistFillter(Filter filter) {
+		filterRepository.save(filter);
+	}
 
 	@Override
-	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public List<Component> getComponent(Date fromDate, Date toDate) {
 		final List<Component> component = compRepository.getComponent(fromDate, toDate);
-		
+
 		return component;
 	}
-	
-	
-	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void saveFilter(Filter filter) {
-		filterRepository.save(filter);	
+		filterRepository.save(filter);
 	}
-	
-	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void saveAsDefaultFilter(Filter filter) {
 		Filter defaultFilter = getDefaultFilter();
-		if(defaultFilter!=null){
+		if (defaultFilter != null) {
 			defaultFilter.setDefaultFilter(false);
 			filterRepository.save(defaultFilter);
-			
+
 		}
-		
-			filter.setDefaultFilter(true);
-			filterRepository.save(filter);	
-		
-		
+
+		filter.setDefaultFilter(true);
+		filterRepository.save(filter);
+
 	}
-	
-	
-	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public List<Filter> getFilters() {
-		return filterRepository.getFilters();	
+		return filterRepository.getFilters();
 	}
-	
-	
-	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Filter getDefaultFilter() {
-		return filterRepository.getDefaultFilter();	
+		return filterRepository.getDefaultFilter();
 	}
-	
-	
-	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Filter loadRecentSavedFilter() {
-		
+
 		Long maxVal = filterRepository.loadRecentSavedFilter();
 		return null;
 	}
-	
+
 }

@@ -28,7 +28,7 @@ public class AviationController {
 	public List<Component> loadComponentData(@PathVariable final String startDate, @PathVariable final String endDate)
 			throws ParseException {
 
-		String pattern = "YYYY-MM-DD";
+		final String pattern = "YYYY-MM-DD";
 		Date sDate = null;
 		Date eDate = null;
 		try {
@@ -41,7 +41,7 @@ public class AviationController {
 	}
 
 	@RequestMapping(value = "/saveFilter", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public void saveFilter(@RequestBody Filter filter) throws ParseException {
+	public void saveFilter(@RequestBody final Filter filter) throws ParseException {
 		aviationService.saveFilter(filter);
 	}
 
