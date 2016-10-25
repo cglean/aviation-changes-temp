@@ -1,7 +1,7 @@
 ---
 applications:
 - name: aviation
-  host: aviation
+  host: aviation-nonvascular-artal
   memory: 512M
   random-route: true
   buildpack: https://github.com/cloudfoundry/java-buildpack.git

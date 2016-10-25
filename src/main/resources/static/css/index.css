@@ -12,6 +12,20 @@
 .navbar li a, .navbar .navbar-brand { 
     color: #fff !important;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 a.navbar-brand {
     font-size: 25px;
     border-color: black;
@@ -173,10 +187,13 @@ label#todate {
     border-color: transparent;
 }
 
+
+
+
 /* Dropdown */
 .open .dropdown-toggle {
-    color: #fff ;
-    background-color: #555 !important;
+    color: black ;
+    background-color: grey !important;
 }
 
 /* Dropdown links */
@@ -188,7 +205,7 @@ label#todate {
      
 }
 ul.dropdown-menu {
-    background-color: black;
+    background-color: #01579b;
     
 }
 button.btn.btn-primary.style_btn {
@@ -304,12 +321,14 @@ a.up-arrow {
     font-size: 20px;
 }
 /* End of Footer */
+
 .sort_option {
-	width: 167px;
+    width: 100%;
 }
+
  .search{
  
- width: 167px;
+ width: 100%;
  }
  
 /* label.list-label {

@@ -1,4 +1,4 @@
-$( document ).ready(function() {
+/*$( document ).ready(function() {
   $('#fleet').keyup(function(){
    var valThis = $(this).val().toLowerCase();
     $('.sort_fleet>option').each(function(){
@@ -7,9 +7,9 @@ $( document ).ready(function() {
    });
   });
 });
+*/
 
-
-$( document ).ready(function() {
+/*$( document ).ready(function() {
 	  $('#subFleet').keyup(function(){
 	   var valThis = $(this).val().toLowerCase();
 	    $('.sort_subFleet>option').each(function(){
@@ -62,7 +62,7 @@ $( document ).ready(function() {
 	   });
 	  });
 	});
-
+*/
 
 
 $( document ).ready(function() {

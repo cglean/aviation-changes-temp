@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Aviation Graph Screen</title>
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> 
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <link rel="stylesheet" href="css/index.css">
 <!-- <script -->
@@ -23,35 +23,33 @@
 <!-- Include Date Range Picker -->
 <script type="text/javascript" src="http://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
 <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
- 
+
  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <style>
 .vis-item.vis-background.negative {
 			background-color: white !important;
-			width: 0px; 
-			height: 0px; 
+			width: 0px;
+			height: 0px;
 			border-left: 20px solid transparent;
 			border-right: 20px solid transparent;
 			margin-top: 6px;
-			border-top: 20px solid #23CF46; 
+			border-top: 20px solid #23CF46;
+        }
 
-        } 
-		
 		.vis-item.vis-background.positive {
 			background-color: white !important;
-			width: 0px; 
-			height: 0px; 
+			width: 0px;
+			height: 0px;
 			margin-top: 1px;
 			border-top: 11px solid pink;
 			width: 13px !important;
+        }
 
-        } 
-		
 		.vis-item.vis-range{
 		background-color:blue;
-		
+
 		}
 .navbar {
 	margin-bottom: 0;
@@ -60,7 +58,6 @@
 	font-size: 11px !important;
 	letter-spacing: 4px;
 	font-weight: 600;
-
 	 position: static;
 }
 .btndiv {
@@ -69,14 +66,12 @@ float: left;
 padding-left: 0.5%;
 padding-top: 0.5%;
 }
-
 </style>
  <style>
         body, html {
             font-family: arial, sans-serif;
             font-size: 11pt;
         }
-
         .vis-item.vis-background.negative {
             background-color: rgba(255, 0, 0, 0.2);
         }
@@ -87,7 +82,7 @@ padding-top: 0.5%;
             border-left: 2px solid green;
         }
 		.button {
-    
+
     border: none;
     color: white;
     padding: 12px 24px;
@@ -98,13 +93,12 @@ padding-top: 0.5%;
     margin: 4px 2px;
 }
 .triangle{
-	width:0px; 
-	height:0px; 
+	width:0px;
+	height:0px;
 	border-left:20px solid transparent;
 	border-right:20px solid transparent;
 	border-top:20px solid #23CF46;
 }
-
 .ycircle{
 		background-color:Yellow;
 		border-radius: 50px;
@@ -115,7 +109,6 @@ padding-top: 0.5%;
 		border-radius: 50px;
 		padding: 12px 12px;
 }
-
 .vis-item.vis-background.grph_ycircle{
 		background-color:Yellow;
 		border-radius: 50px;
@@ -138,27 +131,35 @@ padding-top: 0.5%;
 </head>
 <body>
 
-	<!-- Top Logo Header -->
-	<nav id="home"  class="navbar navbar-default navbar-fixed-top">
-	<div class="container-fluid">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse"
-				data-target="#myNavbar">
-				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="index.html">Aviation</a>
-		</div>
-		<div class="collapse navbar-collapse" id="myNavbar">
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="index.html">HOME</a></li>
-				<li><a href="#foot">ABOUT ME</a></li>
-				<li><a href="#contact">CONTACT US</a></li>
-			</ul>
-		</div>
-	</div>
-	</nav>
-	<!-- End of Top Logo Header -->
+<!-- Top Logo Header -->
+       <nav id="home"  class="navbar navbar-default navbar-fixed-top">
+       <div class="container-fluid">
+              <div class="navbar-header">
+                     <button type="button" class="navbar-toggle" data-toggle="collapse"
+                           data-target="#myNavbar">
+                           <span class="icon-bar"></span> <span class="icon-bar"></span> <span
+                                  class="icon-bar"></span>
+                     </button>
+                     <a class="navbar-brand" href="index.html">Aviation</a>
+              </div>
+              <div class="collapse navbar-collapse" id="myNavbar">
+                     <ul class="nav navbar-nav navbar-right">
+                        
+<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Menu <span class="caret"></span>                                                               </a>
+<ul class="dropdown-menu">
+<li><a href="index.html">Home</a></li>
+<li><a href="Unit_Filter.html">Filter Editor</a></li>
+
+</ul></li>
+                           
+                           <li><a href="#foot">ABOUT ME</a></li>
+                           <li><a href="#contact">CONTACT US</a></li>
+                     </ul>
+              </div>
+       </div>
+       </nav>
+       <!-- End of Top Logo Header -->
+
 
 <form action="">
 <div class="main_content">
@@ -172,10 +173,10 @@ padding-top: 0.5%;
 		<input type="button" value="File" class="filebtn list-clear-btn">
 		<input type="button" value="Statistics" class="statbtn list-clear-btn">
 		</div>
-		
+
 		<label class="right_label">Aircraft Component Analysis</label></center>
-		
-	<div class="graph_body main_right">	
+
+	<div class="graph_body main_right">
 		<!--//////////////////////////// Chart Section ///////////////////////////////////////// -->
 		<table class="columns">
       <tr>
@@ -190,202 +191,214 @@ padding-top: 0.5%;
 
 
 <!--//////////////////////////// Chart Section ///////////////////////////////////////// -->
-	
+
 	</div>
 	<div class="main_left">
-		
+
 		<div class="left_p1">
-		
-				
+
+
 		<div class="form-group date-range ">
 			<!-- <center><label for="dateRange" class="label_date" style="color: brown;">Extract Date</label></center> -->
 			<div class="date_range_select ">
-			<label for="fromDate" class="label_date" >Extract Date</label> 
+			<label for="fromDate" class="label_date" >Extract Date</label>
 			<input type="date"	style="width:178px;"class="form-control" style="margin-bottom: 4px;" id="fromDate" />
-			<label for="fromDate" class="label_date" >Date Range</label> 
+			<label for="fromDate" class="label_date" >Date Range</label>
 			<input type="text" name="datefilter" value="" placeholder="mm/dd/yyyy - mm/dd/yyyy" />
 					<script type="text/javascript">
 						$(function() {
-
 						  $('input[name="datefilter"]').daterangepicker({
 							  autoUpdateInput: false,
 							  locale: {
 								  cancelLabel: 'Clear'
 							  }
 						  });
-
 						  $('input[name="datefilter"]').on('apply.daterangepicker', function(ev, picker) {
 							  $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
 						  });
-
 						  $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
 							  $(this).val('');
 						  });
-
 						});
 					</script>
 			</div>
-			
+
 		</div>
 		<div>
 		<hr id="date_line">
 		<!-- <input type="string" style="width: 70px;" id="unit" value="Units by"> -->
-		
+
 		<div>
 		<button type="button" style="height: 54px;width: 140px;margin-left: 28px;margin-top: 25px;margin-bottom: 13px;" onclick="window.open('Unit_Filter.html','_self')">Select Component for Analysis</button>
 		</div>
-			
+
 		</div>
-		
+
 		</div>
-	
+
 	</div>
 </form>
 
 
     <script type="text/javascript">
 
-     
-     
+
 	  /*-----------------------------Chart1-----------------------------------------*/
 	   google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawVisualization);
 	google.charts.setOnLoadCallback(drawVisualizations);
 	google.charts.setOnLoadCallback(drawVisualization2);
 	google.charts.setOnLoadCallback(drawStacked);
- 
-      function drawVisualization() {
-	  
-        // Some raw data (not necessarily accurate)
-        var datam = google.visualization.arrayToDataTable([
-       
-	  
-	   ['Month', 'Stat1', 'Stat2'],
-         ['2004/05',2,1],
-         ['2005/06',4,2],
-         ['2006/07',6,2],
-         ['2007/08',8,4],
-         ['2008/09',10,1]
-      ]);
 
+      function drawVisualization() {
+
+        // Some raw data (not necessarily accurate)
+       var datam = google.visualization.arrayToDataTable([
+
+
+	   ['', '', { role: 'style' },''],
+         ['25',2,'color: #6495ED',3],
+         ['30',4,'color: #6495ED',5],
+         ['31',3,'color: #6495ED',7],
+         ['32',8,'color: #6495ED',8],
+         ['35',10,'color: #6495ED',4],
+		 ['500',8,'color: #6495ED',3],
+         ['522',6,'color: #6495ED',5],
+         ['525',6,'color: #6495ED',7],
+         ['526',9,'color: #6495ED',8],
+         ['550',10,'color: #6495ED',4]
+      ]);
     var optionsm = {
-      title : 'Top 10 worst performing Serial Numbers',
-      vAxis: {title: 'Number of removals'},
-      hAxis: {title: 'Company serial number'},
-	   width: 600,
+       title : 'Top 10 worst performing ATAs',
+
+
+      vAxis: {title: 'Number of removals',titleTextStyle: {bold: true}},
+      hAxis: {title: 'ATA',titleTextStyle: {bold: true}},
+          titleTextStyle: {fontSize:18},
+	   width: 700,
         height: 400,
+		titlePosition: 'out',
       seriesType: 'bars',
+	  legend: {position: 'none'},
       series: {1: {type: 'line'}}
     };
-
-    var chart = new google.visualization.ComboChart(document.getElementById('barchart_div'));
+    var chart = new google.visualization.ComboChart(document.getElementById('piechart_div'));
     chart.draw(datam, optionsm);
 	google.visualization.events.addListener(chart, 'select', selectHandler);
-
-
   }
- /*----------------------------------------------------------------------*/	 
- 
- 
+ /*----------------------------------------------------------------------*/
+
+
    /*-----------------------------Chart2-----------------------------------------*/
-	 
 
       function drawVisualization2() {
         // Some raw data (not necessarily accurate)
         var datam = google.visualization.arrayToDataTable([
-       
-	  
-	    ['Month', 'Stat1','Stat2', 'stat3'],
-         ['2004/05',2,0,2],
-         ['2005/06',4,0,1],
-         ['2006/07',0,2,5],
-         ['2007/08',0,3,4],
-         ['2008/09',0,4,6]
+
+
+	  ['', '', { role: 'style' },''],
+         ['925',4,'color: #B8860B',3],
+         ['111',8,'color: #B8860B',5],
+         ['111',4,'color: #B8860B',7],
+         ['163',6,'color: #B8860B',8],
+         ['847',4,'color: #B8860B',4],
+		 ['248',5,'color: #B8860B',3],
+         ['015',4,'color: #B8860B',5],
+         ['134',3,'color: #B8860B',7],
+         ['504',7,'color: #B8860B',8],
+         ['129',8,'color: #B8860B',4]
       ]);
-
-
     var optionsm = {
-      title : 'Top 10 worst performing ATAs',
-      vAxis: {title: 'Number of removals'},
-      hAxis: {title: 'ATA'},
-	   width: 600,
+     title : 'Top 10 worst performing Serial Numbers',
+      vAxis: {title: 'Number of removals',titleTextStyle: {bold: true}},
+      hAxis: {title: 'Company serial number',titleTextStyle: {bold: true}},
+	   width: 700,
         height: 400,
       seriesType: 'bars',
-      series: {2: {type: 'line'}}
+	  legend: {position: 'none'},
+	  titleTextStyle: {fontSize:18},
+      series: {1: {type: 'line'}}
     };
-
-    var chart = new google.visualization.ComboChart(document.getElementById('piechart_div'));
+    var chart = new google.visualization.ComboChart(document.getElementById('barchart_div'));
     chart.draw(datam, optionsm);
 	google.visualization.events.addListener(chart, 'select', selectHandler);
-
-
   }
- /*----------------------------------------------------------------------*/	 
- 
- /*------------------------------Chart3----------------------------------------*/	 
- 
+ /*----------------------------------------------------------------------*/
+
+ /*------------------------------Chart3----------------------------------------*/
+
  function drawStacked() {
-     var data = google.visualization.arrayToDataTable([
-        ['hrs', 'Stat1', 'Stat2', { role: 'annotation' } ],
-        ['5', 20, 24, ''],
-        ['10', 16, 22, ''],
-        ['15', 28, 19, '']
+    var datam = google.visualization.arrayToDataTable([
+
+
+	 ['', '', { role: 'style' },''],
+         ['850',2,'color: #9400D3',3],
+         ['851',4,'color: #9400D3',5],
+         ['856',3,'color: #9400D3',7],
+         ['857',8,'color: #9400D3',8],
+         ['884',10,'color:#9400D3',4],
+		 ['GC1',8,'color: #9400D3',3],
+         ['GS1',6,'color: #9400D3',5],
+         ['GS4',6,'color: #9400D3',7],
+         ['890',9,'color: #9400D3',8],
+         ['880',10,'color: #9400D3',4]
       ]);
-      var options = {
-	    title : 'Top 10 worst performing Tails',
-		vAxis: {title: 'time in flight hours'},
-      hAxis: {title: 'Aircraft numbers'},
-        width: 600,
+    var optionsm = {
+       title : 'Top 10 worst performing Tails',
+		vAxis: {title: 'Flight Hours',titleTextStyle: {bold: true}},
+      hAxis: {title: 'Aircraft Numbers',titleTextStyle: {bold: true}},
+	   width: 700,
         height: 400,
-		seriesType: 'bars',
-        legend: { position: 'right', maxLines: 3 },
-        bar: { groupWidth: '75%' },
-        isStacked: true,
-      };
-
-      var chart = new google.visualization.ColumnChart(document.getElementById('piechart_divp'));
-	  chart.draw(data, options);
-	  google.visualization.events.addListener(chart, 'select', selectHandler);
-
-
+      seriesType: 'bars',
+	  legend: {position: 'none'},
+	  titleTextStyle: {fontSize:18},
+      series: {1: {type: 'line'}}
+    };
+    var chart = new google.visualization.ComboChart(document.getElementById('piechart_divp'));
+    chart.draw(datam, optionsm);
+	google.visualization.events.addListener(chart, 'select', selectHandler);
   }
   /*----------------------------------------------------------------------*/
- 
- /*------------------------------Chart4----------------------------------------*/	 
- 
+
+ /*------------------------------Chart4----------------------------------------*/
+
  function drawVisualizations() {
         // Some raw data (not necessarily accurate)
-       var datas = google.visualization.arrayToDataTable([
-        ['Stat1', 'Stat2', 'Stat3', 'Stat4', 'Stat5',
-         'Stat6', 'Stat7', { role: 'annotation' } ],
-        ['2010', 10, 24, 20, 32, 18, 5, ''],
-        ['2020', 16, 22, 23, 30, 16, 9, ''],
-        ['2030', 28, 19, 29, 30, 12, 13, '']
+      var datam = google.visualization.arrayToDataTable([
+
+
+	 ['', '', { role: 'style' },''],
+         ['8041',2,'color: #DAA520',3],
+         ['8042',4,'color: #DAA520',5],
+         ['8043',3,'color: #DAA520',7],
+         ['8044',8,'color: #DAA520',8],
+         ['8045',10,'color:#DAA520',4],
+		 ['8046',8,'color: #DAA520',3],
+         ['8047',6,'color: #DAA520',5],
+         ['8048',6,'color: #DAA520',7],
+         ['8049',9,'color: #DAA520',8],
+         ['8050',10,'color: #DAA520',4]
       ]);
+    var optionsm = {
+    title : 'Top 10 worst performing CPNs',
+		vAxis: {title: 'Number of removals',titleTextStyle: {bold: true}},
+      hAxis: {title: 'CPNs',titleTextStyle: {bold: true}},
 
-      var optionss = {
-	    title : 'Top 10 worst performing CPNs',
-		vAxis: {title: 'Number of removals'},
-      hAxis: {title: 'CPNs'},
-        width: 600,
+	   width: 700,
         height: 400,
-		seriesType: 'bars',
-        legend: { position: 'right', maxLines: 3 },
-        bar: { groupWidth: '75%' },
-        isStacked: true,
-      };
-
+      seriesType: 'bars',
+	  legend: {position: 'none'},
+	  titleTextStyle: {fontSize:18},
+      series: {1: {type: 'line'}}
+    };
     var chart = new google.visualization.ComboChart(document.getElementById('barchart_div2'));
-    chart.draw(datas, optionss);
+    chart.draw(datam, optionsm);
 	google.visualization.events.addListener(chart, 'select', selectHandler);
-
-
   }
-  /*----------------------------------------------------------------------*/	 
+  /*----------------------------------------------------------------------*/
   function selectHandler() {
 	  window.open('test.html', '_self');
 }
-  
 
 </script>
 

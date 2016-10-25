@@ -2,6 +2,7 @@ package com.aviation.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aviation.entity.Component;
+import com.aviation.entity.ComponentHistory;
 import com.aviation.entity.Filter;
 import com.aviation.service.AviationService;
 import static com.aviation.util.PathConstants.*;
@@ -61,4 +63,46 @@ public class AviationController {
 	public Filter getDefaultFilter() {
 		return aviationService.getDefaultFilter();
 	}
+	
+	
+	
+	@RequestMapping(value = "/removalReport", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<ComponentHistory> removalReport(/*@RequestBody   List<Long> componentIds*/) {
+		// TODOD:: Remove Hard coding 
+		long[] components = {3};
+		List<Long> compos = new ArrayList<Long>();
+		
+		for (Long component : components){
+			compos.add(component);
+		}
+		
+		List<ComponentHistory> componentRemovalRept =  aviationService.getComponents(compos);
+		
+		 
+		 return null;
+	}
+	
+	@RequestMapping(value = "/splashScreen", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<ComponentHistory> showSplashScreen(/*@RequestBody   List<Long> componentIds*/) {
+		// TODOD:: Remove Hard coding 
+		
+		
+		
+		
+		String pattern = DATEFORMAT;
+		Date sDate=null;
+		Date eDate=null;
+		try {
+			sDate =  new SimpleDateFormat(pattern).parse("2014-08-10");
+			 eDate =  new SimpleDateFormat(pattern).parse("2016-08-10");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		 
+		List<ComponentHistory> componentRemovalRept =  aviationService.getRemovedComponents(sDate, eDate);
+		 return null;
+	}
+	
+	
+	
 }
