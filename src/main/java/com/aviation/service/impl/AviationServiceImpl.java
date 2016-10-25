@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.aviation.entity.Component;
+import com.aviation.entity.ComponentHistory;
 import com.aviation.entity.Filter;
 import com.aviation.repository.ComponentHistoryRepository;
 import com.aviation.repository.ComponentRepository;
@@ -24,6 +25,9 @@ public class AviationServiceImpl implements AviationService {
 
 	@Autowired
 	private FilterRepository filterRepository;
+	
+	@Autowired
+	private ComponentHistoryRepository compHisRepository;
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void persistFillter(Filter filter) {
@@ -73,5 +77,22 @@ public class AviationServiceImpl implements AviationService {
 		Long maxVal = filterRepository.loadRecentSavedFilter();
 		return null;
 	}
+	
+	
+	public List<ComponentHistory> getRemovedComponents(Date fromDate, Date toDate){
+		String status = "Removed";
+		List<ComponentHistory>  compHis = compHisRepository.getRemovedComponents(fromDate, toDate,status);
+		return compHis;
+	}
+	
+
+	
+	public List<ComponentHistory> getComponents(List<Long> componentIds) {
+		
+		return compHisRepository.getComponents(componentIds);
+		
+		
+	}
+	
 
 }
