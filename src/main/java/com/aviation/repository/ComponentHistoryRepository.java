@@ -3,14 +3,12 @@ package com.aviation.repository;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.aviation.entity.ComponentHistory;
-import com.aviation.entity.HistoryTest;
 
 public interface ComponentHistoryRepository extends CrudRepository<ComponentHistory, Serializable>{
 
