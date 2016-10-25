@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.aviation.entity.Component;
 import com.aviation.entity.Filter;
-import com.aviation.repository.ComponentHistoryRepository;
 import com.aviation.repository.ComponentRepository;
 import com.aviation.repository.FilterRepository;
 import com.aviation.service.AviationService;
@@ -33,8 +32,8 @@ public class AviationServiceImpl implements AviationService {
 	@Override
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public List<Component> getComponent(Date fromDate, Date toDate) {
-		final List<Component> component = compRepository.getComponent(fromDate, toDate);
 
+		final List<Component> component = compRepository.getComponent(fromDate, toDate);
 		return component;
 	}
 
