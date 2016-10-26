@@ -11,9 +11,9 @@ public interface AviationService {
 
 	public List<Component> getComponent(final Date fromDate, final Date toDate);
 
-	public void saveFilter(Filter filter);
+	public void saveFilter(final Filter filter);
 
-	public void saveAsDefaultFilter(Filter filter);
+	public void saveAsDefaultFilter(final Filter filter);
 
 	public List<Filter> getFilters();
 
@@ -21,7 +21,7 @@ public interface AviationService {
 
 	public Filter loadRecentSavedFilter();
 	
-	public List<ComponentHistory> getRemovedComponents(Date fromDate, Date toDate);
+	public List<ComponentHistory> getRemovedComponents(final Date fromDate, final Date toDate);
 	
 	public List<List> getComponents(List<Long> componentIds);
 }

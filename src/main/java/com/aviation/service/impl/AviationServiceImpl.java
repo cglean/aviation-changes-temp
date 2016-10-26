@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +31,7 @@ public class AviationServiceImpl implements AviationService {
 
 	@Autowired
 	private FilterRepository filterRepository;
-	
+
 	@Autowired
 	private ComponentHistoryRepository compHisRepository;
 
@@ -44,8 +43,8 @@ public class AviationServiceImpl implements AviationService {
 	@Override
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public List<Component> getComponent(Date fromDate, Date toDate) {
-		final List<Component> component = compRepository.getComponent(fromDate, toDate);
 
+		final List<Component> component = compRepository.getComponent(fromDate, toDate);
 		return component;
 	}
 
@@ -84,17 +83,14 @@ public class AviationServiceImpl implements AviationService {
 		Long maxVal = filterRepository.loadRecentSavedFilter();
 		return null;
 	}
-	
-	
-	public List<ComponentHistory> getRemovedComponents(Date fromDate, Date toDate){
+
+	public List<ComponentHistory> getRemovedComponents(Date fromDate, Date toDate) {
 		String status = "Removed";
-		String ataValAsNull ="null";
-		List<Object>  compHis = compHisRepository.getRemovedComponents(fromDate, toDate,status,ataValAsNull);
+		String ataValAsNull = "null";
+		List<Object> compHis = compHisRepository.getRemovedComponents(fromDate, toDate, status, ataValAsNull);
 		return null;
 	}
-	
 
-	
 	public List<List> getComponents(List<Long> componentIds) {
 		
 		 List<ComponentHistory> componentHisList = compHisRepository.getComponents(componentIds);
@@ -134,6 +130,5 @@ public class AviationServiceImpl implements AviationService {
 		
 		
 	}
-	
 
 }
