@@ -23,5 +23,5 @@ public interface AviationService {
 	
 	public List<ComponentHistory> getRemovedComponents(Date fromDate, Date toDate);
 	
-	public List<ComponentHistory> getComponents(List<Long> componentIds);
+	public List<List> getComponents(List<Long> componentIds);
 }

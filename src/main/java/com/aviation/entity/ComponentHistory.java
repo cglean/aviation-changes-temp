@@ -28,7 +28,7 @@ public class ComponentHistory {
 	private Date  fromDate;
 	
 	@Column(name="to_date")
-	private Date  to_date;
+	private Date  todate;
 	
 	@Column(name="status")
 	private String  status;
@@ -72,12 +72,12 @@ public class ComponentHistory {
 		this.fromDate = fromDate;
 	}
 
-	public Date getTo_date() {
-		return to_date;
+	public Date getTodate() {
+		return todate;
 	}
 
-	public void setTo_date(Date to_date) {
-		this.to_date = to_date;
+	public void setTodate(Date todate) {
+		this.todate = todate;
 	}
 
 	public String getStatus() {
@@ -128,7 +128,5 @@ public class ComponentHistory {
 		this.positionComponentRemoval = positionComponentRemoval;
 	}
 
-
-
-		
+			
 }

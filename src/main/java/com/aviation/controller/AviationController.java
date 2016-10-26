@@ -66,17 +66,17 @@ public class AviationController {
 	
 	
 	
-	@RequestMapping(value = "/removalRepor", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<ComponentHistory> removalReport(/*@RequestBody   List<Long> componentIds*/) {
+	@RequestMapping(value = "/removalReport", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<List> removalReport(/*@RequestBody   List<Long> componentIds*/) {
 		// TODOD:: Remove Hard coding 
-		long[] components = {1,12,22,32,42,52,62,72,82,2312,2302};
+		long[] components = {1,2312,2302,1642};
 		List<Long> compos = new ArrayList<Long>();
 		
 		for (Long component : components){
 			compos.add(component);
 		}
 		
-		List<ComponentHistory> componentRemovalRept =  aviationService.getComponents(compos);
+		List<List> componentRemovalRept =  aviationService.getComponents(compos);
 		
 		/*List<Object> abc = new ArrayList<Object>();
 		abc.add("suman");

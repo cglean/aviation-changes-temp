@@ -22,4 +22,6 @@ public class PathConstants {
 	public static final String GET_FILTERS = "/getFilters";
 	
 	public static final String GET_DEFAULT_FILTER = "/getDefaultFilter";
+	
+	public static final String SUBGROUPORDER = "function (a,b) {return a.subgroupOrder - b.subgroupOrder;}";
 }

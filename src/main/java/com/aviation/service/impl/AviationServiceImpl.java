@@ -1,6 +1,10 @@
 package com.aviation.service.impl;
 
+import static com.aviation.util.PathConstants.SUBGROUPORDER;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,11 +17,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.aviation.entity.Component;
 import com.aviation.entity.ComponentHistory;
 import com.aviation.entity.Filter;
-import com.aviation.entity.HistoryTest;
 import com.aviation.repository.ComponentHistoryRepository;
 import com.aviation.repository.ComponentRepository;
 import com.aviation.repository.FilterRepository;
 import com.aviation.service.AviationService;
+import com.aviation.vo.ComponentHistoryGroupVO;
+import com.aviation.vo.HisotryComponenItemVO;
 
 @Service
 public class AviationServiceImpl implements AviationService {
@@ -90,9 +95,42 @@ public class AviationServiceImpl implements AviationService {
 	
 
 	
-	public List<ComponentHistory> getComponents(List<Long> componentIds) {
+	public List<List> getComponents(List<Long> componentIds) {
 		
-		return compHisRepository.getComponents(componentIds);
+		 List<ComponentHistory> componentHisList = compHisRepository.getComponents(componentIds);
+		 List<ComponentHistoryGroupVO> groupList = new ArrayList<ComponentHistoryGroupVO>();
+		 List<HisotryComponenItemVO> itemList = new ArrayList<HisotryComponenItemVO>();
+		 Map<String, List<String>> serialNumberMap = new HashMap<String, List<String>> ();
+		 
+		 List<List> componentList = new ArrayList<List>();
+		 
+		 int count=0;
+		 
+		 
+		 for(ComponentHistory componentHistory : componentHisList){
+			 ComponentHistoryGroupVO group = new ComponentHistoryGroupVO();
+			 HisotryComponenItemVO item = new HisotryComponenItemVO();
+			 group.setId(componentHistory.getComponent().getComponentID());
+			 group.setContent(componentHistory.getComponent().getCmpySerialNo());
+			// group.setSubgroupOrder(SUBGROUPORDER);
+			 groupList.add(group);
+			 
+			 
+			 item.setId(String.valueOf(count++));
+			 item.setContent("");
+			 item.setStart(componentHistory.getFromDate().toString());
+			 item.setEnd((componentHistory.getTodate()!=null)? componentHistory.getTodate().toString() :( new Date()).toString() );
+			 item.setGroup(componentHistory.getComponent().getCmpySerialNo());
+			 itemList.add(item);
+			/* serialNumberMap.put(componentHistory.getComponent().getCmpySerialNo(), componentHistory.getStatus());
+			 serialNumberMap.put(componentHistory.getComponent().getCmpySerialNo(), componentHistory.getStatus());*/
+			 
+		 }
+		 componentList.add(groupList);
+		 componentList.add(itemList);
+		 return componentList;
+		 
+		
 		
 		
 	}
