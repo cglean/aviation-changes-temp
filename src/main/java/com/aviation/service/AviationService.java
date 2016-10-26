@@ -6,6 +6,7 @@ import java.util.List;
 import com.aviation.entity.Component;
 import com.aviation.entity.ComponentHistory;
 import com.aviation.entity.Filter;
+import com.aviation.vo.ComponentReport;
 
 public interface AviationService {
 
@@ -23,5 +24,5 @@ public interface AviationService {
 	
 	public List<ComponentHistory> getRemovedComponents(final Date fromDate, final Date toDate);
 	
-	public List<List> getComponents(List<Long> componentIds);
+	public ComponentReport getComponents(List<Long> componentIds);
 }

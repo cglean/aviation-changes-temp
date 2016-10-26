@@ -13,7 +13,7 @@ public class PathConstants {
 
 	public static final String LOAD_COMPONENT_BY_START_END_DATE = "/loadComponent/{startDate}/{endDate}";
 	
-	public static final String DATEFORMAT = "YYYY-MM-DD";
+	public static final String DATEFORMAT = "yyyy-MM-dd";
 	
 	public static final String SAVEFILTER = "/saveFilter";
 	

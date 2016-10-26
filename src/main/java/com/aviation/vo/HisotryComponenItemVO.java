@@ -11,6 +11,10 @@ public class HisotryComponenItemVO {
 	private String end;
 	
 	private String group;
+	
+	private String className;
+
+	private String type;
 
 	public String getId() {
 		return id;
@@ -51,18 +55,21 @@ public class HisotryComponenItemVO {
 	public void setGroup(String group) {
 		this.group = group;
 	}
-	
-//	private String type;
-	
-//	private String background;
-	
-//	private String className;
-	
-//	private String subgroup;
-	
-//	private String subgroupOrder;
 
-	
-	
+	public String getClassName() {
+		return className;
+	}
+
+	public void setClassName(String className) {
+		this.className = className;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 	
 }

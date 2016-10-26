@@ -19,6 +19,8 @@ import com.aviation.entity.Component;
 import com.aviation.entity.ComponentHistory;
 import com.aviation.entity.Filter;
 import com.aviation.service.AviationService;
+import com.aviation.vo.ComponentReport;
+
 import static com.aviation.util.PathConstants.*;
 
 @RestController
@@ -67,16 +69,17 @@ public class AviationController {
 	
 	
 	@RequestMapping(value = "/removalReport", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<List> removalReport(/*@RequestBody   List<Long> componentIds*/) {
+	@ResponseBody
+	public ComponentReport removalReport(/*@RequestBody   List<Long> componentIds*/) {
 		// TODOD:: Remove Hard coding 
-		long[] components = {1,2312,2302,1642};
+		long[] components = {2312,2302,1642};
 		List<Long> compos = new ArrayList<Long>();
 		
 		for (Long component : components){
 			compos.add(component);
 		}
 		
-		List<List> componentRemovalRept =  aviationService.getComponents(compos);
+		ComponentReport componentRemovalRept =  aviationService.getComponents(compos);
 		
 		/*List<Object> abc = new ArrayList<Object>();
 		abc.add("suman");

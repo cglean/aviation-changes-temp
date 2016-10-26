@@ -13,7 +13,7 @@ import com.aviation.entity.ComponentHistory;
 public interface ComponentHistoryRepository extends CrudRepository<ComponentHistory, Serializable>{
 
 	
-	@Query("SELECT  history as history FROM ComponentHistory history JOIN history.component as comp where comp.componentID in :componentIdList")
+	@Query("SELECT  history as history FROM ComponentHistory history JOIN history.component as comp where comp.componentID in :componentIdList ORDER BY history.fromDate ASC ")
 	//@Query("SELECT  history as history FROM ComponentHistory history JOIN history.component as comp where comp.componentID =:componentIdList")
 	public List<ComponentHistory> getComponents(@Param("componentIdList")final List<Long> componentIdList);	
 	

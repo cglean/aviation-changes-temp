@@ -2,10 +2,15 @@ package com.aviation.service.impl;
 
 import static com.aviation.util.PathConstants.SUBGROUPORDER;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +26,10 @@ import com.aviation.repository.ComponentRepository;
 import com.aviation.repository.FilterRepository;
 import com.aviation.service.AviationService;
 import com.aviation.vo.ComponentHistoryGroupVO;
+import com.aviation.vo.ComponentReport;
 import com.aviation.vo.HisotryComponenItemVO;
+
+import static com.aviation.util.PathConstants.DATEFORMAT;
 
 @Service
 public class AviationServiceImpl implements AviationService {
@@ -91,39 +99,53 @@ public class AviationServiceImpl implements AviationService {
 		return null;
 	}
 
-	public List<List> getComponents(List<Long> componentIds) {
+	public ComponentReport getComponents(List<Long> componentIds) {
 		
 		 List<ComponentHistory> componentHisList = compHisRepository.getComponents(componentIds);
-		 List<ComponentHistoryGroupVO> groupList = new ArrayList<ComponentHistoryGroupVO>();
+		
 		 List<HisotryComponenItemVO> itemList = new ArrayList<HisotryComponenItemVO>();
 		 Map<String, List<String>> serialNumberMap = new HashMap<String, List<String>> ();
 		 
-		 List<List> componentList = new ArrayList<List>();
-		 
+		 ComponentReport componentList = new ComponentReport();
+		 Set<ComponentHistoryGroupVO> groupSet = new HashSet<ComponentHistoryGroupVO>();
 		 int count=0;
-		 
-		 
+		 SimpleDateFormat  outputFormatter = new SimpleDateFormat(DATEFORMAT);
+		 String startDate = null;
+		 String endDate = null;
+		 boolean flag= true;
 		 for(ComponentHistory componentHistory : componentHisList){
 			 ComponentHistoryGroupVO group = new ComponentHistoryGroupVO();
 			 HisotryComponenItemVO item = new HisotryComponenItemVO();
-			 group.setId(componentHistory.getComponent().getComponentID());
+			
+			 group.setId(componentHistory.getComponent().getComponentID().toString());
 			 group.setContent(componentHistory.getComponent().getCmpySerialNo());
-			// group.setSubgroupOrder(SUBGROUPORDER);
-			 groupList.add(group);
+			 flag= groupSet.add(group);
+			
 			 
 			 
 			 item.setId(String.valueOf(count++));
 			 item.setContent("");
-			 item.setStart(componentHistory.getFromDate().toString());
-			 item.setEnd((componentHistory.getTodate()!=null)? componentHistory.getTodate().toString() :( new Date()).toString() );
-			 item.setGroup(componentHistory.getComponent().getCmpySerialNo());
+			 startDate = outputFormatter.format(componentHistory.getFromDate());
+			 if(componentHistory.getTodate()!=null){
+				 endDate = outputFormatter.format(componentHistory.getTodate()) ;
+			 }else{
+				 endDate = outputFormatter.format(new Date());
+			 }
+			 if(!flag){
+				 item.setClassName("negative");
+				// item.setType("background");
+			 }
+			 
+			 item.setStart(startDate);
+			 item.setEnd(endDate);
+			 item.setGroup(componentHistory.getComponent().getComponentID().toString());
 			 itemList.add(item);
-			/* serialNumberMap.put(componentHistory.getComponent().getCmpySerialNo(), componentHistory.getStatus());
-			 serialNumberMap.put(componentHistory.getComponent().getCmpySerialNo(), componentHistory.getStatus());*/
 			 
 		 }
-		 componentList.add(groupList);
-		 componentList.add(itemList);
+		 
+		 List<ComponentHistoryGroupVO> groupList = new ArrayList<ComponentHistoryGroupVO>(groupSet);
+		 componentList.setGroupList(groupList);
+		 componentList.setItemList(itemList);
 		 return componentList;
 		 
 		
