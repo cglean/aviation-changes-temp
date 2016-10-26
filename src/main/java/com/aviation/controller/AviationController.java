@@ -66,10 +66,10 @@ public class AviationController {
 	
 	
 	
-	@RequestMapping(value = "/removalReport", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/removalRepor", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<ComponentHistory> removalReport(/*@RequestBody   List<Long> componentIds*/) {
 		// TODOD:: Remove Hard coding 
-		long[] components = {3};
+		long[] components = {1,12,22,32,42,52,62,72,82,2312,2302};
 		List<Long> compos = new ArrayList<Long>();
 		
 		for (Long component : components){
@@ -78,8 +78,12 @@ public class AviationController {
 		
 		List<ComponentHistory> componentRemovalRept =  aviationService.getComponents(compos);
 		
+		/*List<Object> abc = new ArrayList<Object>();
+		abc.add("suman");
+		abc.add("manwar");*/
+		
 		 
-		 return null;
+		 return componentRemovalRept;
 	}
 	
 	@RequestMapping(value = "/splashScreen", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -93,8 +97,8 @@ public class AviationController {
 		Date sDate=null;
 		Date eDate=null;
 		try {
-			sDate =  new SimpleDateFormat(pattern).parse("2014-08-10");
-			 eDate =  new SimpleDateFormat(pattern).parse("2016-08-10");
+			sDate =  new SimpleDateFormat(pattern).parse("2014-10-08");
+			 eDate =  new SimpleDateFormat(pattern).parse("2016-10-08");
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
