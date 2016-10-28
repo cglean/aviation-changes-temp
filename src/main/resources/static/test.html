@@ -22,20 +22,17 @@
 <!-- <script type="text/javascript" src="http://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script> -->
 <!-- <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" /> -->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+  <script src="http://visjs.org/dist/vis.js"></script>
+  <link href="http://visjs.org/dist/vis.css" rel="stylesheet" type="text/css" /> 
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
 <script src="Utility.js"></script>
 
 <style>
-.vis-item.vis-background.negative {
-			background-color: white !important;
-			width: 0px; 
-			height: 0px; 
-			border-left: 20px solid transparent;
-			border-right: 20px solid transparent;
-			margin-top: 6px;
-			border-top: 20px solid #23CF46; 
 
-        } 
         
         .black_overlay {
   display: none;
@@ -69,27 +66,13 @@ font-size:25px;
         
         
         
-		
-		.vis-selected{
-		background-color: #0000FF !important;
-		}
+
 		.bgclass{
 			background-color: white !important;
 		}
-		.vis-item.vis-background.positive {
-			background-color: white !important;
-			width: 0px; 
-			height: 0px; 
-			margin-top: 1px;
-			border-top: 11px solid pink;
-			width: 13px !important;
 
-        } 
 		
-		.vis-item.vis-range{
-		background-color:blue;
-		
-		}
+	}
 .navbar {
 	margin-bottom: 0;
 	background-color: #01579B;
@@ -114,15 +97,7 @@ padding-top: 0.5%;
             font-size: 11pt;
         }
 
-        .vis-item.vis-background.negative {
-            background-color: rgba(255, 0, 0, 0.2);
-        }
-        .vis-item.vis-background.positive {
-            background-color: rgba(105, 255, 98, 0.20);
-        }
-        .vis-item.vis-background.marker {
-            border-left: 2px solid green;
-        }
+        
 		.button {
     
     border: none;
@@ -152,21 +127,15 @@ padding-top: 0.5%;
 		border-radius: 50px;
 		padding: 12px 12px;
 }
+  .vis-item.negative {
+    border-color: orange;
+    background-color: yellow;
+  }
+  .vis-item {
+    
+    background-color: Blue;
+  }
 
-.vis-item.vis-background.grph_ycircle{
-		background-color:Yellow;
-		border-radius: 50px;
-		padding: 12px 12px;
-		height: 0px !important;
-		margin-top: 6px;
-}
-.vis-item.vis-background.grph_bcircle{
-		background-color:Brown;
-		border-radius: 50px;
-		padding: 12px 12px;
-		height: 0px !important;
-		margin-top: 6px;
-}
     </style>
 
     <!-- <script src="../../Code/vis/dist/vis.js"></script> -->
@@ -199,17 +168,18 @@ padding-top: 0.5%;
 	<!-- End of Top Logo Header -->
 
 <form action="">
+<br/><br/><br/>
 <div class="main_content bgclass">
-<center>
+<div style='text-align:center'>
 		<!-- div for button alignment -->
 		<div class="btndiv">
 		<!-- <button class="filebtn list-cust-btn">File</button> -->
 		<!-- <button class="statbtn list-cust-btn">Statistics</button> -->
-		<input type="button" value="File" class="filebtn list-clear-btn">
+		<input type="button" onclick="printDiv('visualization')" value="File" class="filebtn list-clear-btn">
 		<input type="button" value="Statistics" class="statbtn list-clear-btn">
 		</div>
 		
-		<label class="right_label">Component Removal History</label></center>
+		<label class="right_label">Component Removal History</label></div></div>
 	<div class="main_left">
 		
 		<div class="left_p1">
@@ -258,12 +228,7 @@ padding-top: 0.5%;
 						  <!-- }); -->
 
 						<!-- }); -->
-					<script> 	
-						 $('.filebtn').click(function(){ 
-						 window.print(); 
-					 }); 
-					
-					</script> 
+
 			</div>
 			
 		</div>
@@ -283,11 +248,11 @@ padding-top: 0.5%;
  				</div>
 				<table style="margin-left:10px;">
 					<tr>
-						<td><label>Active ACN</label></td>
+						<td><label>Installed</label></td>
 						<td><div class="button" style="background-color:Blue;"/></td>
 					</tr>
 					<tr>
-						<td><label>Inactive ACN</label></td>
+						<td><label>Removed</label></td>
 					
 						<td><div class="button" style="background-color:white;"></td>
 					</tr>
@@ -402,110 +367,10 @@ padding-top: 0.5%;
 	
 	</div>
 </form>
-<!-- <div class="main_left" style="margin-left: 11%;">
-	<div class="left_p1">
-		<div class="checkbox filter-checkbox form-group filter_left2_p2">
- 			<table>
-				<tr>
-					<td style="padding-left: 8px;padding-top: 3px;"><input type="radio" name="instperbar" checked="true" /></td>
-					
-					<td><label id="tab-caption" style="border-bottom: 1px solid;width: 100%;border-bottom-color: black; padding-left: 4px !important;padding-bottom: 0px !important;">Installation Period Bar</label></td>
-				</tr>
- 			</table>
- 
-		</div>
 
-		<table style="margin-left:10px;">
-
-				
-				<tr>
-					<td><label>Active ACN</label></td>
-					
-					<td><div class="button" style="background-color:Blue;"/></td>
-				</tr>
-				<tr>
-					<td><label>Inactive ACN</label></td>
-					
-					<td><div class="button" style="background-color:white;"></td>
-				</tr>
-				<tr>
-					<td><label>Still Installed Box</label></td>
-					
-					<td><div class="button" style="background-color:Pink;"></td>
-				</tr>
-		</table>
-</div>
-</div>
- -->
-<!-- <div class="main_left">
-<div class="left_p1" style="height: 154px;">
-<div class="checkbox filter-checkbox form-group filter_left2_p2"> 
-<label id="tab-caption" style="border-bottom: 1px solid;width: 100%;border-bottom-color: black;">Removal Period Bar</label> 
-<table>
-	<tr>
-					<td style="padding-left: 8px;padding-top: 3px;"><input type="radio" name="remperbar" /></td>
-					
-					<td><label id="tab-caption" style="border-bottom: 1px solid;width: 100%;border-bottom-color: black; padding-left: 4px !important;padding-bottom: 0px !important;">Removal Period Bar</label></td>
-				</tr>
- </table>
-</div>
-<table style="margin-left:10px;">
-
-				
-				<tr>
-					<td><label>Scheduled</label></td>
-					
-					<td><div class="triangle" ></div></td>
-				</tr>
-				<tr>
-					<td><label>Unscheduled</label></td>
-					
-					<td style="padding-left:6px"><div class="ycircle button" ></div></td>
-				</tr>
-				<tr>
-					<td><label>Others</label></td>
-					
-					<td style="padding-left:6px"><div class="bcircle button" ></div></td>
-				</tr>
-				</table>
-
-</div>
-</div>
- -->
- 
- <!-- <div class="main_left">
-<div class="left_p1">
-<div class="checkbox filter-checkbox form-group filter_left2_p2"> 
-<label id="tab-caption" style="border-bottom: 1px solid;width: 100%;border-bottom-color: black;">Analysis By</label> 
-</div>
-<table style="margin-left:10px;">
-
-				
-				<tr>
-					<td><input type="radio" name="filter"></td>
-					<td><label>Best First</label></td>
-					
-					
-				</tr>
-				<tr>
-					<td><input type="radio" name="filter"></td>
-					<td><label>Worst First</label></td>
-					
-					
-				</tr>
-				
-				</table>
-
-</div>
-</div> -->
 
 <br/><!-- <br/><br/><br/><br/><br/><br/><br/><br/> -->
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script type="text/javascript" src="http://www.google.com/jsapi"></script>
-  <script src="http://visjs.org/dist/vis.js"></script>
-  <link href="http://visjs.org/dist/vis.css" rel="stylesheet" type="text/css" /> 
-  <!-- <script src="http://visjs.org/examples/googleAnalytics.js"></script> -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
 		<div id="visualization">
 	
 	</div>
@@ -514,7 +379,16 @@ padding-top: 0.5%;
 
 <script type="text/javascript">
 // Instantiate our timeline object.
+function printDiv(divName) {
+     var printContents = document.getElementById(divName).innerHTML;
+     var originalContents = document.body.innerHTML;
 
+     document.body.innerHTML = printContents;
+
+     window.print();
+
+     document.body.innerHTML = originalContents;
+}
 var report={};
 var removal=function(){
 	
@@ -536,7 +410,7 @@ var removal=function(){
 
 $(document).ready(function() {
 	
-	
+	/*
 	
 				$('input[name="instperbar"],input[name="remperbar"]').unbind().click(function(){
 					if($(this).attr('checked')){
@@ -560,8 +434,8 @@ $(document).ready(function() {
 					
 					filterlogic();
 			console.log('filter applied');
-			})
-	<!-- ***************Start of Filter logic for chart selection***************	 -->
+			})*/
+	/*<!-- ***************Start of Filter logic for chart selection***************	 -->
 	function filterlogic(){
 
 		if($('input[name="instperbar"]').attr('checked') == 'checked' && ($('input[name="remperbar"]').attr('checked') == false || $('input[name="remperbar"]').attr('checked') == undefined)){
@@ -584,7 +458,7 @@ $(document).ready(function() {
 				console.log('show none');
 		}
 	}
-	<!-- ***************End of Filter logic for chart selection***************	 -->
+	<!-- ***************End of Filter logic for chart selection***************	 -->*/
 	
 <!-- $('.triangle').click(function(){ -->
 	<!-- if( $('.vis-item-overflow,.vis-range').css('display') == 'none' ) -->
@@ -598,9 +472,7 @@ $(document).ready(function() {
 	
 
 
- var container = document.getElementById('visualization');
-
- removal();
+removal();
  
   // Create a DataSet (allows two way data-binding)
    var items = new vis.DataSet({
@@ -632,27 +504,30 @@ $(document).ready(function() {
         // orientation:'top'
        //start: '2014-01-10',
        // end: '2019-02-10',
-       
-    	   
-       
+       zoomable: false,
+    	   clickToUse: true,
         editable: false,
         stack: false
     };
 
     var timeline = new vis.Timeline(container, items, groups, options);
     
-    function onMouseover (event) {
+    function onClick (event) {
     	  var properties = timeline.getEventProperties(event);
-    	  // properties contains things like node id, group, x, y, time, etc.
-    	  console.log('mouseover properties:', properties);
     	  if(properties.item){
-    		//alert('onhover');
-    		  document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block';
+    		  for (i = 0; i < report.itemList.length; i++) { 
+			    if(properties.item == report.itemList[i].id){
+			    	if(report.itemList[i].className == 'negative'){
+			    		document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block';
+			    	}
+			    }
+			  }
     		  
     	  }
     	  
     	}
-    	container.addEventListener('mouseover', onMouseover) 
+    	container.addEventListener('click', onClick) ;
+
     	
     	
   
@@ -660,16 +535,10 @@ $(document).ready(function() {
 	<!-- //////////Timeline range////////// -->
 	
 	
-	 $('div.vis-panel').on({
-    'mousewheel': function(e) {
-		//console.log("insiddfdse the scrolling");
-	   e.preventDefault();
-        e.stopPropagation();
-    }
-});
+	 /*
 
 filterlogic();
-
+*/
 
 
 });
