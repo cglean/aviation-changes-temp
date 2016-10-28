@@ -24,6 +24,7 @@ import com.aviation.entity.Filter;
 import com.aviation.repository.ComponentHistoryRepository;
 import com.aviation.repository.ComponentRepository;
 import com.aviation.repository.FilterRepository;
+import com.aviation.repository.LoginRepository;
 import com.aviation.service.AviationService;
 import com.aviation.vo.ComponentHistoryGroupVO;
 import com.aviation.vo.ComponentReport;
@@ -42,6 +43,8 @@ public class AviationServiceImpl implements AviationService {
 
 	@Autowired
 	private ComponentHistoryRepository compHisRepository;
+	@Autowired
+	private LoginRepository loginRepository;
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void persistFillter(Filter filter) {
@@ -92,12 +95,7 @@ public class AviationServiceImpl implements AviationService {
 		return null;
 	}
 
-	public List<ComponentHistory> getRemovedComponents(Date fromDate, Date toDate) {
-		String status = "Removed";
-		String ataValAsNull = "null";
-		List<Object> compHis = compHisRepository.getRemovedComponents(fromDate, toDate, status, ataValAsNull);
-		return null;
-	}
+
 
 	public ComponentReport getComponents(List<Long> componentIds) {
 		
@@ -152,5 +150,115 @@ public class AviationServiceImpl implements AviationService {
 		
 		
 	}
+	
+	
+	public List<Object> getRemovedComponents(Date fromDate, Date toDate){
+		String status = "Removed";
+		String ataValAsNull ="null";
+		
+		List<Object>  compHis = compHisRepository.getRemovedComponents(fromDate, toDate,status,ataValAsNull);
+		
+		List<Object>  compHisATA = new ArrayList<Object>();
+		int i=0;
+		for(Object temp:compHis){
+			if(i == 10){
+				break;
+			}
+			compHisATA.add(temp);
+			i++;
+	
+		}
+		System.out.println("From date"+fromDate+"to date "+toDate);
+		
+		
+		return compHisATA;
+	}
+	
+	
+	
+	
+
+	public List<Object> getRemovedComponentsCPN(Date fromDate, Date toDate){
+		String status = "Removed";
+		String cpnValAsNull ="null";
+			
+		List<Object>  compHis = compHisRepository.getRemovedComponentsCPN(fromDate, toDate,status,cpnValAsNull);
+		
+		List<Object>  compHisCPN = new ArrayList<Object>();
+		int i=0;
+		for(Object temp:compHis){
+			if(i == 10){
+				break;
+			}
+			compHisCPN.add(temp);
+			i++;
+	
+		}
+		System.out.println("value"+compHisCPN.size());
+		
+		
+		
+		
+		
+		return compHisCPN;
+	}
+
+	
+
+	
+	public List<Object> getRemovedComponentsCPNSerial(Date fromDate, Date toDate){
+		String status = "Removed";
+		String cpnSerialValAsNull ="null";
+			
+		List<Object>  compHis = compHisRepository.getRemovedComponentsCPNSerial(fromDate, toDate,status,cpnSerialValAsNull);
+		List<Object>  compHisCPNSerial = new ArrayList<Object>();
+		int i=0;
+		for(Object temp:compHis){
+			if(i == 10){
+				break;
+			}
+			compHisCPNSerial.add(temp);
+			i++;
+	
+		}
+		System.out.println("value"+compHisCPNSerial.size());
+		return compHisCPNSerial;
+	}
+	
+	
+	public List<Object> getRemovedComponentsTail(Date fromDate, Date toDate){
+		String status = "Removed";
+		String tailValAsNull ="null";
+			
+		System.out.println("From Date "+fromDate+" To Date"+toDate);
+		
+		List<Object>  compHis = compHisRepository.getRemovedComponentsTail(fromDate, toDate,status,tailValAsNull);
+		
+		List<Object>  compHisTail = new ArrayList<Object>();
+		int i=0;
+		for(Object temp:compHis){
+			if(i == 10){
+				break;
+			}
+			compHisTail.add(temp);
+			i++;
+	
+		}
+		System.out.println("value"+compHisTail.size());
+		
+		
+		return compHisTail;
+	}
+	public boolean isValidLogin(String userName, String password){
+		
+		System.out.println("username "+userName+" password "+password);
+		int  loginCount = loginRepository.getLoginVerified(userName, password);
+		System.out.println("login resulty"+loginCount);
+		if(loginCount == 1){
+			return true;	
+		}
+		return false;	
+	}
+
 
 }

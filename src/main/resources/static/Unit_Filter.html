@@ -191,13 +191,14 @@ button#displayReport {
                         
 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Menu <span class="caret"></span>                                                               </a>
 <ul class="dropdown-menu">
-<li><a href="index.html">Home</a></li>
+<li><a href="afterLogin.html">Home</a></li>
 
 <li><a href="Splash_Screen.html">Component Analysis</a></li>
 </ul></li>
                            
                            <li><a href="#foot">ABOUT ME</a></li>
                            <li><a href="#contact">CONTACT US</a></li>
+                            <li><a href="index.html" id="logout">LOGOUT</a></li>
                      </ul>
               </div>
        </div>
@@ -528,7 +529,7 @@ button#displayReport {
 	<div class="finalButton">
 							<button type="button" class="btn btn-primary style_btn"
 								style="border-radius: 15px; margin-left: 10px;"
-								id="displayReport" onclick="window.open('test.html','_self');">Display<br>
+								id="displayReport" onclick="window.open('test.html','_self'); getFilteredData()">Display<br>
 								Historical Analysis</button>
 				</div>
 	</div>

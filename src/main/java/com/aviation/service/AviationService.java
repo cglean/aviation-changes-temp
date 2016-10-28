@@ -22,7 +22,17 @@ public interface AviationService {
 
 	public Filter loadRecentSavedFilter();
 	
-	public List<ComponentHistory> getRemovedComponents(final Date fromDate, final Date toDate);
+	
+	
+	public List<Object> getRemovedComponents(Date fromDate, Date toDate);
 	
 	public ComponentReport getComponents(List<Long> componentIds);
+	
+	public List<Object> getRemovedComponentsCPN(Date fromDate, Date toDate);
+	
+	public List<Object> getRemovedComponentsCPNSerial(Date fromDate, Date toDate);
+	 
+	public List<Object> getRemovedComponentsTail(Date fromDate, Date toDate);
+	
+	public boolean isValidLogin(String userName, String password);
 }

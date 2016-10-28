@@ -1,4 +1,4 @@
-package com.aviation.entity;
+  package com.aviation.entity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -52,6 +52,33 @@ public class Filter implements Serializable {
 	@JoinColumn(name = "filterID")
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private FilterBy filterBy;
+    
+	@Column(name = "selected_fleets")
+	private String selectedFleets;
+	
+	@Column(name = "selected_subfleets")
+	private String selectedSubfleets;
+	
+	@Column(name = "selected_tails")
+	private String selectedTails;
+	
+	@Column(name = "selected_atas")
+	private String selectedATAs;
+	
+	@Column(name = "selected_cpns")
+	private String selectedCPNs;
+	
+	@Column(name = "selected_mfgs")
+	private String selectedMFGs;
+	
+	
+	public String getSelectedMFGs() {
+		return selectedMFGs;
+	}
+
+	public void setSelectedMFGs(String selectedMFGs) {
+		this.selectedMFGs = selectedMFGs;
+	}
 
 	public Long getFilterID() {
 		return filterID;
@@ -109,4 +136,52 @@ public class Filter implements Serializable {
 		this.defaultFilter = defaultFilter;
 	}
 
+	public String getSelectedFleets() {
+		return selectedFleets;
+	}
+
+	public void setSelectedFleets(String selectedFleets) {
+		this.selectedFleets = selectedFleets;
+	}
+
+	public String getSelectedSubfleets() {
+		return selectedSubfleets;
+	}
+
+	public void setSelectedSubfleets(String selectedSubfleets) {
+		this.selectedSubfleets = selectedSubfleets;
+	}
+
+	public String getSelectedTails() {
+		return selectedTails;
+	}
+
+	public void setSelectedTails(String selectedtails) {
+		this.selectedTails = selectedtails;
+	}
+
+	public String getSelectedATAs() {
+		return selectedATAs;
+	}
+
+	public void setSelectedATAs(String selectedATAs) {
+		this.selectedATAs = selectedATAs;
+	}
+
+	public String getSelectedCPNs() {
+		return selectedCPNs;
+	}
+
+	public void setSelectedCPNs(String selectedCPNs) {
+		this.selectedCPNs = selectedCPNs;
+	}
+	
+	
+	
+	
+	
+	
+
 }
+
+  
