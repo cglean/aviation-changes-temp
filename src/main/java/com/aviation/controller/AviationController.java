@@ -24,6 +24,7 @@ import com.aviation.entity.Filter;
 import com.aviation.entity.Login;
 import com.aviation.service.AviationService;
 import com.aviation.vo.ComponentReport;
+import com.mysql.fabric.xmlrpc.base.Array;
 
 import static com.aviation.util.PathConstants.*;
 
@@ -31,6 +32,9 @@ import static com.aviation.util.PathConstants.*;
 public class AviationController {
 	
 	private List<Long> componentsIds;
+	private int currentcount;
+	private int forStart;
+	private int forEnd;
 
 	@Autowired
 	private AviationService aviationService;
@@ -64,6 +68,14 @@ public class AviationController {
 	@RequestMapping(value = GET_FILTERS, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public List<Filter> getFilters() {
+		List<Filter> test=aviationService.getFilters();
+		for(Filter i:test){
+			System.out.println("hi test"+i);
+		}
+		currentcount=0;
+		forStart=0;
+		forEnd=0;
+		System.out.println("hi in load filter"+aviationService.getFilters());
 		return aviationService.getFilters();
 	}
 
@@ -74,29 +86,73 @@ public class AviationController {
 	
 	
 	
-	@RequestMapping(value = "/removalReport", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/removalReport/{step}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ComponentReport removalReport(/*@RequestBody   List<Long> componentIds*/) {
+	public ComponentReport removalReport(@PathVariable final int step/*@RequestBody   List<Long> componentIds*/) {
 		// TODOD:: Remove Hard coding 
 	//	long[] components = {2312,2302,1642};
+		System.out.println("step value"+step);
 		long [] component= new long[componentsIds.size()];
 		int i;
+		
+		int length=componentsIds.size();
+		
+		if(forEnd==length){
+			forEnd=forStart;
+			forStart=forStart-25;
+			currentcount=currentcount-1;
+		}else if(step==1){
+			forStart=forStart+25;
+			forEnd=forEnd+25;
+			currentcount=currentcount+1;
+		}else if(step==-1){
+			forStart=forStart-25;
+			forEnd=forEnd-25;
+			currentcount=currentcount-1;
+		}else if(step==0){
+			forStart=0;
+			forEnd=25;
+			currentcount=1;
+		}
+		
+		if(forEnd>length){
+			forEnd=length;
+		}
+		System.out.println("for values start"+forStart);
+		System.out.println("for values end"+forEnd);
+		
 		System.out.println(componentsIds);
+	
+		
+	
+		
+		System.out.println("id length"+componentsIds.size());
 		for(i=0; i<componentsIds.size(); i++)
 		{
 			component[i]=componentsIds.get(i);
-			//System.out.println("component[i]="+component[i]);
+			
+			System.out.println("component[i]="+component[i]);
 		}
-		
+		System.out.println("component id length actuall"+componentsIds.size());
 	//	long[] components = componentsIds.toArray();
 		//List<Long> compos = new ArrayList<Long>();
-		List<Long> compos1=componentsIds;
+		List<Long> temp=new ArrayList<Long>();
+		System.out.println("length before "+temp.size());
+		for(int j=forStart;j<forEnd;j++){
+			temp.add(componentsIds.get(j));
+		}
+		System.out.println("length after "+temp.size());
+		System.out.println("temp value "+temp);
+		System.out.println("componentsIds value "+componentsIds);
+		//List<Long> compos1=componentsIds;
 		//System.out.println(compos);
+		List<Long> compos1=temp;
 		ComponentReport componentRemovalRept =  aviationService.getComponents(compos1);
 		
 		/*List<Object> abc = new ArrayList<Object>();
 		abc.add("suman");
 		abc.add("manwar");*/
+		
 		
 		 
 		 return componentRemovalRept;
@@ -180,6 +236,7 @@ public class AviationController {
 		return componentRemovalRept;
 	}
 	
+
 	@RequestMapping(value = "/splashScreenTail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Object> splashScreenTail(/*@RequestBody   List<Long> componentIds*/) {
 		// TODOD:: Remove Hard coding 
@@ -196,11 +253,47 @@ public class AviationController {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		 
+		/*long diff = sDate.getTime() - eDate.getTime();
+		long diffDays = diff / (24 * 60 * 60 * 1000);
+
+		System.out.println(diffDays + " days, ");
+	*/
+		
+		List<Object> sent=new ArrayList<Object>();
+		
 		List<Object> componentRemovalRept =  aviationService.getRemovedComponentsTail(sDate, eDate);
+		System.out.println("tail length"+componentRemovalRept.size());
+		for(Object i:componentRemovalRept){
+			
+			System.out.println("hello data tail number"+i.toString());
+			ComponentHistory temp=new ComponentHistory();
+			Array temp1=new Array();
+			//Object sampleObject=new Object();
+			temp=(ComponentHistory) i;
+			
+			Date fromDate=temp.getFromDate();
+			Date toDate=temp.getTodate();
+			System.out.println("before if"+toDate);
+			if(toDate == null){
+				System.out.println("in if"+toDate);
+				toDate=eDate;
+				System.out.println("after if"+toDate);
+			}
+			System.out.println("after if"+toDate);
+			long diff = toDate.getTime()-fromDate.getTime();
+			long diffDays = (diff / ( 60 * 60 * 1000))+1;
+			List<Object> tempArr= new ArrayList<Object>();
+			tempArr.add(temp.getTailNo());
+			tempArr.add(diffDays);
+			sent.add(tempArr);
+		
+			System.out.println(diffDays + " days, ");
+		}
+		
+		System.out.println("in tail");
 		System.out.println("in cpn"+componentRemovalRept);
 		
-		return componentRemovalRept;
+		return sent;
 	}
 	
     public static String getDate(Calendar cal){
@@ -275,11 +368,37 @@ public class AviationController {
     
     
     
+	
+	@RequestMapping(value = "/paginationStatus", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<String> paginationStatus(/*@RequestBody   List<Long> componentIds*/) {
+		// TODOD:: Remove Hard coding 
+		int actualLength=(int) Math.ceil((componentsIds.size())/25.0);
+		System.out.println("actualLength value"+actualLength);
+		System.out.println("total value"+currentcount);
+		List<String> status =  new ArrayList<String>();
+	if(currentcount == actualLength){
+		status.add("true");
+		status.add("false");
+		
+	}else if(currentcount==1){
+		status.add("false");
+		status.add("true");
+	}else{
+		status.add("false");
+		status.add("false");
+	}
+		 
+		
+		
+		System.out.println("in status"+status);
+		
+		return status;
+	}
+	
     
     
     
-    
-    
+	
     
     
     

@@ -106,11 +106,13 @@ public class AviationServiceImpl implements AviationService {
 		 
 		 ComponentReport componentList = new ComponentReport();
 		 Set<ComponentHistoryGroupVO> groupSet = new HashSet<ComponentHistoryGroupVO>();
+		 System.out.println("length of report"+componentHisList.size());
 		 int count=0;
 		 SimpleDateFormat  outputFormatter = new SimpleDateFormat(DATEFORMAT);
 		 String startDate = null;
 		 String endDate = null;
 		 boolean flag= true;
+		
 		 for(ComponentHistory componentHistory : componentHisList){
 			 ComponentHistoryGroupVO group = new ComponentHistoryGroupVO();
 			 HisotryComponenItemVO item = new HisotryComponenItemVO();
@@ -132,6 +134,9 @@ public class AviationServiceImpl implements AviationService {
 			 if(!flag){
 				 item.setClassName("negative");
 				// item.setType("background");
+				 item.setType("range");
+				 item.setContent("<div style=\"height: 15px;\"><img src=\"img/triangle.png\" style=\"width: 15px; height: 15px;\"></div>");
+//				 item.setTitle("this is test title");
 			 }
 			 
 			 item.setStart(startDate);
@@ -217,6 +222,8 @@ public class AviationServiceImpl implements AviationService {
 			if(i == 10){
 				break;
 			}
+			
+
 			compHisCPNSerial.add(temp);
 			i++;
 	
@@ -227,13 +234,23 @@ public class AviationServiceImpl implements AviationService {
 	
 	
 	public List<Object> getRemovedComponentsTail(Date fromDate, Date toDate){
-		String status = "Removed";
+		String status = "Install";
 		String tailValAsNull ="null";
 			
 		System.out.println("From Date "+fromDate+" To Date"+toDate);
 		
 		List<Object>  compHis = compHisRepository.getRemovedComponentsTail(fromDate, toDate,status,tailValAsNull);
 		
+		System.out.println("in service"+compHis);
+		for(int i=0;i<compHis.size();i++){
+			System.out.println("single object"+compHis.getClass());
+			
+			
+		}
+/*		for(ComponentHistory emp:compHis){
+			System.out.println("single object"+emp);
+		}
+	*/
 		List<Object>  compHisTail = new ArrayList<Object>();
 		int i=0;
 		for(Object temp:compHis){
@@ -241,6 +258,9 @@ public class AviationServiceImpl implements AviationService {
 				break;
 			}
 			compHisTail.add(temp);
+			
+			
+			System.out.println("in service"+temp);
 			i++;
 	
 		}

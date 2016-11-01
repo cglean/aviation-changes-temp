@@ -32,6 +32,15 @@ public class Filter implements Serializable {
 	@Column(name = "filterName", unique = true)
 	private String filterName;
 
+	@Override
+	public String toString() {
+		return "Filter [filterID=" + filterID + ", filterName=" + filterName + ", toDate=" + toDate + ", fromDate="
+				+ fromDate + ", sortBy=" + sortBy + ", defaultFilter=" + defaultFilter + ", filterBy=" + filterBy
+				+ ", selectedFleets=" + selectedFleets + ", selectedSubfleets=" + selectedSubfleets + ", selectedTails="
+				+ selectedTails + ", selectedATAs=" + selectedATAs + ", selectedCPNs=" + selectedCPNs
+				+ ", selectedMFGs=" + selectedMFGs + "]";
+	}
+
 	@NotNull
 	@Column(name = "toDate")
 	@Temporal(TemporalType.DATE)

@@ -5,7 +5,7 @@ server:
 spring:
   profiles: local-mssql
   datasource:
-    url: jdbc:mysql://localhost:3306/ad_f33ba6ada231ff9?useSSL=false&user=root&password=root
+    url: jdbc:mysql://localhost:3306/?useSSL=false&user=root&password=root
     username: root
     password: root
  

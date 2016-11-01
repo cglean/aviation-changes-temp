@@ -41,7 +41,10 @@ public interface ComponentHistoryRepository extends CrudRepository<ComponentHist
        @Query("SELECT  distinct(comp.cmpySerialNo) as CPNSerialNumber, count(comp.cmpySerialNo) as count_val FROM ComponentHistory  history JOIN history.component comp where   history.status= :status and  comp.cmpySerialNo <> :cpnSerialValAsNull  and  history.fromDate between :fromDate and :toDate GROUP BY comp.cmpySerialNo ORDER BY count_val DESC ")
        public List<Object> getRemovedComponentsCPNSerial(@Param("fromDate")final Date fromDate, @Param("toDate")final Date toDate, @Param("status")final String status, @Param("cpnSerialValAsNull")final String cpnSerialValAsNull );
        
-       @Query("SELECT  distinct(comp.tailNo) as TailNumber, count(comp.tailNo) as count_val FROM ComponentHistory  history JOIN history.component comp where   history.status= :status and  comp.tailNo <> :tailValAsNull  and  history.fromDate between :fromDate and :toDate GROUP BY comp.tailNo ORDER BY count_val DESC")
+       /*@Query("SELECT  distinct(comp.tailNo) as TailNumber, count(comp.tailNo) as count_val FROM ComponentHistory  history JOIN history.component comp where   history.status= :status and  comp.tailNo <> :tailValAsNull  and  history.fromDate between :fromDate and :toDate GROUP BY comp.tailNo ORDER BY count_val DESC")
+       public List<Object> getRemovedComponentsTail(@Param("fromDate")final Date fromDate, @Param("toDate")final Date toDate, @Param("status")final String status, @Param("tailValAsNull")final String tailValAsNull );*/
+       
+       @Query("SELECT component_history as component_history  FROM ComponentHistory  component_history  where  component_history.status= :status and  component_history.tailNo <> :tailValAsNull  and  component_history.fromDate between :fromDate and :toDate GROUP BY component_history.tailNo ")
        public List<Object> getRemovedComponentsTail(@Param("fromDate")final Date fromDate, @Param("toDate")final Date toDate, @Param("status")final String status, @Param("tailValAsNull")final String tailValAsNull );
       
 }

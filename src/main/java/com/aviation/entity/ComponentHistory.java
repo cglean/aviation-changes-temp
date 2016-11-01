@@ -30,6 +30,21 @@ public class ComponentHistory {
 	@Column(name="to_date")
 	private Date  todate;
 	
+	@Column(name = "tail_no")
+	private String tailNo;
+	
+	
+	
+
+
+	public String getTailNo() {
+		return tailNo;
+	}
+
+	public void setTailNo(String tailNo) {
+		this.tailNo = tailNo;
+	}
+
 	@Column(name="status")
 	private String  status;
 
@@ -128,5 +143,14 @@ public class ComponentHistory {
 		this.positionComponentRemoval = positionComponentRemoval;
 	}
 
+	@Override
+	public String toString() {
+		return "ComponentHistory [historyID=" + historyID + ", component=" + component + ", fromDate=" + fromDate
+				+ ", todate=" + todate + ", tailNo=" + tailNo + ", status=" + status + ", maint_stn=" + maint_stn
+				+ ", dept=" + dept + ", status_reason=" + status_reason + ", discrepency_no=" + discrepency_no
+				+ ", positionComponentRemoval=" + positionComponentRemoval + "]";
+	}
+
+	
 			
 }
