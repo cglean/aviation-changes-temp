@@ -24,7 +24,7 @@ import com.aviation.entity.Filter;
 import com.aviation.entity.Login;
 import com.aviation.service.AviationService;
 import com.aviation.vo.ComponentReport;
-import com.mysql.fabric.xmlrpc.base.Array;
+//import com.mysql.fabric.xmlrpc.base.Array;
 
 import static com.aviation.util.PathConstants.*;
 
@@ -267,7 +267,7 @@ public class AviationController {
 			
 			System.out.println("hello data tail number"+i.toString());
 			ComponentHistory temp=new ComponentHistory();
-			Array temp1=new Array();
+			//Array temp1=new Array();
 			//Object sampleObject=new Object();
 			temp=(ComponentHistory) i;
 			

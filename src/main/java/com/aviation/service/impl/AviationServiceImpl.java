@@ -253,7 +253,7 @@ public class AviationServiceImpl implements AviationService {
 	
 	
 	public List<Object> getRemovedComponentsTail(Date fromDate, Date toDate){
-		String status = "Install";
+		String status = "Installed Unit";
 		String tailValAsNull ="null";
 			
 		System.out.println("From Date "+fromDate+" To Date"+toDate);
