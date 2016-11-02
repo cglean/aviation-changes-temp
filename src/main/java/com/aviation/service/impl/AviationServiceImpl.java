@@ -111,15 +111,17 @@ public class AviationServiceImpl implements AviationService {
 		 SimpleDateFormat  outputFormatter = new SimpleDateFormat(DATEFORMAT);
 		 String startDate = null;
 		 String endDate = null;
-		 boolean flag= true;
+		 String popup = null;
+		 //boolean flag= true;
 		
 		 for(ComponentHistory componentHistory : componentHisList){
 			 ComponentHistoryGroupVO group = new ComponentHistoryGroupVO();
 			 HisotryComponenItemVO item = new HisotryComponenItemVO();
-			
+			//System.out.println(componentHistory.getStatus() + " "+componentHistory.getComponent().getComponentID());
+			 
 			 group.setId(componentHistory.getComponent().getComponentID().toString());
 			 group.setContent(componentHistory.getComponent().getCmpySerialNo());
-			 flag= groupSet.add(group);
+			 groupSet.add(group);
 			
 			 
 			 
@@ -131,19 +133,36 @@ public class AviationServiceImpl implements AviationService {
 			 }else{
 				 endDate = outputFormatter.format(new Date());
 			 }
-			 if(!flag){
+			 if(componentHistory.getStatus().toString().equalsIgnoreCase("Removed")){
 				 item.setClassName("negative");
 				// item.setType("background");
 				 item.setType("range");
-				 item.setContent("<div style=\"height: 15px;\"><img src=\"img/triangle.png\" style=\"width: 15px; height: 15px;\"></div>");
+				 popup = "NOUN : "+componentHistory.getComponent().getClassification().toString();
+				 popup = popup +"<br/>DESCRIPTION : "+ componentHistory.getComponent().getDescription().toString();
+				 popup = popup +"<br/>H_ACN : "+ componentHistory.getComponent().getTailNo().toString();
+//				 popup = popup +"<br/>HI_DTE : "+ componentHistory.getComponent().getDescription().toString();
+//				 popup = popup +"<br/>HI_STA : "+ componentHistory.getComponent().getDescription().toString();
+//				 popup = popup +"<br/>HI_DEPT : "+ componentHistory.getComponent().getDescription().toString();
+				 popup = popup +"<br/>HR_DTE : "+ componentHistory.getFromDate().toString();
+				 popup = popup +"<br/>HR_STA : "+ componentHistory.getMaint_stn().toString();
+				 popup = popup +"<br/>HR_DEPT : "+ componentHistory.getDept().toString();
+				 popup = popup +"<br/>HR_REASON : "+ componentHistory.getStatus_reason().toString();
+//				 popup = popup +"<br/>HS_STA : "+ componentHistory.getComponent().getDescription().toString();
+//				 popup = popup +"<br/>HS_DEPT : "+ componentHistory.getComponent().getDescription().toString();
+//				 popup = popup +"<br/>HS_REPAIR_TYPE : "+ componentHistory.getComponent().getDescription().toString();
+//				 popup = popup +"<br/>HS_REPAIR_ODR_NBR : "+ componentHistory.getComponent().getDescription().toString();
+				 
+				 item.setContent("<div style=\"height: 15px;\"><img title=\""+popup+"\" src=\"img/triangle.png\" style=\"width: 15px; height: 15px;\"></div>");
+//				 item.setContent("<div style=\"height: 15px;\"><img title=\"<span style='color:blue'>That's what this widget is<br/> test</span>\" src=\"img/triangle.png\" style=\"width: 15px; height: 15px;\"></div>");
 //				 item.setTitle("this is test title");
 			 }
 			 
 			 item.setStart(startDate);
 			 item.setEnd(endDate);
 			 item.setGroup(componentHistory.getComponent().getComponentID().toString());
-			 itemList.add(item);
-			 
+			 if(!componentHistory.getStatus().toString().contains("Repair")){
+				 itemList.add(item);
+			 }
 		 }
 		 
 		 List<ComponentHistoryGroupVO> groupList = new ArrayList<ComponentHistoryGroupVO>(groupSet);

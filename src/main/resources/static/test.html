@@ -33,6 +33,10 @@
   <link href="http://visjs.org/dist/vis.css" rel="stylesheet" type="text/css" /> 
   <link href="http://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.css" rel="stylesheet" type="text/css" /> 
   <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!--   <link rel="stylesheet" href="/resources/demos/style.css"> -->
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script src="Utility.js"></script>
 
@@ -404,7 +408,16 @@ padding-top: 0.5%;
 <div class="col-sm-2" style="padding-bottom: 10px;"><input type="button" class="btn btn-primary" style="width: 26%;" value="Next >>" id="next" onclick="pagination('1')"></div>
 </div>
 </div>
-
+  <script>
+  $( function() {
+	    $(document).tooltip({
+	    	  
+	    	content: function () {
+	              return $(this).prop('title');
+	          }
+	      });
+  } );
+  </script>
 <script type="text/javascript">
 function component(){
 	//alert("hi");
