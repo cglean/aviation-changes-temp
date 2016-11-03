@@ -1700,6 +1700,8 @@ function populateSavedMFGs()
 
 function getFilteredData()
 {
+	var fromDate=document.getElementById("fromDate").value;       
+	var toDate=document.getElementById("toDate").value;
   componentIds=[];
    ////alert(filteredData.length)
    for(i=0; i<filteredData.length; i++)
@@ -1712,7 +1714,7 @@ function getFilteredData()
            $.ajax({
   			 type : "POST",
   			 contentType : "application/json",
-  			 url : "/postComponentIds/"+componentIds,
+  			 url : "/postComponentIds/"+componentIds+ "/" +fromDate+ "/" +toDate,
   			 data : JSON.stringify(filteredData),
   			 dataType : 'json',
   	         success : function(data) { 

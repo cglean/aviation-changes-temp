@@ -170,8 +170,7 @@ body, html {
 
 						</ul></li>
 
-					<li><a href="#foot">ABOUT ME</a></li>
-					<li><a href="#contact">CONTACT US</a></li>
+					
 					 <li><a href="index.html" id="logout">LOGOUT</a></li>
 				</ul>
 			</div>
@@ -515,6 +514,18 @@ body, html {
 				
 				removalTailData = data;
 	//alert("in tail"+removalTailData);
+	
+	//splashScreenTail
+	
+	
+	//var list = {"you": 100, "me": 75, "foo": 116, "bar": 15};
+	
+	
+removalTailData=removalTailData.sort(function(a, b){
+    return a[1]-b[1]
+})
+	// alert(removalTailData);  
+	
 		var datam = new google.visualization.DataTable();
 		datam.addColumn("string", "name");
 		datam.addColumn("number", "value");
@@ -568,7 +579,7 @@ body, html {
 			// Some raw data (not necessarily accurate)
 			var removalCPNData = []
 			$.ajax({
-			url : "/splashScreenCPN",
+			url : "/splashScreenMFG",
 			success : function(data) {
 				
 				removalCPNData = data;
@@ -581,7 +592,7 @@ body, html {
 			datam.addRows(removalCPNData)
 				
 			var optionsm = {
-				title : 'Top 10 worst performing CPNs',
+				title : 'Top 10 worst performing MPNs',
 				vAxis : {
 					title : 'Number of removals',
 					format: '#',
@@ -590,9 +601,10 @@ body, html {
 					}
 				},
 				hAxis : {
-					title : 'CPNs',
+					title : 'MFG.Part Number',
 					titleTextStyle : {
 						bold : true
+						
 					}
 				},
 

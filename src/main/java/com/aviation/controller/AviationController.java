@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.aviation.entity.Component;
 import com.aviation.entity.ComponentHistory;
 import com.aviation.entity.Filter;
+import com.aviation.entity.FlightHours;
 import com.aviation.entity.Login;
 import com.aviation.service.AviationService;
 import com.aviation.vo.ComponentReport;
@@ -35,6 +37,9 @@ public class AviationController {
 	private int currentcount;
 	private int forStart;
 	private int forEnd;
+	private String removalFromDate;
+	private String removalToDate;
+
 
 	@Autowired
 	private AviationService aviationService;
@@ -188,8 +193,8 @@ public class AviationController {
 	}
 	
 	
-	@RequestMapping(value = "/splashScreenCPN", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Object> showSplashScreenCPN(/*@RequestBody   List<Long> componentIds*/) {
+	/*@RequestMapping(value = "/splashScreenCPN", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<Object> showSplashScreenCPN(@RequestBody   List<Long> componentIds) {
 		// TODOD:: Remove Hard coding 
 		
 		
@@ -206,6 +211,33 @@ public class AviationController {
 		}
 		 
 		List<Object> componentRemovalRept =  aviationService.getRemovedComponentsCPN(sDate, eDate);
+		//List<Object> componentRemovalRept =  aviationService.getRemovedComponentsCPN(new Date("2014-08-10"), new Date("2016-08-10"));
+		System.out.println("in cpn"+componentRemovalRept);
+		
+		return componentRemovalRept;
+	}
+	*/
+	
+	
+	
+	@RequestMapping(value = "/splashScreenMFG", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<Object> showSplashScreenCPN(/*@RequestBody   List<Long> componentIds*/) {
+		// TODOD:: Remove Hard coding 
+		
+		
+		
+		
+		String pattern = DATEFORMATNEW;
+		Date sDate=null;
+		Date eDate=null;
+		try {
+			sDate =  new SimpleDateFormat(pattern).parse("2014-08-10");
+			 eDate =  new SimpleDateFormat(pattern).parse("2016-08-10");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		 
+		List<Object> componentRemovalRept =  aviationService.getRemovedComponentsMFG(sDate, eDate);
 		//List<Object> componentRemovalRept =  aviationService.getRemovedComponentsCPN(new Date("2014-08-10"), new Date("2016-08-10"));
 		System.out.println("in cpn"+componentRemovalRept);
 		
@@ -240,7 +272,7 @@ public class AviationController {
 	@RequestMapping(value = "/splashScreenTail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Object> splashScreenTail(/*@RequestBody   List<Long> componentIds*/) {
 		// TODOD:: Remove Hard coding 
-		
+		int fightHours[];
 		
 		
 		
@@ -253,13 +285,10 @@ public class AviationController {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		/*long diff = sDate.getTime() - eDate.getTime();
-		long diffDays = diff / (24 * 60 * 60 * 1000);
 
-		System.out.println(diffDays + " days, ");
-	*/
 		
 		List<Object> sent=new ArrayList<Object>();
+		//List<FlightHours> sent=new ArrayList<FlightHours>();
 		
 		List<Object> componentRemovalRept =  aviationService.getRemovedComponentsTail(sDate, eDate);
 		System.out.println("tail length"+componentRemovalRept.size());
@@ -267,8 +296,7 @@ public class AviationController {
 			
 			System.out.println("hello data tail number"+i.toString());
 			ComponentHistory temp=new ComponentHistory();
-			//Array temp1=new Array();
-			//Object sampleObject=new Object();
+	
 			temp=(ComponentHistory) i;
 			
 			Date fromDate=temp.getFromDate();
@@ -286,13 +314,20 @@ public class AviationController {
 			tempArr.add(temp.getTailNo());
 			tempArr.add(diffDays);
 			sent.add(tempArr);
+			
+/*sent.add(tempArr);
+tempArr.add(diffDays);
+sent.add(tempArr);*/
+	
+			System.out.println(sent);
 		
 			System.out.println(diffDays + " days, ");
 		}
+		//Collections.sort((List<T>) sent);
 		
 		System.out.println("in tail");
 		System.out.println("in cpn"+componentRemovalRept);
-		
+	
 		return sent;
 	}
 	
@@ -350,10 +385,11 @@ public class AviationController {
     
     
     
-	@RequestMapping(value = "/postComponentIds/{components}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public void getComponentsIds(@RequestBody final List<Component> components) throws ParseException {
+	@RequestMapping(value = "/postComponentIds/{components}/{fromDate}/{toDate}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public void getComponentsIds(@RequestBody final List<Component> components,@PathVariable final String fromDate, @PathVariable final String toDate) throws ParseException {
 		
 //		/componentIds
+		System.out.println("from date "+fromDate+" to date "+toDate);
 		System.out.println("Hi I am in component  dfcd ids");
 		componentsIds = new ArrayList<Long>();
 		System.out.println("in component"+components.toString());
@@ -361,7 +397,27 @@ public class AviationController {
 			componentsIds.add(component.getComponentID());
 			System.out.println(component.getComponentID());
 		}
-		//System.out.println(components.size());		
+		//System.out.println(components.size());	
+		
+		
+		
+		 DateFormat df = new SimpleDateFormat("yyyy-MM-dd"); 
+	      
+	    	
+ 		Date frmDate= df.parse(fromDate);
+         Date tDate= df.parse(toDate);
+		
+		
+		System.out.println("to date and from date"+frmDate+" "+tDate);
+		
+		 SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+		 String  startDate=formatter.format(frmDate);
+      String  endDate=formatter.format(tDate);
+      System.out.println("after"+startDate+" "+endDate);
+		
+      removalFromDate=startDate.replaceAll("-", "/");
+      removalToDate=endDate.replaceAll("-", "/");
+      
 	}
 
     
@@ -391,6 +447,8 @@ public class AviationController {
 		
 		
 		System.out.println("in status"+status);
+		status.add(removalFromDate);
+		status.add(removalToDate);
 		
 		return status;
 	}

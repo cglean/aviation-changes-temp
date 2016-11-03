@@ -123,7 +123,7 @@ padding-top: 0.5%;
 	height:0px; 
 	border-left:20px solid transparent;
 	border-right:20px solid transparent;
-	border-top:20px solid #23CF46;
+	border-top:20px solid red;
 }
 
 .ycircle{
@@ -149,12 +149,6 @@ padding-top: 0.5%;
   }
   .vis-item .vis-item-overflow {
   overflow: visible;
-}
-.vis-item .vis-item-content{
-	padding: 0px;
-}
-img {
-    vertical-align: top;
 }
 
     </style>
@@ -186,8 +180,7 @@ img {
 <li><a href="Unit_Filter.html">Filter Editor</a></li>
 <li><a href="Splash_Screen.html">Component Analysis</a></li>
 </ul></li>
-				<li><a href="#foot">ABOUT ME</a></li>
-				<li><a href="#contact">CONTACT US</a></li>
+				
 				<li><a href="index.html" id="logout">LOGOUT</a></li>
 			</ul>
 		</div>
@@ -232,11 +225,11 @@ img {
 		<hr id="date_line">	
 		<div class="form-group date-range ">
 			<!-- <center><label for="dateRange" class="label_date" style="color: brown;">Extract Date</label></center> -->
-			<div class="date_range_select ">
+				<div class="date_range_select ">
 			<label for="fromDate" class="label_date" >Extract Date</label> 
-			<input type="date"	class="form-control" style="margin-bottom: 4px;" id="fromDate" readonly="true" />
-			<label for="fromDate" class="label_date" >Date Range</label> 
-			 <input type="text" name="datefilter" value="" readonly="true" placeholder="dd/mm/yyyy - dd/mm/yyyy"/>
+			<input type="text"	class="form-control" style="margin-bottom: 4px;" id="currentDate" readonly="true" />
+			<label	for="dateRange" class="label_date">Date Range</label> 
+							 <input type="text"	class="form-control" style="margin-bottom: 4px;" id="dateRange" readonly="true" />
 					<!-- <script type="text/javascript"> -->
 						<!-- $(function() { -->
 
@@ -261,6 +254,27 @@ img {
 			
 		</div>
 		
+		
+		
+		
+		<!-- Analysis By Start -->
+		<hr id="analysisByLine">					
+		<div>
+			<div class="checkbox filter-checkbox form-group filter_left2_p2"> 
+				<label id="tab-caption" style="border-bottom: 1px solid;width: 33%;border-bottom-color: black;padding-left: 2%;">Analysis By</label> 
+			</div>
+			<table style="margin-left:10px;">
+				<tr>
+					<td><input type="radio" name="filter"></td>
+					<td><label>Best First</label></td>
+				</tr>
+				<tr>
+					<td><input type="radio" name="filter"></td>
+					<td><label>Worst First</label></td>
+				</tr>
+ 			</table>
+		</div>
+	
 		<!-- Installastion period bar Start -->
 		
 			<hr id="installationPeriodLine">
@@ -284,11 +298,11 @@ img {
 					
 						<td><div class="button" style="background-color:white;"></td>
 					</tr>
-					<tr>
+		<!-- 			<tr>
 						<td><label>Still Installed Box</label></td>
 					
 						<td><div class="button" style="background-color:Pink;"></td>
-					</tr>
+					</tr> -->
 				</table>
 			</div>
 		
@@ -306,11 +320,13 @@ img {
 					<tr>
 						<td style="padding-left: 8px;padding-top: 3px;"><input type="radio" name="remperbar" /></td>
 					
-						<td><label id="tab-caption" style="border-bottom: 1px solid;width: 100%;border-bottom-color: black; padding-left: 4px !important;padding-bottom: 0px !important;">Removal Period Bar</label></td>
+						<td><label id="tab-caption" style="border-bottom: 1px solid;width: 100%;border-bottom-color: black; padding-left: 4px !important;padding-bottom: 0px !important;">Removal Event</label></td>
+						
+						<td style="padding-left: 16px;"><p class="glyphicon glyphicon-triangle-bottom" style="font-size: 30px;color: red;"></p></td>
 					</tr>
 				 </table>
 			</div>
-			<table style="margin-left:10px;">
+<!-- 			<table style="margin-left:10px;">
 				<tr>
 					<td><label>Scheduled</label></td>
 					<td><div class="triangle" ></div></td>
@@ -325,7 +341,7 @@ img {
 					
 					<td style="padding-left:6px"><div class="bcircle button" ></div></td>
 				</tr>
-				</table>
+				</table> -->
 
 
 		</div>
@@ -333,33 +349,16 @@ img {
 		
 		<!-- Removal period bar END -->
 		
-		<!-- Analysis By Start -->
-		<hr id="analysisByLine">					
-		<div>
-			<div class="checkbox filter-checkbox form-group filter_left2_p2"> 
-				<label id="tab-caption" style="border-bottom: 1px solid;width: 95%;border-bottom-color: black;">Analysis By</label> 
-			</div>
-			<table style="margin-left:10px;">
-				<tr>
-					<td><input type="radio" name="filter"></td>
-					<td><label>Best First</label></td>
-				</tr>
-				<tr>
-					<td><input type="radio" name="filter"></td>
-					<td><label>Worst First</label></td>
-				</tr>
- 			</table>
-		</div>
-	
+		
 		
 		
 		<!-- Analysis By END -->
 		
 		
 		
-		<div>
+<!-- 		<div>
 		<hr id="unitByLine">
-		<!-- <input type="string" style="width: 70px;" id="unit" value="Units by"> -->
+		<input type="string" style="width: 70px;" id="unit" value="Units by">
 		<label id="tab-caption" style="border-bottom: 1px solid;width: 95%;border-bottom-color: black;">Units by</label> 
 		<div class="checkbox filter-checkbox form-group filter_left2_p2">
 			<table class="tab_change">
@@ -389,7 +388,8 @@ img {
 			   </tr>
 				</table>
 			</div>
-		</div>
+		</div> -->
+			<hr id="removalPeriodLine">		
 		<div style="padding-bottom: 10px;"><input style="padding-bottom: 0;margin-left: 30px;word-wrap: break-word;width: 160px;height: 50px;" name="action" type="button" value="Component Analysis" onclick="splashScreen()"/></div>
 		<div style="padding-bottom: 10px;"><input style="padding-bottom: 0;margin-left: 30px;word-wrap: break-word;width: 160px;height: 50px;" name="action" type="button" value="Filter Editor" onclick="component();"/></div>									
 		
@@ -409,15 +409,15 @@ img {
 	
 	<div class="row">
 	<div class="col-sm-3"></div>
-	<div class="col-sm-2" style="padding-bottom: 10px;"><input type="button" class="btn btn-primary"  style="width: 36%;"  value="<< Previous" id="previous" onclick="pagination('-1')"></div>
+	<div class="col-sm-2" style="padding-bottom: 10px;"><input type="button" class="btn btn-primary" value="<< Previous" id="previous" onclick="pagination('-1')"></div>
 <div class="col-sm-5"></div>
-<div class="col-sm-2" style="padding-bottom: 10px;"><input type="button" class="btn btn-primary" style="width: 26%;" value="Next >>" id="next" onclick="pagination('1')"></div>
+<div class="col-sm-2" style="padding-bottom: 10px;"><!-- <input type="button" class="form-control" class="btn btn-primary"  value="Next >>"  id="next" onclick="pagination('1')"> --><input type="button" class="btn btn-primary"  value="Next >>" id="next" onclick="pagination('1')"></div>
 </div>
 </div>
   <script>
   $( function() {
 	    $(document).tooltip({
-	    	track: true,
+	    	  
 	    	content: function () {
 	              return $(this).prop('title');
 	          }
@@ -691,6 +691,23 @@ var paginationStatus=function(){
 						//alert("in previous false");
 						document.getElementById("previous").disabled=false;
 					}
+					
+
+					document.getElementById("dateRange").value = statusValue[2]+" - "+statusValue[3];
+					
+					var today = new Date();
+					var dd = today.getDate();
+					var mm = today.getMonth()+1; //January is 0!
+
+					var yyyy = today.getFullYear();
+					if(dd<10){
+					    dd='0'+dd
+					} 
+					if(mm<10){
+					    mm='0'+mm
+					} 
+					var fromDate = dd+'/'+mm+'/'+yyyy;
+					document.getElementById("currentDate").value = fromDate;
 						
 										
 		}

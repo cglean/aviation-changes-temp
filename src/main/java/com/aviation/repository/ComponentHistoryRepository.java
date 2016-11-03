@@ -35,8 +35,8 @@ public interface ComponentHistoryRepository extends CrudRepository<ComponentHist
        
        
        
-       @Query("SELECT  distinct(comp.companyPartNo) as CPNNumber, count(comp.companyPartNo) as count_val FROM ComponentHistory  history JOIN history.component comp where   history.status= :status and  comp.companyPartNo <> :cpnValAsNull  and  history.fromDate between :fromDate and :toDate GROUP BY comp.companyPartNo ORDER BY count_val DESC")
-       public List<Object> getRemovedComponentsCPN(@Param("fromDate")final Date fromDate, @Param("toDate")final Date toDate, @Param("status")final String status, @Param("cpnValAsNull")final String cpnValAsNull );
+       @Query("SELECT  distinct(comp.mfgPartNo) as MFGNumber, count(comp.mfgPartNo) as count_val FROM ComponentHistory  history JOIN history.component comp where   history.status= :status and  comp.mfgPartNo <> :mfgValAsNull  and  history.fromDate between :fromDate and :toDate GROUP BY comp.mfgPartNo ORDER BY count_val DESC")
+       public List<Object> getRemovedComponentsMFG(@Param("fromDate")final Date fromDate, @Param("toDate")final Date toDate, @Param("status")final String status, @Param("mfgValAsNull")final String mfgValAsNull );
        
        @Query("SELECT  distinct(comp.cmpySerialNo) as CPNSerialNumber, count(comp.cmpySerialNo) as count_val FROM ComponentHistory  history JOIN history.component comp where   history.status= :status and  comp.cmpySerialNo <> :cpnSerialValAsNull  and  history.fromDate between :fromDate and :toDate GROUP BY comp.cmpySerialNo ORDER BY count_val DESC ")
        public List<Object> getRemovedComponentsCPNSerial(@Param("fromDate")final Date fromDate, @Param("toDate")final Date toDate, @Param("status")final String status, @Param("cpnSerialValAsNull")final String cpnSerialValAsNull );

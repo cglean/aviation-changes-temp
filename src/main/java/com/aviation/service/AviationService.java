@@ -28,7 +28,7 @@ public interface AviationService {
 	
 	public ComponentReport getComponents(List<Long> componentIds);
 	
-	public List<Object> getRemovedComponentsCPN(Date fromDate, Date toDate);
+	public List<Object> getRemovedComponentsMFG(Date fromDate, Date toDate);
 	
 	public List<Object> getRemovedComponentsCPNSerial(Date fromDate, Date toDate);
 	 

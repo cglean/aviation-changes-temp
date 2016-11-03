@@ -196,8 +196,7 @@ button#displayReport {
 <li><a href="Splash_Screen.html">Component Analysis</a></li>
 </ul></li>
                            
-                           <li><a href="#foot">ABOUT ME</a></li>
-                           <li><a href="#contact">CONTACT US</a></li>
+                          
                             <li><a href="index.html" id="logout">LOGOUT</a></li>
                      </ul>
               </div>
@@ -269,25 +268,25 @@ button#displayReport {
 				<div class="col-sm-1">
 				</div>
 					<div class="col-sm-4">
-				 		<input placeholder="Search..." id="fleet" type="text" class="search" onchange="searchData('fleetNo')"  /> 
+				 		<input placeholder="Search..." id="fleet" type="text" class="search" onchange="searchData('fleetNo')" readonly /> 
 				 		<form>
 							<select name="fleet" class="sort_option sort_fleet" style="height: 150px;" id="fleetNo"
-							multiple>
+							multiple  >
 							</select>
 						</form>	
 					</div>
 					<div class="col-sm-1 midButton">
-							<input type="button" value=">>" class="list-clear-btn" id="fleetPush" onclick="PushToSelectedList('fleetNo','fleetValue');"><br><br>
-						    <input type="button" value="<<" class="list-clear-btn" id="fleetClear" onclick="ClearSelectedList('fleetValue','fleetNo');">
+							<input type="button" value=">>" class="list-clear-btn" id="fleetPush" onclick="PushToSelectedList('fleetNo','fleetValue');" disabled ><br><br>
+						    <input type="button" value="<<" class="list-clear-btn" id="fleetClear" onclick="ClearSelectedList('fleetValue','fleetNo');" disabled >
 						
 			        </div>
 					<div class="col-sm-4">
-							<input placeholder="Search..." id="fleet1" type="text" class="search"/>
+							<input placeholder="Search..." id="fleet1" type="text" class="search" readonly />
 							<form>
 						    <select name="fleet" class="sort_option sort_fleet" style="height: 150px;" id="fleetValue" multiple>
 						   </select><br><br>
 						   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						   <input type="button" value="Submit" class="list-clear-btn" id="fleetNoSubmit" onclick="getFleets()" >
+						   <input type="button" value="Submit" class="list-clear-btn" id="fleetNoSubmit" onclick="getFleets()" disabled >
 						   </form>
 					</div>
 				</div>
@@ -457,7 +456,7 @@ button#displayReport {
 				<div class="col-sm-1">
 				</div>
 					 <div class="col-sm-4">
-						<input placeholder="Search..." id="cpnNo" type="text" class="search" onchange="searchData('companyPartNo')" /> 
+						<input placeholder="Search..." id="cpnNo" type="text" class="search" onchange="searchData('companyPartNo')" readonly /> 
 					<form action="#">
 						<select name="companyPartNumber" class="sort_option sort_cpnNo"
 							style="height: 150px;" id="companyPartNo" multiple>
@@ -466,16 +465,16 @@ button#displayReport {
 					</form>
 					</div>
 					<div class="col-sm-1 midButton">
-					<input type="button" name="cpnSelect" value=">>" class="list-clear-btn" id="companyPush" onclick="PushToSelectedList('companyPartNo','companyValue');"><br><br>
-				    <input type="button" name="cpnClear" value="<<" class="list-clear-btn" id="companyClear" onclick="ClearSelectedList('companyValue','companyPartNo');" >
+					<input type="button" name="cpnSelect" value=">>" class="list-clear-btn" id="companyPush" onclick="PushToSelectedList('companyPartNo','companyValue');" disabled><br><br>
+				    <input type="button" name="cpnClear" value="<<" class="list-clear-btn" id="companyClear" onclick="ClearSelectedList('companyValue','companyPartNo');" disabled>
 					</div>
 					<div class="col-sm-4">
-					<input placeholder="Search..." id="cpnNo1" type="text" class="search" />
+					<input placeholder="Search..." id="cpnNo1" type="text" class="search" readonly/>
 					<form action="#">
 						<select name="companyPartNumber" class="sort_option sort_cpnNo1"
 							style="height: 150px;" id="companyValue" multiple>
 										</select><br><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-						<input type="button" value="Submit" class="list-clear-btn" onclick="getCompanyPartNo()" id="companySubmit">
+						<input type="button" value="Submit" class="list-clear-btn" onclick="getCompanyPartNo()" id="companySubmit" disabled>
 					</form>
 					</div>
 					</div>
