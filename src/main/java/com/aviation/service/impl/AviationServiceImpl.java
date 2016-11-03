@@ -121,6 +121,7 @@ public class AviationServiceImpl implements AviationService {
 			 
 			 group.setId(componentHistory.getComponent().getComponentID().toString());
 			 group.setContent(componentHistory.getComponent().getCmpySerialNo());
+//			 group.setTitle("I will show details");
 			 groupSet.add(group);
 			
 			 
@@ -137,16 +138,16 @@ public class AviationServiceImpl implements AviationService {
 				 item.setClassName("negative");
 				// item.setType("background");
 				 item.setType("range");
-				 popup = "NOUN : "+componentHistory.getComponent().getClassification().toString();
-				 popup = popup +"<br/>DESCRIPTION : "+ componentHistory.getComponent().getDescription().toString();
-				 popup = popup +"<br/>H_ACN : "+ componentHistory.getComponent().getTailNo().toString();
+				 popup = "Classification : "+componentHistory.getComponent().getClassification().toString();
+				 popup = popup +"<br/>Description : "+ componentHistory.getComponent().getDescription().toString();
+				 popup = popup +"<br/>Tail No : "+ componentHistory.getComponent().getTailNo().toString();
 //				 popup = popup +"<br/>HI_DTE : "+ componentHistory.getComponent().getDescription().toString();
 //				 popup = popup +"<br/>HI_STA : "+ componentHistory.getComponent().getDescription().toString();
 //				 popup = popup +"<br/>HI_DEPT : "+ componentHistory.getComponent().getDescription().toString();
-				 popup = popup +"<br/>HR_DTE : "+ componentHistory.getFromDate().toString();
-				 popup = popup +"<br/>HR_STA : "+ componentHistory.getMaint_stn().toString();
-				 popup = popup +"<br/>HR_DEPT : "+ componentHistory.getDept().toString();
-				 popup = popup +"<br/>HR_REASON : "+ componentHistory.getStatus_reason().toString();
+				 popup = popup +"<br/>Removal Date : "+ componentHistory.getFromDate().toString();
+				 popup = popup +"<br/>Removal Station : "+ componentHistory.getMaint_stn().toString();
+				 popup = popup +"<br/>Removail Department : "+ componentHistory.getDept().toString();
+				 popup = popup +"<br/>Removail Reason : "+ componentHistory.getStatus_reason().toString();
 //				 popup = popup +"<br/>HS_STA : "+ componentHistory.getComponent().getDescription().toString();
 //				 popup = popup +"<br/>HS_DEPT : "+ componentHistory.getComponent().getDescription().toString();
 //				 popup = popup +"<br/>HS_REPAIR_TYPE : "+ componentHistory.getComponent().getDescription().toString();
@@ -155,6 +156,25 @@ public class AviationServiceImpl implements AviationService {
 				 item.setContent("<div style=\"height: 15px;\"><img title=\""+popup+"\" src=\"img/triangle.png\" style=\"width: 15px; height: 15px;\"></div>");
 //				 item.setContent("<div style=\"height: 15px;\"><img title=\"<span style='color:blue'>That's what this widget is<br/> test</span>\" src=\"img/triangle.png\" style=\"width: 15px; height: 15px;\"></div>");
 //				 item.setTitle("this is test title");
+			 }else if(componentHistory.getStatus().toString().equalsIgnoreCase("Installed Unit")){
+				 item.setClassName("positive");
+				 popup = "Classification : "+componentHistory.getComponent().getClassification().toString();
+				 popup = popup +"<br/>Description : "+ componentHistory.getComponent().getDescription().toString();
+				 popup = popup +"<br/>Sub Fleet No : "+ componentHistory.getComponent().getSubfleetNo().toString();
+				 popup = popup +"<br/>Manufacturing Part No : "+ componentHistory.getComponent().getMfgPartNo().toString();
+				 popup = popup +"<br/>Tail No : "+ componentHistory.getComponent().getTailNo().toString();
+				 popup = popup +"<br/>Installation Date : "+ componentHistory.getFromDate().toString();
+				 popup = popup +"<br/>Installation Station : "+ componentHistory.getMaint_stn().toString();
+				 popup = popup +"<br/>Installation Department : "+ componentHistory.getDept().toString();
+//				 popup = popup +"<br/>HR_DTE : "+ componentHistory.getFromDate().toString();
+//				 popup = popup +"<br/>HR_STA : "+ componentHistory.getMaint_stn().toString();
+//				 popup = popup +"<br/>HR_DEPT : "+ componentHistory.getDept().toString();
+//				 popup = popup +"<br/>HR_REASON : "+ componentHistory.getStatus_reason().toString();
+//				 popup = popup +"<br/>HS_STA : "+ componentHistory.getComponent().getDescription().toString();
+//				 popup = popup +"<br/>HS_DEPT : "+ componentHistory.getComponent().getDescription().toString();
+//				 popup = popup +"<br/>HS_REPAIR_TYPE : "+ componentHistory.getComponent().getDescription().toString();
+//				 popup = popup +"<br/>HS_REPAIR_ODR_NBR : "+ componentHistory.getComponent().getDescription().toString();
+				 item.setTitle(popup);;
 			 }
 			 
 			 item.setStart(startDate);
