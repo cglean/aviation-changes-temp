@@ -150,6 +150,12 @@ padding-top: 0.5%;
   .vis-item .vis-item-overflow {
   overflow: visible;
 }
+.vis-item .vis-item-content{
+ 	padding: 0px;
+ }
+ img {
+     vertical-align: top;
+ }
 
     </style>
 
@@ -417,7 +423,7 @@ padding-top: 0.5%;
   <script>
   $( function() {
 	    $(document).tooltip({
-	    	  
+	    	track: true,
 	    	content: function () {
 	              return $(this).prop('title');
 	          }
