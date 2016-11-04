@@ -7,8 +7,6 @@ public class ComponentHistoryGroupVO {
 	private String id;
 	
 	private String content;
-	
-	private String title;
 
 	public String getId() {
 		return id;
@@ -55,14 +53,6 @@ public class ComponentHistoryGroupVO {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
 	}
 	
 

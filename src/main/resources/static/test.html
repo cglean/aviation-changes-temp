@@ -150,12 +150,6 @@ padding-top: 0.5%;
   .vis-item .vis-item-overflow {
   overflow: visible;
 }
-.vis-item .vis-item-content{
- 	padding: 0px;
- }
- img {
-     vertical-align: top;
- }
 
     </style>
 
@@ -163,7 +157,7 @@ padding-top: 0.5%;
     <!-- <link href="../../Code/vis/dist/vis.css" rel="stylesheet" type="text/css" /> -->
     <!-- <script src="../vis/examples/googleAnalytics.js"></script> -->
 </head>
-<body>
+<body onload="removal('0')">
 
 	<!-- Top Logo Header -->
 	<nav id="home"  class="navbar navbar-default navbar-fixed-top">
@@ -264,18 +258,21 @@ padding-top: 0.5%;
 		
 		
 		<!-- Analysis By Start -->
-		<hr id="analysisByLine">					
+		
+		
+		
+				<hr id="analysisByLine">					
 		<div>
 			<div class="checkbox filter-checkbox form-group filter_left2_p2"> 
 				<label id="tab-caption" style="border-bottom: 1px solid;width: 33%;border-bottom-color: black;padding-left: 2%;">Analysis By</label> 
 			</div>
 			<table style="margin-left:10px;">
 				<tr>
-					<td><input type="radio" name="filter"></td>
+					<td><input type="radio" name="filter" id ="bestFirst" onchange="onChangeRadioButton()"/></td>
 					<td><label>Best First</label></td>
 				</tr>
 				<tr>
-					<td><input type="radio" name="filter"></td>
+					<td><input type="radio" name="filter" id ="worstFirst" onchange="onChangeRadioButton()" checked/></td>
 					<td><label>Worst First</label></td>
 				</tr>
  			</table>
@@ -415,15 +412,16 @@ padding-top: 0.5%;
 	
 	<div class="row">
 	<div class="col-sm-3"></div>
-	<div class="col-sm-2" style="padding-bottom: 10px;"><input type="button" class="btn btn-primary" value="<< Previous" id="previous" onclick="pagination('-1')"></div>
+	<div class="col-sm-2" style="padding-bottom: 10px;"><input type="button" class="btn btn-primary" value="<< Previous" id="previous" onclick="onPageLoad('-1')"></div>
 <div class="col-sm-5"></div>
-<div class="col-sm-2" style="padding-bottom: 10px;"><!-- <input type="button" class="form-control" class="btn btn-primary"  value="Next >>"  id="next" onclick="pagination('1')"> --><input type="button" class="btn btn-primary"  value="Next >>" id="next" onclick="pagination('1')"></div>
+<div class="col-sm-2" style="padding-bottom: 10px;"><!-- <input type="button" class="form-control" class="btn btn-primary"  value="Next >>"  id="next" onclick="pagination('1')"> -->
+<input type="button" class="btn btn-primary"  value="Next >>" id="next" onclick="onPageLoad('1')"></div>
 </div>
 </div>
   <script>
   $( function() {
 	    $(document).tooltip({
-	    	track: true,
+	    	  
 	    	content: function () {
 	              return $(this).prop('title');
 	          }
@@ -431,8 +429,18 @@ padding-top: 0.5%;
   } );
   </script>
 <script type="text/javascript">
+
+var step;
+var currentcount;
+var forStart;
+var forEnd;
+var worstFitGroupList=[];
+var worstFitItemList=[];
+var worstFitGroupListFinal=[]
+
+var worstFitItemListFinal=[]
 function component(){
-	//alert("hi");
+	
 	window.location="Unit_Filter.html";
 	
 }
@@ -452,15 +460,21 @@ function printDiv(divName) {
 }
 var report={};
 
-var removal=function(step){
-	//alert("report call")
+var removal=function(step1){
+	////alert("report call")
 	$.ajax({
-		url : "/removalReport/"+step,
+		url : "/removalReport/"+step1,
 		async: false,
         cache: false,
 		success : function(data) { 
 			report=data;
-					
+			step=0;
+			forStart=0;
+			forEnd=0;
+			currentcount=0;
+
+			
+			onPageLoad(step)	
 		}
 	
 		
@@ -470,113 +484,247 @@ var removal=function(step){
 
 
 
-$(document).ready(function() {
-	//alert("in report")
-	/*
-	
-				$('input[name="instperbar"],input[name="remperbar"]').unbind().click(function(){
-					if($(this).attr('checked')){
-					//console.log('block1');
-					$(this).attr('checked',false);
-					}
-					else{
-					$(this).attr('checked','checked');
-					//console.log('block2');
-					}
-					
-			});
 
-			$('input[name="instperbar"]').click(function(){
-					filterlogic();
-					
-			console.log('filter applied');
-			})
-
-			$('input[name="remperbar"]').click(function(){
-					
-					filterlogic();
-			console.log('filter applied');
-			})*/
-	/*<!-- ***************Start of Filter logic for chart selection***************	 -->
-	function filterlogic(){
-
-		if($('input[name="instperbar"]').attr('checked') == 'checked' && ($('input[name="remperbar"]').attr('checked') == false || $('input[name="remperbar"]').attr('checked') == undefined)){
-				$('.vis-item.vis-background.grph_bcircle,.vis-item.vis-background.grph_ycircle,.vis-item.vis-background.negative').css('display','none');
-				$('.vis-item-overflow,.vis-range,.vis-item.vis-background.positive').css('display','block');
-				console.log('show bars');
-			}
-		else if(($('input[name="instperbar"]').attr('checked')== false || $('input[name="instperbar"]').attr('checked') == undefined) && $('input[name="remperbar"]').attr('checked')== 'checked'){
-				$('.vis-item-overflow,.vis-range,.vis-item.vis-background.positive').css('display','none');
-				$('.vis-item.vis-background.grph_bcircle,.vis-item.vis-background.grph_ycircle,.vis-item.vis-background.negative').css('display','block');
-				console.log('show triangle');
-			}
-		else if($('input[name="instperbar"]').attr('checked')== 'checked' && $('input[name="remperbar"]').attr('checked')=='checked'){
-				$('.vis-item-overflow,.vis-range,.vis-item.vis-background.grph_bcircle,.vis-item.vis-background.grph_ycircle,.vis-item.vis-background.negative').css('display','block');
-				console.log('show all');
-		}
-		
-		else if(($('input[name="instperbar"]').attr('checked')== false || $('input[name="instperbar"]').attr('checked') == undefined) && ($('input[name="remperbar"]').attr('checked') == false || $('input[name="remperbar"]').attr('checked') == undefined)){
-				$('.vis-item-overflow,.vis-range,.vis-item.vis-background.grph_bcircle,.vis-item.vis-background.negative,.vis-item.vis-background.positive,.vis-item.vis-background.grph_ycircle').css('display','none');
-				console.log('show none');
-		}
+function onChangeRadioButton()
+{     document.getElementById('visualization').innerHTML = "";
+  	  
+     onPageLoad('0');
+  
 	}
-	<!-- ***************End of Filter logic for chart selection***************	 -->*/
-	
-<!-- $('.triangle').click(function(){ -->
-	<!-- if( $('.vis-item-overflow,.vis-range').css('display') == 'none' ) -->
-	<!-- $('.vis-item-overflow,.vis-range,grph_ycircle,.vis-item.vis-background.grph_bcircle').css('display','block'); -->
-	<!-- else -->
-	<!-- $('.vis-item-overflow,.vis-range,grph_ycircle,.vis-item.vis-background.grph_bcircle').css('display','none'); -->
-<!-- }); -->
 
 
-var step=0;
-	
 
 
-removal(step);
- 
+
+
+
+
+function onPageLoad(value){
+step=value;
+var temp=0;
+
+  document.getElementById("visualization").innerHTML = "";
+	 
+
+  
+
+  
   // Create a DataSet (allows two way data-binding)
    var items = new vis.DataSet({
         type: { start: 'Moment', end: 'Moment' }
     }); 
    var groups = new vis.DataSet();
-   
-  /* groups.add([ {id: 'serial4', content:'CPN4'}]);
-  items.add([{id: 4, content: '', start: '2015-01-01', end: '2015-03-27',group:'serial4'},
-     		{id: 5, content: '', start: '2015-06-20', end: '2016-11-27',group:'serial4',},
-    		{id: 6, content: '', start: '2017-02-20', end: '2017-06-27',group:'serial4'},
-     		{id: 7, content: '', start: '2018-09-20', end: '2019-09-20', className: 'negative',group:'serial4'}
-     		]); */
-   
   
-  //{id: 7, content: '', start: '2018-09-20', end: '2019-09-20',type: 'background', className: 'negative',group:'serial4', subgroup:'sg_2'}
-  
-     		
-   groups.add(report.groupList);
-   items.add(report.itemList);
-   
-   
-  
-   console.log("report.groupList" + JSON.stringify(report.groupList));
-   console.log("report.itemList" + JSON.stringify(report.itemList));
 
-    var container = document.getElementById('visualization');
-    var options = {
-        // orientation:'top'
-       //start: '2014-01-10',
-       // end: '2019-02-10',
-       dataAttributes: 'all',
-       zoomable: false,
-    	clickToUse: false,
-    	selectable: false,
-        editable: false,
-        stack: false,
-        showCurrentTime: false
-    };
+   
+   
+   
+   
+   
+   
+   
+   var length=report.groupList.length;
 
-    var timeline = new vis.Timeline(container, items, groups, options);
+   if(forEnd==length){
+		forEnd=forStart;
+		forStart=forStart-25;
+		currentcount=currentcount-1;
+	}else if(step==1){
+		forStart=forStart+25;
+		forEnd=forEnd+25;
+		currentcount=currentcount+1;
+	}else if(step==-1){
+		forStart=forStart-25;
+		forEnd=forEnd-25;
+		currentcount=currentcount-1;
+	}else if(step==0){
+		forStart=0;
+		forEnd=25;
+		currentcount=1;
+	}
+   
+	if(forEnd>length){
+		forEnd=length;
+	}
+   
+
+   
+   if(step==0){
+	   worstFitGroupListFinal=[]
+
+	  worstFitItemListFinal=[]
+	   worstFitGroupList=[];
+	   worstFitItemList=[];
+   for(var i=0; i<report.groupList.length; i++){
+	   
+	   bestCount=0
+	   worstCount= report.groupList.length
+   			for(j=0 ; j<report.itemList.length; j++){ 
+   				
+	     			if(report.groupList[i].id ==report.itemList[j].group){ 
+	     				if(report.itemList[j].content!=""){
+	     					       bestCount++
+	     					       worstCount--
+	     					       
+	     					   }
+	     				
+	     				
+	     				
+	     				}
+	   		}
+	    
+	    groups1={}  
+	    groups1["id"]=report.groupList[i].id;
+	    groups1["bestCount"]=bestCount;
+	    groups1["worstCount"]=worstCount;
+	    groups1["content"]=report.groupList[i].content;
+	    worstFitGroupList.push(groups1);
+	  
+	    	if(temp<bestCount){
+	    		temp=bestCount;
+	    	}
+   
+	   }
+
+	   
+ 
+ for(var i=0; i< worstFitGroupList.length; i++){
+   			for(j=0 ; j<report.itemList.length; j++){ 
+   				
+	     			if(worstFitGroupList[i].id ==report.itemList[j].group){ 
+	     				   
+	     				items1={}
+	     				items1["id"]=report.itemList[j].id
+	     				items1["content"]=report.itemList[j].content
+	     				items1["start"]=report.itemList[j].start
+	     				items1["end"]= report.itemList[j].end
+	     				items1["group"]= report.itemList[j].group
+	     				items1["className"]= report.itemList[j].className
+	     				items1["type"]= report.itemList[j].type
+	     				items1["title"]= report.itemList[j].title
+	     				worstFitItemList.push(items1)
+	     			}
+   			}
+ } 
+	     		
+   
+   
+   
+   
+ 
+ 
+ 
+ 
+   
+
+   
+      worstFit= document.getElementById("worstFirst").checked;
+   	    bestFit= document.getElementById("bestFirst").checked;
+  
+   
+   
+ 
+  if(worstFit) { 
+ for(var k=temp;k>=0; k--){
+	   
+	   for(var i=0; i<worstFitGroupList.length; i++){
+			if(worstFitGroupList[i].bestCount == k){
+	    worstFitGroupListFinal.push(worstFitGroupList[i]);
+			}
+	   }
+ }
+  }
+
+ if(bestFit) {
+	 for(var k=0;k<=temp; k++){
+		   
+		   for(var i=0; i<worstFitGroupList.length; i++){
+				if(worstFitGroupList[i].bestCount == k){
+		    worstFitGroupListFinal.push(worstFitGroupList[i]);
+				}
+		   }
+	 }
+	   
+	    
+	   
+	   
+	   
+	   
+ }
+ 
+   worstFitItemListFinal=worstFitItemList;
+   
+ 
+
+ 
     
+   
+   }
+
+   
+worstFitGroupListFinal1=[]
+worstFitItemListFinal1=[]
+   
+ for(var i=forStart; i<forEnd; i++){
+	   
+	   
+	   
+   			for(j=0 ; j<worstFitItemListFinal.length; j++){ 
+   				
+	     			if(worstFitGroupListFinal[i].id ==worstFitItemListFinal[j].group){ 
+	     				
+	     				items1={}
+	     				items1["id"]=worstFitItemListFinal[j].id
+	     				items1["content"]=worstFitItemListFinal[j].content
+	     				items1["start"]=worstFitItemListFinal[j].start
+	     				items1["end"]= worstFitItemListFinal[j].end
+	     				items1["group"]= worstFitItemListFinal[j].group
+	     				items1["className"]= worstFitItemListFinal[j].className
+	     				items1["type"]= worstFitItemListFinal[j].type
+	     				items1["title"]= worstFitItemListFinal[j].title
+	     				worstFitItemListFinal1.push(items1)
+
+	     				}
+	   		} 
+	  
+	    worstFitGroupListFinal1.push(worstFitGroupListFinal[i]);
+	  
+	    	
+   
+	   }
+ 
+
+	    groups.add(worstFitGroupListFinal1)  
+	    items.add(worstFitItemListFinal1) 
+
+
+    
+    var container = document.getElementById('visualization');
+    var options= {
+	      
+		       dataAttributes: 'all',
+		       zoomable: false,
+		    	
+		        editable: false,
+		        stack: false,
+		        showCurrentTime: false
+		     
+		    };
+		
+ 
+    	worstFit= document.getElementById("worstFirst").checked;
+   	    bestFit= document.getElementById("bestFirst").checked;
+   	 
+    	if(worstFit)
+    		{ 		
+    		options["groupOrder"]="worstCount";
+    		}
+    	
+    	if(bestFit){
+    		options["groupOrder"]="bestCount";
+    	}
+    
+    var timeline = new vis.Timeline(container, items, groups, options); 
     function onClick (event) {
     	  var properties = timeline.getEventProperties(event);
     	  console.log(properties);
@@ -593,30 +741,19 @@ removal(step);
     	  
     	}
     	container.addEventListener('click', onClick) ;
-
-    	
-
       	paginationStatus();
   
 	
 	<!-- //////////Timeline range////////// -->
 	
 	
-	 /*
 
-filterlogic();
-*/
-	
-});
+}
 
 
 function pagination(value) {
-    
-    //alert("in script"+value);
-    document.getElementById('visualization').innerHTML = "";
-    removal(value);
-    
-    // Create a DataSet (allows two way data-binding)
+	document.getElementById('visualization').innerHTML = "";
+
      var items = new vis.DataSet({
           type: { start: 'Moment', end: 'Moment' }
       }); 
@@ -625,11 +762,7 @@ function pagination(value) {
    
      groups.add(report.groupList);
      items.add(report.itemList);
-     
-     
-    
-     console.log("report.groupList" + JSON.stringify(report.groupList));
-     console.log("report.itemList" + JSON.stringify(report.itemList));
+
 
       var container = document.getElementById('visualization');
       var options = {
@@ -666,41 +799,50 @@ function pagination(value) {
   
 }
 
+
 var paginationStatus=function(){
-	//alert("paginationStatus call")
+
 	$.ajax({
 		url : "/paginationStatus",
 		async: false,
         cache: false,
 		success : function(data) { 
 			status=data;
-					//alert("status "+status[0]+" status "+status[1]+status)
+				
 					var statusValue=[];
 					var nextStatus;
 					var previousStatus;
 					statusValue =status.split(',');
 					loadvalue.push(statusValue);
-					nextStatus=statusValue[0];
-					previousStatus=statusValue[1];
-					//alert("nextStatus"+nextStatus);
-					if(nextStatus == 'true'){
-						//alert("in next true");
-						document.getElementById("next").disabled=true;
-					}else if(nextStatus == 'false'){
-						//alert("in next false");
-						document.getElementById("next").disabled=false;
-					}
+
+					////alert("nextStatus"+nextStatus);
 					
-					if(previousStatus == 'true'){
-						//alert("in previous true");
+					
+					 var actual=report.groupList.length;
+					 var actualLength=Math.ceil(actual/25);
+					 
+					 
+					 //alert("actual length"+actualLength)
+					if(currentcount == actualLength){
+						document.getElementById("next").disabled=true;
+						document.getElementById("previous").disabled=false;
+						
+					}else if(currentcount==1){
+						document.getElementById("next").disabled=false;
 						document.getElementById("previous").disabled=true;
-					}else if(previousStatus == 'false'){
-						//alert("in previous false");
+					}else{
+						document.getElementById("next").disabled=false;
 						document.getElementById("previous").disabled=false;
 					}
 					
+					
+					
+					
+					
 
-					document.getElementById("dateRange").value = statusValue[2]+" - "+statusValue[3];
+					
+
+					document.getElementById("dateRange").value = statusValue[0]+" - "+statusValue[1];
 					
 					var today = new Date();
 					var dd = today.getDate();

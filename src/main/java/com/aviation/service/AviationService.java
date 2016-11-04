@@ -22,7 +22,7 @@ public interface AviationService {
 
 	public Filter loadRecentSavedFilter();
 	
-	
+	public int updateFilter(Filter filter);
 	
 	public List<Object> getRemovedComponents(Date fromDate, Date toDate);
 	

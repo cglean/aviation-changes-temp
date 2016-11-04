@@ -198,7 +198,7 @@ body, html {
 </div>
 			<div class="graph_body main_right">
 				<!--//////////////////////////// Chart Section ///////////////////////////////////////// -->
-				<table style="background-color: white;" class="columns">
+				<table class="columns">
 					<tr>
 						<td><div id="piechart_div" style="border: 1px solid #ccc"></div></td>
 						<td><div id="barchart_div" style="border: 1px solid #ccc"></div></td>
@@ -206,10 +206,6 @@ body, html {
 					<tr>
 						<td><div id="piechart_divp" style="border: 1px solid #ccc"></div></td>
 						<td><div id="barchart_div2" style="border: 1px solid #ccc"></div></td>
-					</tr>
-					<tr>
-						<td style="padding-left: 20%;" colspan="2"><img style="width: 65%"  alt="Predictive Analysis" src="img/predictive analysis.PNG"></td>
-<!-- 						<td><img width="80%" alt="Predictive Analysis" src="img/predictive analysis.PNG"></td> -->
 					</tr>
 				</table>
 
@@ -517,7 +513,7 @@ body, html {
 			success : function(data) {
 				
 				removalTailData = data;
-	//alert("in tail"+removalTailData);
+	////alert("in tail"+removalTailData);
 	
 	//splashScreenTail
 	
@@ -528,7 +524,7 @@ body, html {
 removalTailData=removalTailData.sort(function(a, b){
     return a[1]-b[1]
 })
-	// alert(removalTailData);  
+	// //alert(removalTailData);  
 	
 		var datam = new google.visualization.DataTable();
 		datam.addColumn("string", "name");
@@ -588,7 +584,7 @@ removalTailData=removalTailData.sort(function(a, b){
 				
 				removalCPNData = data;
 				
-				//alert("in cpn"+removalCPNData);
+				////alert("in cpn"+removalCPNData);
 				
 			var datam = new google.visualization.DataTable();
 			datam.addColumn("string", "name");

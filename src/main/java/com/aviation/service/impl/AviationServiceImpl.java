@@ -106,7 +106,7 @@ public class AviationServiceImpl implements AviationService {
 		 
 		 ComponentReport componentList = new ComponentReport();
 		 Set<ComponentHistoryGroupVO> groupSet = new HashSet<ComponentHistoryGroupVO>();
-		 System.out.println("length of report"+componentHisList.size());
+		 ////system.out.println("length of report"+componentHisList.size());
 		 int count=0;
 		 SimpleDateFormat  outputFormatter = new SimpleDateFormat(DATEFORMAT);
 		 String startDate = null;
@@ -117,11 +117,10 @@ public class AviationServiceImpl implements AviationService {
 		 for(ComponentHistory componentHistory : componentHisList){
 			 ComponentHistoryGroupVO group = new ComponentHistoryGroupVO();
 			 HisotryComponenItemVO item = new HisotryComponenItemVO();
-			//System.out.println(componentHistory.getStatus() + " "+componentHistory.getComponent().getComponentID());
+			////system.out.println(componentHistory.getStatus() + " "+componentHistory.getComponent().getComponentID());
 			 
 			 group.setId(componentHistory.getComponent().getComponentID().toString());
 			 group.setContent(componentHistory.getComponent().getCmpySerialNo());
-//			 group.setTitle("I will show details");
 			 groupSet.add(group);
 			
 			 
@@ -138,16 +137,16 @@ public class AviationServiceImpl implements AviationService {
 				 item.setClassName("negative");
 				// item.setType("background");
 				 item.setType("range");
-				 popup = "Classification : "+componentHistory.getComponent().getClassification().toString();
-				 popup = popup +"<br/>Description : "+ componentHistory.getComponent().getDescription().toString();
-				 popup = popup +"<br/>Tail No : "+ componentHistory.getComponent().getTailNo().toString();
+				 popup = "NOUN : "+componentHistory.getComponent().getClassification().toString();
+				 popup = popup +"<br/>DESCRIPTION : "+ componentHistory.getComponent().getDescription().toString();
+				 popup = popup +"<br/>H_ACN : "+ componentHistory.getComponent().getTailNo().toString();
 //				 popup = popup +"<br/>HI_DTE : "+ componentHistory.getComponent().getDescription().toString();
 //				 popup = popup +"<br/>HI_STA : "+ componentHistory.getComponent().getDescription().toString();
 //				 popup = popup +"<br/>HI_DEPT : "+ componentHistory.getComponent().getDescription().toString();
-				 popup = popup +"<br/>Removal Date : "+ componentHistory.getFromDate().toString();
-				 popup = popup +"<br/>Removal Station : "+ componentHistory.getMaint_stn().toString();
-				 popup = popup +"<br/>Removail Department : "+ componentHistory.getDept().toString();
-				 popup = popup +"<br/>Removail Reason : "+ componentHistory.getStatus_reason().toString();
+				 popup = popup +"<br/>HR_DTE : "+ componentHistory.getFromDate().toString();
+				 popup = popup +"<br/>HR_STA : "+ componentHistory.getMaint_stn().toString();
+				 popup = popup +"<br/>HR_DEPT : "+ componentHistory.getDept().toString();
+				 popup = popup +"<br/>HR_REASON : "+ componentHistory.getStatus_reason().toString();
 //				 popup = popup +"<br/>HS_STA : "+ componentHistory.getComponent().getDescription().toString();
 //				 popup = popup +"<br/>HS_DEPT : "+ componentHistory.getComponent().getDescription().toString();
 //				 popup = popup +"<br/>HS_REPAIR_TYPE : "+ componentHistory.getComponent().getDescription().toString();
@@ -156,25 +155,6 @@ public class AviationServiceImpl implements AviationService {
 				 item.setContent("<div style=\"height: 15px;\"><img title=\""+popup+"\" src=\"img/triangle.png\" style=\"width: 15px; height: 15px;\"></div>");
 //				 item.setContent("<div style=\"height: 15px;\"><img title=\"<span style='color:blue'>That's what this widget is<br/> test</span>\" src=\"img/triangle.png\" style=\"width: 15px; height: 15px;\"></div>");
 //				 item.setTitle("this is test title");
-			 }else if(componentHistory.getStatus().toString().equalsIgnoreCase("Installed Unit")){
-				 item.setClassName("positive");
-				 popup = "Classification : "+componentHistory.getComponent().getClassification().toString();
-				 popup = popup +"<br/>Description : "+ componentHistory.getComponent().getDescription().toString();
-				 popup = popup +"<br/>Sub Fleet No : "+ componentHistory.getComponent().getSubfleetNo().toString();
-				 popup = popup +"<br/>Manufacturing Part No : "+ componentHistory.getComponent().getMfgPartNo().toString();
-				 popup = popup +"<br/>Tail No : "+ componentHistory.getComponent().getTailNo().toString();
-				 popup = popup +"<br/>Installation Date : "+ componentHistory.getFromDate().toString();
-				 popup = popup +"<br/>Installation Station : "+ componentHistory.getMaint_stn().toString();
-				 popup = popup +"<br/>Installation Department : "+ componentHistory.getDept().toString();
-//				 popup = popup +"<br/>HR_DTE : "+ componentHistory.getFromDate().toString();
-//				 popup = popup +"<br/>HR_STA : "+ componentHistory.getMaint_stn().toString();
-//				 popup = popup +"<br/>HR_DEPT : "+ componentHistory.getDept().toString();
-//				 popup = popup +"<br/>HR_REASON : "+ componentHistory.getStatus_reason().toString();
-//				 popup = popup +"<br/>HS_STA : "+ componentHistory.getComponent().getDescription().toString();
-//				 popup = popup +"<br/>HS_DEPT : "+ componentHistory.getComponent().getDescription().toString();
-//				 popup = popup +"<br/>HS_REPAIR_TYPE : "+ componentHistory.getComponent().getDescription().toString();
-//				 popup = popup +"<br/>HS_REPAIR_ODR_NBR : "+ componentHistory.getComponent().getDescription().toString();
-				 item.setTitle(popup);;
 			 }
 			 
 			 item.setStart(startDate);
@@ -212,7 +192,7 @@ public class AviationServiceImpl implements AviationService {
 			i++;
 	
 		}
-		System.out.println("From date"+fromDate+"to date "+toDate);
+		//system.out.println("From date"+fromDate+"to date "+toDate);
 		
 		
 		return compHisATA;
@@ -238,7 +218,7 @@ public class AviationServiceImpl implements AviationService {
 			i++;
 	
 		}
-		System.out.println("value"+compHisCPN.size());
+		//system.out.println("value"+compHisCPN.size());
 		
 		
 		
@@ -267,27 +247,27 @@ public class AviationServiceImpl implements AviationService {
 			i++;
 	
 		}
-		System.out.println("value"+compHisCPNSerial.size());
+		//system.out.println("value"+compHisCPNSerial.size());
 		return compHisCPNSerial;
 	}
 	
 	
 	public List<Object> getRemovedComponentsTail(Date fromDate, Date toDate){
-		String status = "Installed Unit";
+		String status = "Install";
 		String tailValAsNull ="null";
 			
-		System.out.println("From Date "+fromDate+" To Date"+toDate);
+		//system.out.println("From Date "+fromDate+" To Date"+toDate);
 		
 		List<Object>  compHis = compHisRepository.getRemovedComponentsTail(fromDate, toDate,status,tailValAsNull);
 		
-		System.out.println("in service"+compHis);
+		//system.out.println("in service"+compHis);
 		for(int i=0;i<compHis.size();i++){
-			System.out.println("single object"+compHis.getClass());
+			//system.out.println("single object"+compHis.getClass());
 			
 			
 		}
 /*		for(ComponentHistory emp:compHis){
-			System.out.println("single object"+emp);
+			//system.out.println("single object"+emp);
 		}
 	*/
 		List<Object>  compHisTail = new ArrayList<Object>();
@@ -299,25 +279,34 @@ public class AviationServiceImpl implements AviationService {
 			compHisTail.add(temp);
 			
 			
-			System.out.println("in service"+temp);
+			//system.out.println("in service"+temp);
 			i++;
 	
 		}
-		System.out.println("value"+compHisTail.size());
+		//system.out.println("value"+compHisTail.size());
 		
 		
 		return compHisTail;
 	}
 	public boolean isValidLogin(String userName, String password){
 		
-		System.out.println("username "+userName+" password "+password);
+		//system.out.println("username "+userName+" password "+password);
 		int  loginCount = loginRepository.getLoginVerified(userName, password);
-		System.out.println("login resulty"+loginCount);
+		//system.out.println("login resulty"+loginCount);
 		if(loginCount == 1){
 			return true;	
 		}
 		return false;	
 	}
+	
+	public int updateFilter(Filter filter) {
+		filterRepository.updateFilter(filter.getFromDate(),filter.getToDate(),filter.getSelectedFleets(),filter.getSelectedSubfleets(),
+				filter.getSelectedTails(),filter.getSelectedCPNs(),filter.getSelectedMFGs(),filter.getSelectedATAs(), filter.getFilterName());
+   //system.out.println("Update Filter "+filter.getFilterID());
+		
+		return filterRepository.updateFilterBy(filter.getFilterBy().isInstalledUnit(),filter.getFilterBy().isNewUnit(),filter.getFilterBy().isRemovedUnit(),filter.getFilterID());
 
+		
+	}
 
 }

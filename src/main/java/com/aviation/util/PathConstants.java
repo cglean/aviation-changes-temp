@@ -17,6 +17,8 @@ public class PathConstants {
 	
 	public static final String SAVEFILTER = "/saveFilter";
 	
+	public static final String UPDATE_FILTER = "/updateFilter";
+	
 	public static final String DATEFORMATNEW = "yyyy-MM-dd";
 	
 	public static final String SAVE_DEFUALT_FILTER = "/saveAsDefaultFilter";
