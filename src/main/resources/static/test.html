@@ -35,7 +35,7 @@
   <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <!--   <link rel="stylesheet" href="/resources/demos/style.css"> -->
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="js/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script src="Utility.js"></script>
@@ -72,14 +72,22 @@ font-size:25px;
 }
         
         
+         .triangleImage{
         
-        
+}        
         
 
 		.bgclass{
 			background-color: white !important;
 		}
-
+		input#remperbar {
+    width: 31px;
+    height: 18px;
+    margin-top: -10px;
+        margin-left: -13px;
+}
+.vis-item.negative{
+}
 		
 	}
 .navbar {
@@ -139,6 +147,7 @@ padding-top: 0.5%;
   .vis-item.negative {
     border-color: white;
     background-color: white;
+   
   }
   .vis-item {
     
@@ -150,6 +159,13 @@ padding-top: 0.5%;
   .vis-item .vis-item-overflow {
   overflow: visible;
 }
+.vis-item .vis-item-content{
+ 	padding: 0px;
+ }
+ img {
+     vertical-align: top;
+ }
+
 
     </style>
 
@@ -285,7 +301,7 @@ padding-top: 0.5%;
 				<div class="checkbox filter-checkbox form-group filter_left2_p2">
 					<table>
 						<tr>
-							<td style="padding-left: 8px;padding-top: 3px;"><input type="radio" name="instperbar" checked="true" /></td>
+							<td style="padding-left: 8px;padding-top: 3px;"><input type="checkbox" name="instperbar" id="instperbar" checked="true" disabled="disabled"  hidden="true"/></td>
 					
 							<td><label id="tab-caption" style="border-bottom: 1px solid;width: 100%;border-bottom-color: black; padding-left: 4px !important;padding-bottom: 0px !important;">Installation Period Bar</label></td>
 						</tr>
@@ -321,7 +337,7 @@ padding-top: 0.5%;
 <!-- <label id="tab-caption" style="border-bottom: 1px solid;width: 100%;border-bottom-color: black;">Removal Period Bar</label>  -->
 				<table>
 					<tr>
-						<td style="padding-left: 8px;padding-top: 3px;"><input type="radio" name="remperbar" /></td>
+						<td style="padding-left: 8px;padding-top: 3px;"><input type="checkbox" name="remperbar"  id="remperbar" checked="true"/></td>
 					
 						<td><label id="tab-caption" style="border-bottom: 1px solid;width: 100%;border-bottom-color: black; padding-left: 4px !important;padding-bottom: 0px !important;">Removal Event</label></td>
 						
@@ -421,7 +437,7 @@ padding-top: 0.5%;
   <script>
   $( function() {
 	    $(document).tooltip({
-	    	  
+	    	track: true,
 	    	content: function () {
 	              return $(this).prop('title');
 	          }
@@ -507,7 +523,75 @@ var temp=0;
 	 
 
   
+  $('input[name="instperbar"],input[name="remperbar"]').unbind().click(function(){
+		if($(this).attr('checked')){
+		//console.log('block1');
+		$(this).attr('checked',false);
+		}
+		else{
+		$(this).attr('checked','checked');
+		//console.log('block2');
+		}
+		
+});
+ 
+ 
+$('input[name="instperbar"]').click(function(){
+	var sample=document.getElementById("instperbar");
+	//alert("checked status"+sample);
+	filterlogic();
+		
+		//alert("checked status"+sample);
+		
+console.log('filter applied');
+})
 
+$('input[name="remperbar"]').click(function(){
+		
+    	//alert("checked status"+document.getElementById("remperbar"));
+		filterlogic();
+		
+       console.log('filter applied');
+})
+  
+	<!-- ***************Start of Filter logic for chart selection***************	 -->
+	function filterlogic(){
+
+		 if($('input[name="instperbar"]').attr('checked') == 'checked' && ($('input[name="remperbar"]').attr('checked') == false || $('input[name="remperbar"]').attr('checked') == undefined)){
+			 $('.triangleImage').css('display','none');
+			$('.vis-item-overflow,.vis-range,.vis-item.vis-background.positive').css('display','block');
+				console.log('show bars');
+			} 
+		  if(($('input[name="instperbar"]').attr('checked')== false || $('input[name="instperbar"]').attr('checked') == undefined) && $('input[name="remperbar"]').attr('checked')== 'checked'){
+			
+				$('.vis-item-overflow,.vis-range,.vis-item.vis-background.positive').css('display','none');
+				//$('.vis-item.vis-background.grph_bcircle,.vis-item.vis-background.grph_ycircle,.vis-item.vis-background.negative,.triangleImage').css('display','block');
+				 $('.triangleImage').css('display','block');
+				console.log('show triangle');
+			}
+		 if($('input[name="instperbar"]').attr('checked')== 'checked' && $('input[name="remperbar"]').attr('checked')=='checked'){	
+			 //$('.vis-item-overflow,.vis-range,.vis-item.vis-background.positive').css('display','block');
+			$('.vis-item-overflow,.vis-range,.vis-item.vis-background.positive').css('display','block');	
+			 $('.triangleImage').css('display','block');
+							console.log('show all');
+		}
+		
+		if(($('input[name="instperbar"]').attr('checked')== false || $('input[name="instperbar"]').attr('checked') == undefined) && ($('input[name="remperbar"]').attr('checked') == false || $('input[name="remperbar"]').attr('checked') == undefined)){
+				$('.vis-item-overflow,.vis-range,.vis-item.vis-background.grph_bcircle,.vis-item.vis-background.negative,.vis-item.vis-background.positive,.vis-item.vis-background.grph_ycircle,.triangleImage').css('display','none');
+				console.log('show none');
+		}  
+	}
+	<!-- ***************End of Filter logic for chart selection***************	 -->
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   // Create a DataSet (allows two way data-binding)
    var items = new vis.DataSet({
@@ -702,12 +786,17 @@ worstFitItemListFinal1=[]
     var container = document.getElementById('visualization');
     var options= {
 	      
-		       dataAttributes: 'all',
-		       zoomable: false,
-		    	
-		        editable: false,
-		        stack: false,
-		        showCurrentTime: false
+    	     dataAttributes: 'all',
+    	       zoomable: false,
+    	    	clickToUse: false,
+    	    	selectable: false,
+    	        editable: false,
+    	        stack: false,
+    	        showCurrentTime: false,
+    	        orientation:{
+    	        	
+    	        	axis:'both'
+    	        }
 		     
 		    };
 		
@@ -725,7 +814,7 @@ worstFitItemListFinal1=[]
     	}
     
     var timeline = new vis.Timeline(container, items, groups, options); 
-    function onClick (event) {
+    /*function onClick (event) {
     	  var properties = timeline.getEventProperties(event);
     	  console.log(properties);
     	  if(properties.item){
@@ -740,7 +829,7 @@ worstFitItemListFinal1=[]
     	  }
     	  
     	}
-    	container.addEventListener('click', onClick) ;
+    	container.addEventListener('click', onClick) ;*/
       	paginationStatus();
   
 	

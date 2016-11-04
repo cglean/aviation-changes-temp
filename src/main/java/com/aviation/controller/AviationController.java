@@ -211,10 +211,10 @@ public class AviationController {
 	@RequestMapping(value = "/splashScreenTail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Object> splashScreenTail(/*@RequestBody   List<Long> componentIds*/) {
 		// TODOD:: Remove Hard coding 
-		int fightHours[];
 		
 		
 		
+		/*
 		String pattern = DATEFORMATNEW;
 		Date sDate=null;
 		Date eDate=null;
@@ -230,23 +230,23 @@ public class AviationController {
 		
 		
 		List<Object> componentRemovalRept =  aviationService.getRemovedComponentsTail(sDate, eDate);
-		////system.out.println("tail length"+componentRemovalRept.size());
+		
 		for(Object i:componentRemovalRept){
 			
-			//system.out.println("hello data tail number"+i.toString());
+			
 			ComponentHistory temp=new ComponentHistory();
 	
 			temp=(ComponentHistory) i;
 			
 			Date fromDate=temp.getFromDate();
 			Date toDate=temp.getTodate();
-			//system.out.println("before if"+toDate);
+			
 			if(toDate == null){
-				//system.out.println("in if"+toDate);
+			
 				toDate=eDate;
-				//system.out.println("after if"+toDate);
+		
 			}
-			//system.out.println("after if"+toDate);
+			
 			long diff = toDate.getTime()-fromDate.getTime();
 			long diffDays = (diff / ( 60 * 60 * 1000))+1;
 			List<Object> tempArr= new ArrayList<Object>();
@@ -255,16 +255,38 @@ public class AviationController {
 			sent.add(tempArr);
 
 	
-			//system.out.println(sent);
-		
-			//system.out.println(diffDays + " days, ");
+	
 		}
 		
 		
-		//system.out.println("in tail");
-		//system.out.println("in cpn"+componentRemovalRept);
 	
-		return sent;
+	
+		return sent;*/
+		
+		
+		
+		
+		String pattern = DATEFORMATNEW;
+		Date sDate=null;
+		Date eDate=null;
+		try {
+			sDate =  new SimpleDateFormat(pattern).parse("2014-08-10");
+			 eDate =  new SimpleDateFormat(pattern).parse("2016-08-10");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		 
+		List<Object> componentRemovalRept =  aviationService.getRemovedComponentsTailNoOfRemoval(sDate, eDate);
+		//system.out.println("in cpn"+componentRemovalRept);
+		
+		return componentRemovalRept;
+		
+		
+		
+		
+		
+		
+		
 	}
 	
     public static String getDate(Calendar cal){

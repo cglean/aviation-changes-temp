@@ -31,8 +31,11 @@ public interface AviationService {
 	public List<Object> getRemovedComponentsMFG(Date fromDate, Date toDate);
 	
 	public List<Object> getRemovedComponentsCPNSerial(Date fromDate, Date toDate);
+	
+	public List<Object> getRemovedComponentsTailNoOfRemoval(Date fromDate, Date toDate);
 	 
 	public List<Object> getRemovedComponentsTail(Date fromDate, Date toDate);
 	
 	public boolean isValidLogin(String userName, String password);
 }
+

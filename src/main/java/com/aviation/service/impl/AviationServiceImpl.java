@@ -121,6 +121,7 @@ public class AviationServiceImpl implements AviationService {
 			 
 			 group.setId(componentHistory.getComponent().getComponentID().toString());
 			 group.setContent(componentHistory.getComponent().getCmpySerialNo());
+//			 group.setTitle("I will show details");
 			 groupSet.add(group);
 			
 			 
@@ -137,24 +138,96 @@ public class AviationServiceImpl implements AviationService {
 				 item.setClassName("negative");
 				// item.setType("background");
 				 item.setType("range");
-				 popup = "NOUN : "+componentHistory.getComponent().getClassification().toString();
-				 popup = popup +"<br/>DESCRIPTION : "+ componentHistory.getComponent().getDescription().toString();
-				 popup = popup +"<br/>H_ACN : "+ componentHistory.getComponent().getTailNo().toString();
+				 popup = "Classification : "+componentHistory.getComponent().getClassification().toString();
+				 popup = popup +"<br/>Description : "+ componentHistory.getComponent().getDescription().toString();
+				 popup = popup +"<br/>Tail No : "+ componentHistory.getComponent().getTailNo().toString();
 //				 popup = popup +"<br/>HI_DTE : "+ componentHistory.getComponent().getDescription().toString();
 //				 popup = popup +"<br/>HI_STA : "+ componentHistory.getComponent().getDescription().toString();
 //				 popup = popup +"<br/>HI_DEPT : "+ componentHistory.getComponent().getDescription().toString();
-				 popup = popup +"<br/>HR_DTE : "+ componentHistory.getFromDate().toString();
-				 popup = popup +"<br/>HR_STA : "+ componentHistory.getMaint_stn().toString();
-				 popup = popup +"<br/>HR_DEPT : "+ componentHistory.getDept().toString();
-				 popup = popup +"<br/>HR_REASON : "+ componentHistory.getStatus_reason().toString();
+				 popup = popup +"<br/>Removal Date : "+ componentHistory.getFromDate().toString();
+				 popup = popup +"<br/>Removal Station : "+ componentHistory.getMaint_stn().toString();
+				 popup = popup +"<br/>Removal Department : "+ componentHistory.getDept().toString();
+				 String removalreason = null;
+				 if(componentHistory.getStatus_reason().toString().equalsIgnoreCase("01")){
+					 removalreason = "SCHEDULED REMOVAL / INSTALLATION";
+				 }else if(componentHistory.getStatus_reason().toString().equalsIgnoreCase("02")){
+					 removalreason = "PREMATURE REMOVAL / INSTALLATION";
+				 }else if(componentHistory.getStatus_reason().toString().equalsIgnoreCase("03")){
+					 removalreason = "PART REMOVED FOR CONVENIENCE";
+				 }else if(componentHistory.getStatus_reason().toString().equalsIgnoreCase("04")){
+					 removalreason = "CANNED PART TO INST ON ANOTHER A/C";
+				 }else if(componentHistory.getStatus_reason().toString().equalsIgnoreCase("05")){
+					 removalreason = "INSTALLATION ONLY   ** NO PART REMOVED **";
+				 }else if(componentHistory.getStatus_reason().toString().equalsIgnoreCase("06")){
+					 removalreason = "REMOVAL ONLY    ** NO PART INSTALLED **";
+				 }else if(componentHistory.getStatus_reason().toString().equalsIgnoreCase("07")){
+					 removalreason = "SWAP COMPONENT POSITIONS";
+				 }else if(componentHistory.getStatus_reason().toString().equalsIgnoreCase("08")){
+					 removalreason = "REPLACEMENT OF CANNIBALIZED PART";
+				 }else if(componentHistory.getStatus_reason().toString().equalsIgnoreCase("09")){
+					 removalreason = "EO, AD, FCD, INSP \"P\" PREFACED CPNS ONLY";
+				 }else if(componentHistory.getStatus_reason().toString().equalsIgnoreCase("10")){
+					 removalreason = "SUB-ASSY REMOVED WITH ASSY";
+				 }else if(componentHistory.getStatus_reason().toString().equalsIgnoreCase("12")){
+					 removalreason = "FOUND AT LINE / HANGAR";
+				 }else if(componentHistory.getStatus_reason().toString().equalsIgnoreCase("13")){
+					 removalreason = "FAILED OPS CK & REPLACED WITH SERVICEABLE";
+				 }else if(componentHistory.getStatus_reason().toString().equalsIgnoreCase("14")){
+					 removalreason = "FAILED OPS CK & ORIGINAL UNIT REINSTALLED";
+				 }else if(componentHistory.getStatus_reason().toString().equalsIgnoreCase("17")){
+					 removalreason = "MISCELLANEOUS";
+				 }else if(componentHistory.getStatus_reason().toString().equalsIgnoreCase("18")){
+					 removalreason = "SUB COMP REMOVED FROM AN UNINST MAJOR ASSY";
+				 }else if(componentHistory.getStatus_reason().toString().equalsIgnoreCase("23")){
+					 removalreason = "INSTALL BORROWED PART AND REMOVED FEDEX PART";
+				 }else if(componentHistory.getStatus_reason().toString().equalsIgnoreCase("24")){
+					 removalreason = "REMOVE BORROWED PART AND INSTALL FEDEX PART";
+				 }else if(componentHistory.getStatus_reason().toString().equalsIgnoreCase("25")){
+					 removalreason = "BORROWED PART   ** INSTALLATION ONLY **";
+				 }else if(componentHistory.getStatus_reason().toString().equalsIgnoreCase("26")){
+					 removalreason = "BORROWED PART   ** REMOVAL ONLY **";
+				 }else if(componentHistory.getStatus_reason().toString().equalsIgnoreCase("27")){
+					 removalreason = "INSTALL ONLY FOR LOG CORRECTION";
+				 }else if(componentHistory.getStatus_reason().toString().equalsIgnoreCase("28")){
+					 removalreason = "REMOVAL ONLY FOR LOG CORRECTION";
+				 }else if(componentHistory.getStatus_reason().toString().equalsIgnoreCase("29")){
+					 removalreason = "CANNIBALIZED SUB-ASSY FOR ANOTHER A/C OR ASSY";
+				 }else if(componentHistory.getStatus_reason().toString().equalsIgnoreCase("70")){
+					 removalreason = "DAMAGED DURING INSTALLATION";
+				 }else{
+					 removalreason = "NO REASON";
+				 }
+				 popup = popup +"<br/>Removal Reason : "+ removalreason;
 //				 popup = popup +"<br/>HS_STA : "+ componentHistory.getComponent().getDescription().toString();
 //				 popup = popup +"<br/>HS_DEPT : "+ componentHistory.getComponent().getDescription().toString();
 //				 popup = popup +"<br/>HS_REPAIR_TYPE : "+ componentHistory.getComponent().getDescription().toString();
 //				 popup = popup +"<br/>HS_REPAIR_ODR_NBR : "+ componentHistory.getComponent().getDescription().toString();
 				 
-				 item.setContent("<div style=\"height: 15px;\"><img title=\""+popup+"\" src=\"img/triangle.png\" style=\"width: 15px; height: 15px;\"></div>");
+				 item.setContent("<div style=\"height: 15px;\"><img class='triangleImage' title=\""+popup+"\" src=\"img/triangle.png\" style=\"width: 15px; height: 15px;\"></div>");
 //				 item.setContent("<div style=\"height: 15px;\"><img title=\"<span style='color:blue'>That's what this widget is<br/> test</span>\" src=\"img/triangle.png\" style=\"width: 15px; height: 15px;\"></div>");
 //				 item.setTitle("this is test title");
+			 }else if(componentHistory.getStatus().toString().equalsIgnoreCase("Installed Unit")){
+				 item.setClassName("positive");
+				 //item.setType("background");
+				 popup = "Classification : "+componentHistory.getComponent().getClassification().toString();
+				 popup = popup +"<br/>Description : "+ componentHistory.getComponent().getDescription().toString();
+				 popup = popup +"<br/>Sub Fleet No : "+ componentHistory.getComponent().getSubfleetNo().toString();
+				 if(componentHistory.getComponent().getMfgPartNo() != null){
+				 popup = popup +"<br/>Manufacturing Part No : "+ componentHistory.getComponent().getMfgPartNo().toString();
+				 }
+				 popup = popup +"<br/>Tail No : "+ componentHistory.getComponent().getTailNo().toString();
+				 popup = popup +"<br/>Installation Date : "+ componentHistory.getFromDate().toString();
+				 popup = popup +"<br/>Installation Station : "+ componentHistory.getMaint_stn().toString();
+				 popup = popup +"<br/>Installation Department : "+ componentHistory.getDept().toString();
+//				 popup = popup +"<br/>HR_DTE : "+ componentHistory.getFromDate().toString();
+//				 popup = popup +"<br/>HR_STA : "+ componentHistory.getMaint_stn().toString();
+//				 popup = popup +"<br/>HR_DEPT : "+ componentHistory.getDept().toString();
+//				 popup = popup +"<br/>HR_REASON : "+ componentHistory.getStatus_reason().toString();
+//				 popup = popup +"<br/>HS_STA : "+ componentHistory.getComponent().getDescription().toString();
+//				 popup = popup +"<br/>HS_DEPT : "+ componentHistory.getComponent().getDescription().toString();
+//				 popup = popup +"<br/>HS_REPAIR_TYPE : "+ componentHistory.getComponent().getDescription().toString();
+//				 popup = popup +"<br/>HS_REPAIR_ODR_NBR : "+ componentHistory.getComponent().getDescription().toString();
+				 item.setTitle(popup);;
 			 }
 			 
 			 item.setStart(startDate);
@@ -252,8 +325,32 @@ public class AviationServiceImpl implements AviationService {
 	}
 	
 	
+	
+	
+	public List<Object> getRemovedComponentsTailNoOfRemoval(Date fromDate, Date toDate){
+		String status = "Removed";
+		String tailRemovalValAsNull ="null";
+			
+		List<Object>  compHis = compHisRepository.getRemovedComponentstailRemoval(fromDate, toDate,status,tailRemovalValAsNull);
+		List<Object>  compHisCPNSerial = new ArrayList<Object>();
+		int i=0;
+		for(Object temp:compHis){
+			if(i == 10){
+				break;
+			}
+			
+
+			compHisCPNSerial.add(temp);
+			i++;
+	
+		}
+		//system.out.println("value"+compHisCPNSerial.size());
+		return compHisCPNSerial;
+	}
+	
+	
 	public List<Object> getRemovedComponentsTail(Date fromDate, Date toDate){
-		String status = "Install";
+		String status = "Installed Unit";
 		String tailValAsNull ="null";
 			
 		//system.out.println("From Date "+fromDate+" To Date"+toDate);

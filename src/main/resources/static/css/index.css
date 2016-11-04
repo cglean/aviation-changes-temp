@@ -30,7 +30,7 @@ li.dropdown {
 
 
 a.navbar-brand {
-    font-size: 25px;
+    font-size: 18px;
     border-color: black;
 }
 .row.text-center {
@@ -142,7 +142,7 @@ label#todate {
     
     .right_label {
         margin: 10px;
-    font-size: 25px;
+    font-size: 18px;
     color: #3774b3;
     }
     .date_range_select {

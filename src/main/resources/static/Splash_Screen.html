@@ -198,7 +198,11 @@ body, html {
 </div>
 			<div class="graph_body main_right">
 				<!--//////////////////////////// Chart Section ///////////////////////////////////////// -->
-				<table class="columns">
+				<table style="background-color: white;" class="columns">
+					<tr>
+						<td align="center" colspan="2"><img width="80%" align="middle" style="height: 400px" alt="Predictive Analysis" src="img/predictive widget.JPG"></td>
+<!-- 						<td><img width="80%" alt="Predictive Analysis" src="img/predictive analysis.PNG"></td> -->
+					</tr>
 					<tr>
 						<td><div id="piechart_div" style="border: 1px solid #ccc"></div></td>
 						<td><div id="barchart_div" style="border: 1px solid #ccc"></div></td>
@@ -207,6 +211,7 @@ body, html {
 						<td><div id="piechart_divp" style="border: 1px solid #ccc"></div></td>
 						<td><div id="barchart_div2" style="border: 1px solid #ccc"></div></td>
 					</tr>
+					
 				</table>
 
 
@@ -401,6 +406,7 @@ body, html {
 				},
 				hAxis : {
 					title : 'ATA',
+			
 					titleTextStyle : {
 						bold : true
 					}
@@ -408,8 +414,8 @@ body, html {
 				titleTextStyle : {
 					fontSize : 18
 				},
-				width : 800,
-				height : 400,
+				width : 500,
+				height : 300,
 				colors : ['#673AB7'],
 				titlePosition : 'out',
 				seriesType : 'bars',
@@ -473,8 +479,8 @@ body, html {
 						bold : true
 					}
 				},
-				width : 1000,
-				height : 400,
+				width : 500,
+				height : 300,
 				colors : ['#e0440e'],
 				
 				seriesType : 'bars',
@@ -521,9 +527,9 @@ body, html {
 	//var list = {"you": 100, "me": 75, "foo": 116, "bar": 15};
 	
 	
-removalTailData=removalTailData.sort(function(a, b){
+/* removalTailData=removalTailData.sort(function(a, b){
     return a[1]-b[1]
-})
+}) */
 	// //alert(removalTailData);  
 	
 		var datam = new google.visualization.DataTable();
@@ -534,7 +540,7 @@ removalTailData=removalTailData.sort(function(a, b){
 			var optionsm = {
 				title : 'Top 10 worst performing Tails',
 				vAxis : {
-					title : 'Flight Hours',
+					title : 'Number of removals',
 				    format: '#',
 					titleTextStyle : {
 						bold : true
@@ -546,8 +552,8 @@ removalTailData=removalTailData.sort(function(a, b){
 						bold : true
 					}
 				},
-				width : 800,
-				height : 400,
+				width : 500,
+				height : 300,
 				colors : ['#0288D1'],
 				seriesType : 'bars',
 				
@@ -572,6 +578,79 @@ removalTailData=removalTailData.sort(function(a, b){
 			});
 		}
 		/*----------------------------------------------------------------------*/
+		
+		
+		
+	
+		
+		/*------------------------------Chart3----------------------------------------*/
+
+/*		function drawStacked() {
+			var removalTailData = []
+			$.ajax({
+			url : "/splashScreenTail",
+			success : function(data) {
+				
+				removalTailData = data;
+	////alert("in tail"+removalTailData);
+	
+	//splashScreenTail
+	
+	
+	//var list = {"you": 100, "me": 75, "foo": 116, "bar": 15};
+	
+	
+removalTailData=removalTailData.sort(function(a, b){
+    return a[1]-b[1]
+})
+	// alert(removalTailData);  
+	
+		var datam = new google.visualization.DataTable();
+		datam.addColumn("string", "name");
+		datam.addColumn("number", "value");
+		datam.addRows(removalTailData)
+
+			var optionsm = {
+				title : 'Top 10 worst performing Tails',
+				vAxis : {
+					title : 'Flight Hours',
+				    format: '#',
+					titleTextStyle : {
+						bold : true
+					}
+				},
+				hAxis : {
+					title : 'Aircraft Numbers',
+					titleTextStyle : {
+						bold : true
+					}
+				},
+				width : 500,
+				height : 300,
+				colors : ['#0288D1'],
+				seriesType : 'bars',
+				
+				legend : {
+					position : 'none'
+				},
+				titleTextStyle : {
+					fontSize : 18
+				},
+				series : {
+					1 : {
+						type : 'line'
+					}
+				}
+			};
+			var chart = new google.visualization.ComboChart(document
+					.getElementById('piechart_divp'));
+			chart.draw(datam, optionsm);
+			google.visualization.events.addListener(chart, 'select',
+					selectHandler);
+			}
+			});
+		} */
+		/*----------------------------------------------------------------------*/
 
 		/*------------------------------Chart4----------------------------------------*/
 
@@ -584,7 +663,7 @@ removalTailData=removalTailData.sort(function(a, b){
 				
 				removalCPNData = data;
 				
-				////alert("in cpn"+removalCPNData);
+				//alert("in cpn"+removalCPNData);
 				
 			var datam = new google.visualization.DataTable();
 			datam.addColumn("string", "name");
@@ -608,8 +687,8 @@ removalTailData=removalTailData.sort(function(a, b){
 					}
 				},
 
-				width : 1000,
-				height : 400,
+				width : 500,
+				height : 300,
 				colors : ['#00796B'],
 				seriesType : 'bars',
 				legend : {
