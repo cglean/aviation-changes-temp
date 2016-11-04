@@ -36,6 +36,8 @@ public class AviationController {
 	private List<Long> componentsIds;
 	private String removalFromDate;
 	private String removalToDate;
+	private String optionEnd;
+	private String optionStart;
 
 
 	@Autowired
@@ -360,8 +362,9 @@ public class AviationController {
 		
 		
 		 DateFormat df = new SimpleDateFormat("yyyy-MM-dd"); 
-	      
-	    	
+	      System.out.println("fromdate "+fromDate+" to date "+toDate);
+	      optionEnd=toDate;
+	      optionStart=fromDate;
  		Date frmDate= df.parse(fromDate);
          Date tDate= df.parse(toDate);
 		
@@ -395,7 +398,8 @@ public class AviationController {
 		//system.out.println("in status"+status);
 		status.add(removalFromDate);
 		status.add(removalToDate);
-		
+		status.add(optionEnd);
+		status.add(optionStart);
 		return status;
 	}
 	

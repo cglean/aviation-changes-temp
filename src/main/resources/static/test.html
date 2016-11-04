@@ -131,8 +131,18 @@ padding-top: 0.5%;
 	height:0px; 
 	border-left:20px solid transparent;
 	border-right:20px solid transparent;
-	border-top:20px solid red;
+	border-top:20px solid #8BC34A;
+	    margin-left: 7px;
 }
+
+.utriangle{
+	width:0px; 
+	height:0px; 
+	border-left:20px solid transparent;
+	border-right:20px solid transparent;
+	border-top:20px solid Yellow;
+}
+
 
 .ycircle{
 		background-color:Yellow;
@@ -345,7 +355,7 @@ padding-top: 0.5%;
 					</tr>
 				 </table>
 			</div>
-<!-- 			<table style="margin-left:10px;">
+			<table style="margin-left:10px;">
 				<tr>
 					<td><label>Scheduled</label></td>
 					<td><div class="triangle" ></div></td>
@@ -353,14 +363,14 @@ padding-top: 0.5%;
 				<tr>
 					<td><label>Unscheduled</label></td>
 					
-					<td style="padding-left:6px"><div class="ycircle button" ></div></td>
+					<td style="padding-left:6px"><div class="utriangle" ></div></td>
 				</tr>
 				<tr>
 					<td><label>Others</label></td>
 					
 					<td style="padding-left:6px"><div class="bcircle button" ></div></td>
 				</tr>
-				</table> -->
+				</table>
 
 
 		</div>
@@ -453,7 +463,7 @@ var forEnd;
 var worstFitGroupList=[];
 var worstFitItemList=[];
 var worstFitGroupListFinal=[]
-
+var statusValue=[];
 var worstFitItemListFinal=[]
 function component(){
 	
@@ -521,7 +531,7 @@ var temp=0;
 
   document.getElementById("visualization").innerHTML = "";
 	 
-
+  paginationStatus();
   
   $('input[name="instperbar"],input[name="remperbar"]').unbind().click(function(){
 		if($(this).attr('checked')){
@@ -781,22 +791,27 @@ worstFitItemListFinal1=[]
 	    groups.add(worstFitGroupListFinal1)  
 	    items.add(worstFitItemListFinal1) 
 
-
-    
+var endDate=statusValue[2];
+	    var startDate=statusValue[3];
+    alert("end date "+endDate+" start date "+startDate)
     var container = document.getElementById('visualization');
     var options= {
 	      
     	     dataAttributes: 'all',
-    	       zoomable: false,
-    	    	clickToUse: false,
-    	    	selectable: false,
-    	        editable: false,
-    	        stack: false,
-    	        showCurrentTime: false,
-    	        orientation:{
-    	        	
-    	        	axis:'both'
-    	        }
+  	       zoomable: false,
+  	    	clickToUse: false,
+  	    	selectable: false,
+  	        editable: false,
+  	        stack: false,
+  	        showCurrentTime: false,
+  	      end:startDate,
+  	      end:endDate,
+  	        orientation:{
+  	        	
+  	        	axis:'both'
+  	        }
+		
+		        
 		     
 		    };
 		
@@ -898,7 +913,7 @@ var paginationStatus=function(){
 		success : function(data) { 
 			status=data;
 				
-					var statusValue=[];
+					statusValue=[];
 					var nextStatus;
 					var previousStatus;
 					statusValue =status.split(',');
