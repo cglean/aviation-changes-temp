@@ -11,7 +11,6 @@ import com.aviation.repository.LoginRepository;
 @Configuration
 @Component
 public class BootMySQLDB implements CommandLineRunner{
-
 	@Autowired
 	private LoginRepository loginRepository; 
 	
@@ -23,5 +22,4 @@ public class BootMySQLDB implements CommandLineRunner{
 		login.setPassword("amit");
 		loginRepository.save(login);
     }
-	
 }

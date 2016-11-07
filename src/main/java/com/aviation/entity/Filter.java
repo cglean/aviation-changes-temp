@@ -184,12 +184,6 @@ public class Filter implements Serializable {
 	public void setSelectedCPNs(String selectedCPNs) {
 		this.selectedCPNs = selectedCPNs;
 	}
-	
-	
-	
-	
-	
-	
 
 }
 

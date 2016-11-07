@@ -31,4 +31,7 @@ spring:
 spring:
   jpa:
     hibernate:
-      ddl-auto: update      
+      ddl-auto: update
+---
+server:
+  port: 8082       
