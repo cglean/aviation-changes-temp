@@ -1,11 +1,20 @@
 package com.aviation.controller;
 
+import static com.aviation.util.PathConstants.DATEFORMAT;
+import static com.aviation.util.PathConstants.DATEFORMATNEW;
+import static com.aviation.util.PathConstants.GET_DEFAULT_FILTER;
+import static com.aviation.util.PathConstants.GET_FILTERS;
+import static com.aviation.util.PathConstants.LOAD_COMPONENT_BY_START_END_DATE;
+import static com.aviation.util.PathConstants.LOGIN_VERIFICATON;
+import static com.aviation.util.PathConstants.SAVEFILTER;
+import static com.aviation.util.PathConstants.SAVE_DEFUALT_FILTER;
+import static com.aviation.util.PathConstants.UPDATE_FILTER;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -20,15 +29,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aviation.entity.Component;
-import com.aviation.entity.ComponentHistory;
 import com.aviation.entity.Filter;
-
 import com.aviation.entity.Login;
 import com.aviation.service.AviationService;
 import com.aviation.vo.ComponentReport;
 //import com.mysql.fabric.xmlrpc.base.Array;
-
-import static com.aviation.util.PathConstants.*;
 
 @RestController
 public class AviationController {
@@ -102,29 +107,13 @@ public class AviationController {
 		//system.out.println("step value"+step);
 		long [] component= new long[componentsIds.size()];
 		int i;
-		
 		int length=componentsIds.size();
-
-		
-	
-		
 		//system.out.println("id length"+componentsIds.size());
-		for(i=0; i<componentsIds.size(); i++)
-		{
+		for(i=0; i<componentsIds.size(); i++){
 			component[i]=componentsIds.get(i);
-			
-			//system.out.println("component[i]="+component[i]);
 		}
-		//system.out.println("component id length actuall"+componentsIds.size());
-
-		
 		List<Long> compos1=componentsIds;
-
 		ComponentReport componentRemovalRept =  aviationService.getComponents(compos1);
-
-		
-		
-		 
 		 return componentRemovalRept;
 	}
 	
@@ -164,10 +153,6 @@ public class AviationController {
 	@RequestMapping(value = "/splashScreenMFG", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Object> showSplashScreenCPN(/*@RequestBody   List<Long> componentIds*/) {
 		// TODOD:: Remove Hard coding 
-		
-		
-		
-		
 		String pattern = DATEFORMATNEW;
 		Date sDate=null;
 		Date eDate=null;
@@ -179,9 +164,6 @@ public class AviationController {
 		}
 		 
 		List<Object> componentRemovalRept =  aviationService.getRemovedComponentsMFG(sDate, eDate);
-		//List<Object> componentRemovalRept =  aviationService.getRemovedComponentsCPN(new Date("2014-08-10"), new Date("2016-08-10"));
-		//system.out.println("in cpn"+componentRemovalRept);
-		
 		return componentRemovalRept;
 	}
 	
@@ -358,22 +340,16 @@ public class AviationController {
 			//system.out.println(component.getComponentID());
 		}
 		////system.out.println(components.size());	
-		
-		
-		
 		 DateFormat df = new SimpleDateFormat("yyyy-MM-dd"); 
-	      System.out.println("fromdate "+fromDate+" to date "+toDate);
-	      optionEnd=toDate;
-	      optionStart=fromDate;
- 		Date frmDate= df.parse(fromDate);
+	     System.out.println("fromdate "+fromDate+" to date "+toDate);
+	     optionEnd=toDate;
+	     optionStart=fromDate;
+	     Date frmDate= df.parse(fromDate);
          Date tDate= df.parse(toDate);
-		
-		
 		//system.out.println("to date and from date"+frmDate+" "+tDate);
-		
 		 SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 		 String  startDate=formatter.format(frmDate);
-      String  endDate=formatter.format(tDate);
+		 String  endDate=formatter.format(tDate);
       //system.out.println("after"+startDate+" "+endDate);
 		
       removalFromDate=startDate.replaceAll("-", "/");
@@ -381,20 +357,10 @@ public class AviationController {
       
 	}
 
-    
-    
-    
-    
-	
 	@RequestMapping(value = "/paginationStatus", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<String> paginationStatus(/*@RequestBody   List<Long> componentIds*/) {
 		// TODOD:: Remove Hard coding 
-
 		List<String> status =  new ArrayList<String>();
-	
-		 
-		
-		
 		//system.out.println("in status"+status);
 		status.add(removalFromDate);
 		status.add(removalToDate);
@@ -402,16 +368,4 @@ public class AviationController {
 		status.add(optionStart);
 		return status;
 	}
-	
-    
-    
-    
-	
-    
-    
-    
-    
-    
-    
-	
 }

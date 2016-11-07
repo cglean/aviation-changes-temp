@@ -21,13 +21,6 @@ public class AviationViewController {
 	
 	@RequestMapping("/main")
 	public String loginView(@RequestParam("username") String username,@RequestParam("password") String password) {
-		// TODO:: Add suffix in application.properties file so that .html need not be added 
-	    // Move the constants to Constant file 
-		System.out.println("hai in login"+username+" password "+username);
-		
-		
-		//System.out.println("username "+username+" pass "+password);
-	
 		boolean loginValidRes =  aviationService.isValidLogin(username, password);
 		if(loginValidRes == true){
 			return "afterLogin.html";

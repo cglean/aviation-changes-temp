@@ -7,28 +7,25 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import org.hibernate.annotations.Type;
+
 @Entity
 @Table(name = "login")
 public class Login {
 
-	
 	@Id
 	@Column(name = "loginid")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long LoginID;
-	
-	
+
 	@NotNull
 	@Column(name = "username")
 	private String userName;
-	
+
 	@NotNull
 	@Column(name = "password")
 	private String password;
-	
 
-	private boolean result ;
+	private boolean result;
 
 	public Long getLoginID() {
 		return LoginID;
@@ -61,8 +58,5 @@ public class Login {
 	public void setResult(boolean result) {
 		this.result = result;
 	}
-	
-	
-	
-	
+
 }
