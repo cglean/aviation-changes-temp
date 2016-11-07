@@ -203,62 +203,6 @@ public class AviationServiceImpl implements AviationService {
 //				 popup = popup +"<br/>HS_REPAIR_TYPE : "+ componentHistory.getComponent().getDescription().toString();
 //				 popup = popup +"<br/>HS_REPAIR_ODR_NBR : "+ componentHistory.getComponent().getDescription().toString();
 				 
-				 int getRepairindex = componentHisList.indexOf(componentHistory);
-//				 System.out.println(getRepairindex + " "+componentHisList.size());
-//				 System.out.println(componentHisList.get(getRepairindex) + " "+componentHistory);
-				 if((componentHisList.size()-1)!=getRepairindex){
-					 if(componentHisList.get(getRepairindex+1).getStatus().toString().contains("Repair")){
-						 System.out.println("Add repair in removal");
-						 popup = popup +"<br/>Repair Date : "+ componentHisList.get(getRepairindex+1).getTodate().toString();
-						 popup = popup +"<br/>Repair Station : "+ componentHisList.get(getRepairindex+1).getMaint_stn().toString();
-						 popup = popup +"<br/>Repair Department : "+ componentHisList.get(getRepairindex+1).getDept().toString();
-						 popup = popup +"<br/>Repair Service Order Number : "+ componentHisList.get(getRepairindex+1).getStatus_reason().toString();
-						 String RepairReason = null;
-						 if(componentHisList.get(getRepairindex+1).getStatus().toString().equalsIgnoreCase("Repair A")){
-							 RepairReason = "Altered";
-						 }else if(componentHisList.get(getRepairindex+1).getStatus().toString().equalsIgnoreCase("Repair B")){
-							 RepairReason = "Beyond Econ.Repair";
-						 }else if(componentHisList.get(getRepairindex+1).getStatus().toString().equalsIgnoreCase("Repair C")){
-							 RepairReason = "Calibration";
-						 }else if(componentHisList.get(getRepairindex+1).getStatus().toString().equalsIgnoreCase("Repair D")){
-							 RepairReason = "Rebuild";
-						 }else if(componentHisList.get(getRepairindex+1).getStatus().toString().equalsIgnoreCase("Repair G")){
-							 RepairReason = "Recharge";
-						 }else if(componentHisList.get(getRepairindex+1).getStatus().toString().equalsIgnoreCase("Repair H")){
-							 RepairReason = "Hydrostatic";
-						 }else if(componentHisList.get(getRepairindex+1).getStatus().toString().equalsIgnoreCase("Repair I")){
-							 RepairReason = "Inspection";
-						 }else if(componentHisList.get(getRepairindex+1).getStatus().toString().equalsIgnoreCase("Repair M")){
-							 RepairReason = "Modification";
-						 }else if(componentHisList.get(getRepairindex+1).getStatus().toString().equalsIgnoreCase("Repair N")){
-							 RepairReason = "New";
-						 }else if(componentHisList.get(getRepairindex+1).getStatus().toString().equalsIgnoreCase("Repair O")){
-							 RepairReason = "Overhaul";
-						 }else if(componentHisList.get(getRepairindex+1).getStatus().toString().equalsIgnoreCase("Repair P")){
-							 RepairReason = "Prototype";
-						 }else if(componentHisList.get(getRepairindex+1).getStatus().toString().equalsIgnoreCase("Repair R")){
-							 RepairReason = "Repair";
-						 }else if(componentHisList.get(getRepairindex+1).getStatus().toString().equalsIgnoreCase("Repair T")){
-							 RepairReason = "Bench Check (Test)";
-						 }else if(componentHisList.get(getRepairindex+1).getStatus().toString().equalsIgnoreCase("Repair W")){
-							 RepairReason = "Weight Check";
-						 }else if(componentHisList.get(getRepairindex+1).getStatus().toString().equalsIgnoreCase("Repair X")){
-							 RepairReason = "Exhange Unit";
-						 }else{
-							 RepairReason = "No Reason Available";
-						 }
-						 
-						 
-						 
-						 popup = popup +"<br/>Repair Type : "+ RepairReason;
-						 
-					 } 
-				 }
-//				 if(componentHisList.size()!=getRepairindex){
-//				 if(componentHisList.get(getRepairindex+1).getStatus().toString().contains("Repair")){
-//					 System.out.println("Add repair in removal");
-//				 }
-//				 }
 				 item.setContent("<div style=\"height: 15px;\"><img class='triangleImage' title=\""+popup+"\" src=\"img/triangle.png\" style=\"width: 15px; height: 15px;\"></div>");
 //				 item.setContent("<div style=\"height: 15px;\"><img title=\"<span style='color:blue'>That's what this widget is<br/> test</span>\" src=\"img/triangle.png\" style=\"width: 15px; height: 15px;\"></div>");
 //				 item.setTitle("this is test title");
