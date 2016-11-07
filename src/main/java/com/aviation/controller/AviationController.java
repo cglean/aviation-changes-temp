@@ -44,14 +44,12 @@ public class AviationController {
 	private String optionEnd;
 	private String optionStart;
 
-
 	@Autowired
 	private AviationService aviationService;
 
 	@RequestMapping(value = LOAD_COMPONENT_BY_START_END_DATE, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Component> loadComponentData(@PathVariable final String startDate, @PathVariable final String endDate)
 			throws ParseException {
-
 		final String pattern = DATEFORMAT;
 		Date sDate = null;
 		Date eDate = null;
@@ -73,7 +71,6 @@ public class AviationController {
 	public void updateFilter(@RequestBody final Filter filter) throws ParseException {
 		aviationService.updateFilter(filter);
 	}
-	
 
 	@RequestMapping(value = SAVE_DEFUALT_FILTER, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public void saveAsDefaultFilter(@RequestBody Filter filter) throws ParseException {
@@ -83,9 +80,6 @@ public class AviationController {
 	@RequestMapping(value = GET_FILTERS, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public List<Filter> getFilters() {
-		List<Filter> test=aviationService.getFilters();
-		for(Filter i:test){
-		}
 		return aviationService.getFilters();
 	}
 
@@ -101,8 +95,7 @@ public class AviationController {
 	}
 	
 	@RequestMapping(value = "/splashScreen", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Object> showSplashScreen(/*@RequestBody   List<Long> componentIds*/) {
-		List<String> dateRange=new ArrayList<String>();
+	public List<Object> showSplashScreen() {
 		String pattern = DATEFORMATNEW;
 		Date sDate=null;
 		Date eDate=null;
@@ -117,8 +110,8 @@ public class AviationController {
 	}
 	
 	@RequestMapping(value = "/splashScreenMFG", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Object> showSplashScreenCPN(/*@RequestBody   List<Long> componentIds*/) {
-		// TODOD:: Remove Hard coding 
+	public List<Object> showSplashScreenCPN() {
+	
 		String pattern = DATEFORMATNEW;
 		Date sDate=null;
 		Date eDate=null;
@@ -152,7 +145,7 @@ public class AviationController {
 	
 
 	@RequestMapping(value = "/splashScreenTail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Object> splashScreenTail(/*@RequestBody   List<Long> componentIds*/) {
+	public List<Object> splashScreenTail() {
 		String pattern = DATEFORMATNEW;
 		Date sDate=null;
 		Date eDate=null;
@@ -188,8 +181,6 @@ public class AviationController {
      	try {
      		Date frmDate= df.parse(fromDate);
              Date tDate= df.parse(toDate);
-             
-             //system.out.println("Current date"+toDate+ "30 days back"+fromDate);
              SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
              fromDate=formatter.format(frmDate);
              toDate=formatter.format(tDate);
