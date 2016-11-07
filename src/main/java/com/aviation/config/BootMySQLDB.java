@@ -18,12 +18,10 @@ public class BootMySQLDB implements CommandLineRunner{
 	@Override
 	public void run(String... arg0) throws Exception {
 		loginRepository.deleteAll();
-		
 		Login login = new Login();
 		login.setUserName("amit");
 		login.setPassword("amit");
 		loginRepository.save(login);
-		
-	}
+    }
 	
 }
