@@ -85,10 +85,7 @@ public class AviationController {
 	public List<Filter> getFilters() {
 		List<Filter> test=aviationService.getFilters();
 		for(Filter i:test){
-			//system.out.println("hi test"+i);
 		}
-		
-		//system.out.println("hi in load filter"+aviationService.getFilters());
 		return aviationService.getFilters();
 	}
 
@@ -97,58 +94,27 @@ public class AviationController {
 		return aviationService.getDefaultFilter();
 	}
 	
-	
-	
 	@RequestMapping(value = "/removalReport/{step}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ComponentReport removalReport(@PathVariable final int step/*@RequestBody   List<Long> componentIds*/) {
-		// TODOD:: Remove Hard coding 
-	//	long[] components = {2312,2302,1642};
-		//system.out.println("step value"+step);
-		long [] component= new long[componentsIds.size()];
-		int i;
-		int length=componentsIds.size();
-		//system.out.println("id length"+componentsIds.size());
-		for(i=0; i<componentsIds.size(); i++){
-			component[i]=componentsIds.get(i);
-		}
-		List<Long> compos1=componentsIds;
-		ComponentReport componentRemovalRept =  aviationService.getComponents(compos1);
-		 return componentRemovalRept;
+	public ComponentReport removalReport(@PathVariable final int step) {
+		 return aviationService.getComponents(componentsIds);
 	}
 	
 	@RequestMapping(value = "/splashScreen", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Object> showSplashScreen(/*@RequestBody   List<Long> componentIds*/) {
-		// TODOD:: Remove Hard coding 
-		
-		
-		
 		List<String> dateRange=new ArrayList<String>();
 		String pattern = DATEFORMATNEW;
 		Date sDate=null;
 		Date eDate=null;
-		/*dateRange=dateInterval();
-		//system.out.println("date Range"+dateRange);*/
-
 		try {
 			sDate =  new SimpleDateFormat(pattern).parse("2014-08-10");
 			 eDate =  new SimpleDateFormat(pattern).parse("2016-08-10");
-			 
 		} catch (ParseException e) {
 			e.printStackTrace();
-			
 		}
-
 		List<Object> componentRemovalRept =  aviationService.getRemovedComponents(sDate, eDate);
-		//List<Object> componentRemovalRept =  aviationService.getRemovedComponents(new Date("2014-08-10"), new Date("2016-08-10"));
-		//system.out.println(componentRemovalRept);
-		
 		return componentRemovalRept;
 	}
-	
-	
-
-	
 	
 	@RequestMapping(value = "/splashScreenMFG", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Object> showSplashScreenCPN(/*@RequestBody   List<Long> componentIds*/) {
@@ -170,11 +136,6 @@ public class AviationController {
 	
 	@RequestMapping(value = "/splashScreenCPNSerial", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Object> splashScreenCPNSerial(/*@RequestBody   List<Long> componentIds*/) {
-		// TODOD:: Remove Hard coding 
-		
-		
-		
-		
 		String pattern = DATEFORMATNEW;
 		Date sDate=null;
 		Date eDate=null;
@@ -186,19 +147,12 @@ public class AviationController {
 		}
 		 
 		List<Object> componentRemovalRept =  aviationService.getRemovedComponentsCPNSerial(sDate, eDate);
-		//system.out.println("in cpn"+componentRemovalRept);
-		
 		return componentRemovalRept;
 	}
 	
 
 	@RequestMapping(value = "/splashScreenTail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<Object> splashScreenTail(/*@RequestBody   List<Long> componentIds*/) {
-		// TODOD:: Remove Hard coding 
-		
-		
-		
-		/*
 		String pattern = DATEFORMATNEW;
 		Date sDate=null;
 		Date eDate=null;
@@ -208,68 +162,8 @@ public class AviationController {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-
-		
-		List<Object> sent=new ArrayList<Object>();
-		
-		
-		List<Object> componentRemovalRept =  aviationService.getRemovedComponentsTail(sDate, eDate);
-		
-		for(Object i:componentRemovalRept){
-			
-			
-			ComponentHistory temp=new ComponentHistory();
-	
-			temp=(ComponentHistory) i;
-			
-			Date fromDate=temp.getFromDate();
-			Date toDate=temp.getTodate();
-			
-			if(toDate == null){
-			
-				toDate=eDate;
-		
-			}
-			
-			long diff = toDate.getTime()-fromDate.getTime();
-			long diffDays = (diff / ( 60 * 60 * 1000))+1;
-			List<Object> tempArr= new ArrayList<Object>();
-			tempArr.add(temp.getTailNo());
-			tempArr.add(diffDays);
-			sent.add(tempArr);
-
-	
-	
-		}
-		
-		
-	
-	
-		return sent;*/
-		
-		
-		
-		
-		String pattern = DATEFORMATNEW;
-		Date sDate=null;
-		Date eDate=null;
-		try {
-			sDate =  new SimpleDateFormat(pattern).parse("2014-08-10");
-			 eDate =  new SimpleDateFormat(pattern).parse("2016-08-10");
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		 
 		List<Object> componentRemovalRept =  aviationService.getRemovedComponentsTailNoOfRemoval(sDate, eDate);
-		//system.out.println("in cpn"+componentRemovalRept);
-		
 		return componentRemovalRept;
-		
-		
-		
-		
-		
-		
 		
 	}
 	
@@ -303,21 +197,13 @@ public class AviationController {
              dateRange.add(toDate);
  	} catch (ParseException e) {
  		e.printStackTrace();
- 		
  	}
 		return dateRange;
- 	
-         
     }
-    
     
 
 	@RequestMapping(value = LOGIN_VERIFICATON, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Login LoginVerification(@PathVariable final String username, @PathVariable final String password)
-			{
-
-		//system.out.println("username "+username+" pass "+password);
-	
+	public Login LoginVerification(@PathVariable final String username, @PathVariable final String password){
 		boolean loginValidRes =  aviationService.isValidLogin(username, password);
 		Login sample=new Login();
 		sample.setResult(loginValidRes);
@@ -325,43 +211,29 @@ public class AviationController {
 	}
 	
     
-    
-    
 	@RequestMapping(value = "/postComponentIds/{components}/{fromDate}/{toDate}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public void getComponentsIds(@RequestBody final List<Component> components,@PathVariable final String fromDate, @PathVariable final String toDate) throws ParseException {
-		
-//		/componentIds
-		//system.out.println("from date "+fromDate+" to date "+toDate);
-		//system.out.println("Hi I am in component  dfcd ids");
 		componentsIds = new ArrayList<Long>();
-		//system.out.println("in component"+components.toString());
 		for (Component component : components) {
 			componentsIds.add(component.getComponentID());
-			//system.out.println(component.getComponentID());
 		}
-		////system.out.println(components.size());	
 		 DateFormat df = new SimpleDateFormat("yyyy-MM-dd"); 
 	     System.out.println("fromdate "+fromDate+" to date "+toDate);
 	     optionEnd=toDate;
 	     optionStart=fromDate;
 	     Date frmDate= df.parse(fromDate);
          Date tDate= df.parse(toDate);
-		//system.out.println("to date and from date"+frmDate+" "+tDate);
 		 SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 		 String  startDate=formatter.format(frmDate);
 		 String  endDate=formatter.format(tDate);
-      //system.out.println("after"+startDate+" "+endDate);
 		
       removalFromDate=startDate.replaceAll("-", "/");
       removalToDate=endDate.replaceAll("-", "/");
-      
 	}
 
 	@RequestMapping(value = "/paginationStatus", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<String> paginationStatus(/*@RequestBody   List<Long> componentIds*/) {
-		// TODOD:: Remove Hard coding 
 		List<String> status =  new ArrayList<String>();
-		//system.out.println("in status"+status);
 		status.add(removalFromDate);
 		status.add(removalToDate);
 		status.add(optionEnd);
