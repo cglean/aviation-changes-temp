@@ -1,95 +1,80 @@
 <!DOCTYPE html>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Aviation Graph Screen</title>
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> 
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="css/index.css">
-<!-- <script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="css/bootstrap.min.css">  -->
+
 <!-- <script -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="js/jquery.qtip.min.js"></script>
 
-<script src="js/menu.js"></script>
-	<!-- src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
-<script
-	src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-<!-- <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"> -->
-<!-- Include Required Prerequisites -->
-<script type="text/javascript" src="http://cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
- <script type="text/javascript" src="http://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<!-- <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/bootstrap/latest/css/bootstrap.css" /> -->
- 
-<!-- Include Date Range Picker -->
-<!-- <script type="text/javascript" src="http://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script> -->
-<!-- <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" /> -->
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="/js/jquery.qtip.min.js"></script>
+<script src="/js/menu.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script	src="/js/bootstrap.min.js"></script>
+<script type="text/javascript"	src="http://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript"	src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-  <script src="http://visjs.org/dist/vis.js"></script>
-  <link href="http://visjs.org/dist/vis.css" rel="stylesheet" type="text/css" /> 
-  <link href="http://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.css" rel="stylesheet" type="text/css" /> 
-  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<!--   <link rel="stylesheet" href="/resources/demos/style.css"> -->
-  <script src="js/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="http://visjs.org/dist/vis.js"></script>
+<link href="http://visjs.org/dist/vis.css" rel="stylesheet"	type="text/css" />
+<link href="http://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.css"	rel="stylesheet" type="text/css" />
+<link rel="stylesheet"	href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="Utility.js"></script>
-
 <style>
-
-        
-        .black_overlay {
-  display: none;
-  position: absolute;
-  top: 0%;
-  left: 0%;
-  width: 100%;
-  height: 100%;
-  background-color: black;
-  z-index: 1001;
-  -moz-opacity: 0.8;
-  opacity: .80;
-  filter: alpha(opacity=80);
+.black_overlay {
+	display: none;
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	z-index: 1001;
+	-moz-opacity: 0.8;
+	opacity: .80;
+	filter: alpha(opacity = 80);
 }
+
 .white_content {
-font-size:25px;
-  display: none;
-  position: absolute;
-  top: 40%;
-  left: 40%;
-  width: 20%;
-  height: 20%;
-  padding: 16px;
-  border: 1px solid black;
-  background-color: white;
-  z-index: 1002;
-  overflow: auto;
+	font-size: 25px;
+	display: none;
+	position: absolute;
+	top: 40%;
+	left: 40%;
+	width: 20%;
+	height: 20%;
+	padding: 16px;
+	border: 1px solid black;
+	background-color: white;
+	z-index: 1002;
+	overflow: auto;
 }
-        
-        
-         .triangleImage{
-        
-}        
-        
 
-		.bgclass{
-			background-color: white !important;
-		}
-		input#remperbar {
-    width: 31px;
-    height: 18px;
-    margin-top: -10px;
-        margin-left: -13px;
+.triangleImage {
+	
 }
-.vis-item.negative{
+
+.bgclass {
+	background-color: white !important;
 }
-		
-	}
+
+input#remperbar {
+	width: 31px;
+	height: 18px;
+	margin-top: -10px;
+	margin-left: -13px;
+}
+
+.vis-item.negative {
+	
+}
+
+}
 .navbar {
 	margin-bottom: 0;
 	background-color: #01579B;
@@ -97,140 +82,147 @@ font-size:25px;
 	font-size: 11px !important;
 	letter-spacing: 4px;
 	font-weight: 600;
-
-	 position: static;
+	position: static;
 }
+
 .btndiv {
-display: inline;
-float: left;
-padding-left: 0.5%;
-padding-top: 0.5%;
+	display: inline;
+	float: left;
+	padding-left: 0.5%;
+	padding-top: 0.5%;
 }
-
 </style>
- <style>
-        body, html {
-            font-family: arial, sans-serif;
-            font-size: 11pt;
-        }
-
-        
-		.button {
-    
-    border: none;
-    color: white;
-    padding: 12px 24px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-}
-.triangle{
-	width:0px; 
-	height:0px; 
-	border-left:20px solid transparent;
-	border-right:20px solid transparent;
-	border-top:20px solid #8BC34A;
-	    margin-left: 7px;
+<style>
+body, html {
+	font-family: arial, sans-serif;
+	font-size: 11pt;
 }
 
-.utriangle{
-	width:0px; 
-	height:0px; 
-	border-left:20px solid transparent;
-	border-right:20px solid transparent;
-	border-top:20px solid Yellow;
+.button {
+	border: none;
+	color: white;
+	padding: 12px 24px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
 }
 
-
-.ycircle{
-		background-color:Yellow;
-		border-radius: 50px;
-		padding: 12px 12px;
+.triangle {
+	width: 0px;
+	height: 0px;
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+	border-top: 20px solid #8BC34A;
+	margin-left: 7px;
 }
-.bcircle{
-		background-color:Brown;
-		border-radius: 50px;
-		padding: 12px 12px;
+
+.utriangle {
+	width: 0px;
+	height: 0px;
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+	border-top: 20px solid Yellow;
 }
-  .vis-item.negative {
-    border-color: white;
-    background-color: white;
-   
-  }
-  .vis-item {
-    
-    background-color: Blue;
-  }
-  .vis-item-content{
-  padding-top: 0px;
-  }
-  .vis-item .vis-item-overflow {
-  overflow: visible;
+
+.ycircle {
+	background-color: Yellow;
+	border-radius: 50px;
+	padding: 12px 12px;
 }
-.vis-item .vis-item-content{
- 	padding: 0px;
- }
- img {
-     vertical-align: top;
- }
 
+.bcircle {
+	background-color: Brown;
+	border-radius: 50px;
+	padding: 12px 12px;
+}
 
-    </style>
+.vis-item.negative {
+	border-color: white;
+	background-color: white;
+}
 
-    <!-- <script src="../../Code/vis/dist/vis.js"></script> -->
-    <!-- <link href="../../Code/vis/dist/vis.css" rel="stylesheet" type="text/css" /> -->
-    <!-- <script src="../vis/examples/googleAnalytics.js"></script> -->
+.vis-item {
+	background-color: Blue;
+}
+
+.vis-item-content {
+	padding-top: 0px;
+}
+
+.vis-item .vis-item-overflow {
+	overflow: visible;
+}
+
+.vis-item .vis-item-content {
+	padding: 0px;
+}
+
+img {
+	vertical-align: top;
+}
+</style>
+
+<!-- <script src="../../Code/vis/dist/vis.js"></script> -->
+<!-- <link href="../../Code/vis/dist/vis.css" rel="stylesheet" type="text/css" /> -->
+<!-- <script src="../vis/examples/googleAnalytics.js"></script> -->
 </head>
 <body onload="removal('0')">
 
 	<!-- Top Logo Header -->
-	<nav id="home"  class="navbar navbar-default navbar-fixed-top">
-	<div class="container-fluid">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse"
-				data-target="#myNavbar">
-				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="index.html">Aviation</a>
-		</div>
-		<div class="collapse navbar-collapse" id="myNavbar">
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="afterLogin.html">HOME</a></li>
-				                        
-<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Menu <span class="caret"></span>                                                               </a>
-<ul class="dropdown-menu">
+	<nav id="home" class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#myNavbar">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="index.html">Aviation</a>
+			</div>
+			<div class="collapse navbar-collapse" id="myNavbar">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="afterLogin.html">HOME</a></li>
 
-<li><a href="Unit_Filter.html">Filter Editor</a></li>
-<li><a href="Splash_Screen.html">Component Analysis</a></li>
-</ul></li>
-				
-				<li><a href="index.html" id="logout">LOGOUT</a></li>
-			</ul>
+					<li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" href="#">Menu <span class="caret"></span>
+					</a>
+						<ul class="dropdown-menu">
+
+							<li><a href="Unit_Filter.html">Filter Editor</a></li>
+							<li><a href="Splash_Screen.html">Component Analysis</a></li>
+						</ul></li>
+
+					<li><a href="index.html" id="logout">LOGOUT</a></li>
+				</ul>
+			</div>
 		</div>
-	</div>
 	</nav>
 	<!-- End of Top Logo Header -->
 
-<form action="">
-<br/><br/><br/>
-<div class="main_content bgclass">
-<div style='text-align:center'>
-		<!-- div for button alignment -->
-		<div class="btndiv">
-		<!-- <button class="filebtn list-cust-btn">File</button> -->
-		<!-- <button class="statbtn list-cust-btn">Statistics</button> -->
-		<input type="button" onclick="printDiv('visualization')" value="File" class="filebtn list-clear-btn">
-		<input type="button" value="Statistics" class="statbtn list-clear-btn">
+	<form action="">
+		<br />
+		<br />
+		<br />
+		<div class="main_content bgclass">
+			<div style='text-align: center'>
+				<!-- div for button alignment -->
+				<div class="btndiv">
+					<!-- <button class="filebtn list-cust-btn">File</button> -->
+					<!-- <button class="statbtn list-cust-btn">Statistics</button> -->
+					<input type="button" onclick="printDiv('visualization')"
+						value="File" class="filebtn list-clear-btn"> <input
+						type="button" value="Statistics" class="statbtn list-clear-btn">
+				</div>
+
+				<label class="right_label">Component Removal History</label>
+			</div>
 		</div>
-		
-		<label class="right_label">Component Removal History</label></div></div>
-	<div class="main_left">
-		
-		<div class="left_p1">
-					<!-- <div class="checkbox filter-checkbox form-group filter_left2_p2"> 
+		<div class="main_left">
+
+			<div class="left_p1">
+				<!-- <div class="checkbox filter-checkbox form-group filter_left2_p2"> 
 				 <label id="tab-caption" style="border-bottom: 1px solid;width: 100%;border-bottom-color: black;">Sort</label> 
 				<input type="string" style="width: 70px;" id="sort" value="Sort">
 			<table class="tab_change">
@@ -248,203 +240,151 @@ padding-top: 0.5%;
 			   </tr>
 				</table>
 			</div> -->
-		<hr id="date_line">	
-		<div class="form-group date-range ">
-			<!-- <center><label for="dateRange" class="label_date" style="color: brown;">Extract Date</label></center> -->
-				<div class="date_range_select ">
-			<label for="fromDate" class="label_date" >Extract Date</label> 
-			<input type="text"	class="form-control" style="margin-bottom: 4px;" id="currentDate" readonly="true" />
-			<label	for="dateRange" class="label_date">Date Range</label> 
-							 <input type="text"	class="form-control" style="margin-bottom: 4px;" id="dateRange" readonly="true" />
-					<!-- <script type="text/javascript"> -->
-						<!-- $(function() { -->
+				<hr id="date_line">
+				<div class="form-group date-range ">
+					<!-- <center><label for="dateRange" class="label_date" style="color: brown;">Extract Date</label></center> -->
+					<div class="date_range_select ">
+						<label for="fromDate" class="label_date">Extract Date</label> <input
+							type="text" class="form-control" style="margin-bottom: 4px;"
+							id="currentDate" readonly="true" /> <label for="dateRange"
+							class="label_date">Date Range</label> <input type="text"
+							class="form-control" style="margin-bottom: 4px;" id="dateRange"
+							readonly="true" />
+					</div>
 
-						  <!-- $('input[name="datefilter"]').daterangepicker({ -->
-							  <!-- autoUpdateInput: false, -->
-							  <!-- locale: { -->
-								  <!-- cancelLabel: 'Clear' -->
-							  <!-- } -->
-						  <!-- }); -->
+				</div>
 
-						  <!-- $('input[name="datefilter"]').on('apply.daterangepicker', function(ev, picker) { -->
-							  <!-- $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY')); -->
-						  <!-- }); -->
-
-						  <!-- $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) { -->
-							  <!-- $(this).val(''); -->
-						  <!-- }); -->
-
-						<!-- }); -->
-
-			</div>
-			
-		</div>
-		
-		
-		
-		
-		<!-- Analysis By Start -->
-		
-		
-		
-				<hr id="analysisByLine">					
-		<div>
-			<div class="checkbox filter-checkbox form-group filter_left2_p2"> 
-				<label id="tab-caption" style="border-bottom: 1px solid;width: 33%;border-bottom-color: black;padding-left: 2%;">Analysis By</label> 
-			</div>
-			<table style="margin-left:10px;">
-				<tr>
-					<td><input type="radio" name="filter" id ="bestFirst" onchange="onChangeRadioButton()"/></td>
-					<td><label>Best First</label></td>
-				</tr>
-				<tr>
-					<td><input type="radio" name="filter" id ="worstFirst" onchange="onChangeRadioButton()" checked/></td>
-					<td><label>Worst First</label></td>
-				</tr>
- 			</table>
-		</div>
-	
-		<!-- Installastion period bar Start -->
-		
-			<hr id="installationPeriodLine">
-			<div>
-				<div class="checkbox filter-checkbox form-group filter_left2_p2">
-					<table>
+				<hr id="analysisByLine">
+				<div>
+					<div class="checkbox filter-checkbox form-group filter_left2_p2">
+						<label id="tab-caption"
+							style="border-bottom: 1px solid; width: 33%; border-bottom-color: black; padding-left: 2%;">Analysis
+							By</label>
+					</div>
+					<table style="margin-left: 10px;">
 						<tr>
-							<td style="padding-left: 8px;padding-top: 3px;"><input type="checkbox" name="instperbar" id="instperbar" checked="true" disabled="disabled"  hidden="true"/></td>
-					
-							<td><label id="tab-caption" style="border-bottom: 1px solid;width: 100%;border-bottom-color: black; padding-left: 4px !important;padding-bottom: 0px !important;">Installation Period Bar</label></td>
+							<td><input type="radio" name="filter" id="bestFirst"
+								onchange="onChangeRadioButton()" /></td>
+							<td><label>Best First</label></td>
 						</tr>
- 					</table>
- 				</div>
-				<table style="margin-left:10px;">
-					<tr>
-						<td><label>Installed</label></td>
-						<td><div class="button" style="background-color:Blue;"/></td>
-					</tr>
-					<tr>
-						<td><label>Removed</label></td>
-					
-						<td><div class="button" style="background-color:white;"></td>
-					</tr>
-		<!-- 			<tr>
-						<td><label>Still Installed Box</label></td>
-					
-						<td><div class="button" style="background-color:Pink;"></td>
-					</tr> -->
-				</table>
+						<tr>
+							<td><input type="radio" name="filter" id="worstFirst"
+								onchange="onChangeRadioButton()" checked /></td>
+							<td><label>Worst First</label></td>
+						</tr>
+					</table>
+				</div>
+
+
+				<hr id="installationPeriodLine">
+				<div>
+					<div class="checkbox filter-checkbox form-group filter_left2_p2">
+						<table>
+							<tr>
+								<td style="padding-left: 8px; padding-top: 3px;"><input
+									type="checkbox" name="instperbar" id="instperbar"
+									checked="true" disabled="disabled" hidden="true" /></td>
+
+								<td><label id="tab-caption"
+									style="border-bottom: 1px solid; width: 100%; border-bottom-color: black; padding-left: 4px !important; padding-bottom: 0px !important;">Installation
+										Period Bar</label></td>
+							</tr>
+						</table>
+					</div>
+					<table style="margin-left: 10px;">
+						<tr>
+							<td><label>Installed</label></td>
+							<td><div class="button" style="background-color: Blue;" /></td>
+						</tr>
+						<tr>
+							<td><label>Removed</label></td>
+
+							<td><div class="button" style="background-color: white;"></td>
+						</tr>
+					</table>
+				</div>
+
+
+				<hr id="removalPeriodLine">
+				<div>
+
+					<div class="checkbox filter-checkbox form-group filter_left2_p2">
+						<table>
+							<tr>
+								<td style="padding-left: 8px; padding-top: 3px;"><input
+									type="checkbox" name="remperbar" id="remperbar" checked="true" /></td>
+
+								<td><label id="tab-caption"
+									style="border-bottom: 1px solid; width: 100%; border-bottom-color: black; padding-left: 4px !important; padding-bottom: 0px !important;">Removal
+										Event</label></td>
+
+								<td style="padding-left: 16px;"><p
+										class="glyphicon glyphicon-triangle-bottom"
+										style="font-size: 30px; color: red;"></p></td>
+							</tr>
+						</table>
+					</div>
+					<table style="margin-left: 10px;">
+						<tr>
+							<td><label>Scheduled</label></td>
+							<td><div class="triangle"></div></td>
+						</tr>
+						<tr>
+							<td><label>Unscheduled</label></td>
+
+							<td style="padding-left: 6px"><div class="utriangle"></div></td>
+						</tr>
+						<tr>
+							<td><label>Others</label></td>
+
+							<td style="padding-left: 6px"><div class="bcircle button"></div></td>
+						</tr>
+					</table>
+
+				</div>
+
+				<hr id="removalPeriodLine">
+				<div style="padding-bottom: 10px;">
+					<input
+						style="padding-bottom: 0; margin-left: 30px; word-wrap: break-word; width: 160px; height: 50px;"
+						name="action" type="button" value="Component Analysis"
+						onclick="splashScreen()" />
+				</div>
+				<div style="padding-bottom: 10px;">
+					<input
+						style="padding-bottom: 0; margin-left: 30px; word-wrap: break-word; width: 160px; height: 50px;"
+						name="action" type="button" value="Filter Editor"
+						onclick="component();" />
+				</div>
+
 			</div>
-		
-		<!-- Installastion period bar END -->
-		
-		
-		<!-- Removal period bar Start -->
-		
-		<hr id="removalPeriodLine">			
-		<div>
-			
-			<div class="checkbox filter-checkbox form-group filter_left2_p2"> 
-<!-- <label id="tab-caption" style="border-bottom: 1px solid;width: 100%;border-bottom-color: black;">Removal Period Bar</label>  -->
-				<table>
-					<tr>
-						<td style="padding-left: 8px;padding-top: 3px;"><input type="checkbox" name="remperbar"  id="remperbar" checked="true"/></td>
-					
-						<td><label id="tab-caption" style="border-bottom: 1px solid;width: 100%;border-bottom-color: black; padding-left: 4px !important;padding-bottom: 0px !important;">Removal Event</label></td>
-						
-						<td style="padding-left: 16px;"><p class="glyphicon glyphicon-triangle-bottom" style="font-size: 30px;color: red;"></p></td>
-					</tr>
-				 </table>
-			</div>
-			<table style="margin-left:10px;">
-				<tr>
-					<td><label>Scheduled</label></td>
-					<td><div class="triangle" ></div></td>
-				</tr>
-				<tr>
-					<td><label>Unscheduled</label></td>
-					
-					<td style="padding-left:6px"><div class="utriangle" ></div></td>
-				</tr>
-				<tr>
-					<td><label>Others</label></td>
-					
-					<td style="padding-left:6px"><div class="bcircle button" ></div></td>
-				</tr>
-				</table>
-
-
 		</div>
-			
-		
-		<!-- Removal period bar END -->
-		
-		
-		
-		
-		<!-- Analysis By END -->
-		
-		
-		
-<!-- 		<div>
-		<hr id="unitByLine">
-		<input type="string" style="width: 70px;" id="unit" value="Units by">
-		<label id="tab-caption" style="border-bottom: 1px solid;width: 95%;border-bottom-color: black;">Units by</label> 
-		<div class="checkbox filter-checkbox form-group filter_left2_p2">
-			<table class="tab_change">
-				
-				<tr>
-					<td><label><input type="checkbox"
-							name="fleet">Fleet</label></td>
-				</tr>
-
-				<tr>
-				<td><label><input type="checkbox" name="subFleetCheckBox">Sub Fleet</label></td>
-				</tr>
-				<tr>
-				<td><label><input type="checkbox" name="aircraftNumbersCheckBox">Aircraft Numbers</label></td>
-			   </tr>
-			   <tr>
-				<td><label><input type="checkbox" name="cpnCheckBox">CPN</label></td>
-			   </tr>
-			   <tr>
-				<td><label><input type="checkbox" name="mpnCheckBox">MPN</label></td>
-			   </tr>
-			   <tr>
-				<td><label><input type="checkbox" name="ataCodesCheckBox">ATA Codes</label></td>
-			   </tr>
-			   <tr>
-				<td><label><input type="checkbox" name="cpnSerialNumberCheckBox">Component Serial Numbers</label></td>
-			   </tr>
-				</table>
-			</div>
-		</div> -->
-			<hr id="removalPeriodLine">		
-		<div style="padding-bottom: 10px;"><input style="padding-bottom: 0;margin-left: 30px;word-wrap: break-word;width: 160px;height: 50px;" name="action" type="button" value="Component Analysis" onclick="splashScreen()"/></div>
-		<div style="padding-bottom: 10px;"><input style="padding-bottom: 0;margin-left: 30px;word-wrap: break-word;width: 160px;height: 50px;" name="action" type="button" value="Filter Editor" onclick="component();"/></div>									
-		
-		</div>
-	
-	</div>
-</form>
+	</form>
 
 
-<br/><!-- <br/><br/><br/><br/><br/><br/><br/><br/> -->
+	<br />
+	<!-- <br/><br/><br/><br/><br/><br/><br/><br/> -->
 
-		<div id="visualization">
-		</div>
-	
-	
+	<div id="visualization"></div>
+
+
 	<div class="col-sm-12" style="margin-top: 12px;">
-	
-	<div class="row">
-	<div class="col-sm-3"></div>
-	<div class="col-sm-2" style="padding-bottom: 10px;"><input type="button" class="btn btn-primary" value="<< Previous" id="previous" onclick="onPageLoad('-1')"></div>
-<div class="col-sm-5"></div>
-<div class="col-sm-2" style="padding-bottom: 10px;"><!-- <input type="button" class="form-control" class="btn btn-primary"  value="Next >>"  id="next" onclick="pagination('1')"> -->
-<input type="button" class="btn btn-primary"  value="Next >>" id="next" onclick="onPageLoad('1')"></div>
-</div>
-</div>
-  <script>
+
+		<div class="row">
+			<div class="col-sm-3"></div>
+			<div class="col-sm-2" style="padding-bottom: 10px;">
+				<input type="button" class="btn btn-primary" value="<< Previous"
+					id="previous" onclick="onPageLoad('-1')">
+			</div>
+			<div class="col-sm-5"></div>
+			<div class="col-sm-2" style="padding-bottom: 10px;">
+				<!-- <input type="button" class="form-control" class="btn btn-primary"  value="Next >>"  id="next" onclick="pagination('1')"> -->
+				<input type="button" class="btn btn-primary" value="Next >>"
+					id="next" onclick="onPageLoad('1')">
+			</div>
+		</div>
+	</div>
+	<script>
   $( function() {
 	    $(document).tooltip({
 	    	track: true,
@@ -454,7 +394,7 @@ padding-top: 0.5%;
 	      });
   } );
   </script>
-<script type="text/javascript">
+	<script type="text/javascript">
 
 var step;
 var currentcount;
@@ -508,22 +448,12 @@ var removal=function(step1){
 	
 }
 
-
-
-
-function onChangeRadioButton()
-{     document.getElementById('visualization').innerHTML = "";
+function onChangeRadioButton(){
+	document.getElementById('visualization').innerHTML = "";
   	  
      onPageLoad('0');
   
 	}
-
-
-
-
-
-
-
 
 function onPageLoad(value){
 step=value;
@@ -594,31 +524,13 @@ $('input[name="remperbar"]').click(function(){
 	<!-- ***************End of Filter logic for chart selection***************	 -->
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
   // Create a DataSet (allows two way data-binding)
    var items = new vis.DataSet({
         type: { start: 'Moment', end: 'Moment' }
     }); 
    var groups = new vis.DataSet();
   
-
-   
-   
-   
-   
-   
-   
-   
    var length=report.groupList.length;
-
    if(forEnd==length){
 		forEnd=forStart;
 		forStart=forStart-25;
@@ -641,8 +553,6 @@ $('input[name="remperbar"]').click(function(){
 		forEnd=length;
 	}
    
-
-   
    if(step==0){
 	   worstFitGroupListFinal=[]
 
@@ -659,30 +569,21 @@ $('input[name="remperbar"]').click(function(){
 	     				if(report.itemList[j].content!=""){
 	     					       bestCount++
 	     					       worstCount--
-	     					       
 	     					   }
-	     				
-	     				
-	     				
 	     				}
 	   		}
-	    
 	    groups1={}  
 	    groups1["id"]=report.groupList[i].id;
 	    groups1["bestCount"]=bestCount;
 	    groups1["worstCount"]=worstCount;
 	    groups1["content"]=report.groupList[i].content;
 	    worstFitGroupList.push(groups1);
-	  
 	    	if(temp<bestCount){
 	    		temp=bestCount;
 	    	}
-   
 	   }
 
-	   
- 
- for(var i=0; i< worstFitGroupList.length; i++){
+   for(var i=0; i< worstFitGroupList.length; i++){
    			for(j=0 ; j<report.itemList.length; j++){ 
    				
 	     			if(worstFitGroupList[i].id ==report.itemList[j].group){ 
@@ -701,22 +602,9 @@ $('input[name="remperbar"]').click(function(){
    			}
  } 
 	     		
-   
-   
-   
-   
- 
- 
- 
- 
-   
-
-   
       worstFit= document.getElementById("worstFirst").checked;
-   	    bestFit= document.getElementById("bestFirst").checked;
+      bestFit= document.getElementById("bestFirst").checked;
   
-   
-   
  
   if(worstFit) { 
  for(var k=temp;k>=0; k--){
@@ -739,34 +627,19 @@ $('input[name="remperbar"]').click(function(){
 		   }
 	 }
 	   
-	    
-	   
-	   
-	   
-	   
  }
  
    worstFitItemListFinal=worstFitItemList;
    
- 
-
- 
-    
    
    }
 
-   
 worstFitGroupListFinal1=[]
 worstFitItemListFinal1=[]
    
  for(var i=forStart; i<forEnd; i++){
-	   
-	   
-	   
    			for(j=0 ; j<worstFitItemListFinal.length; j++){ 
-   				
 	     			if(worstFitGroupListFinal[i].id ==worstFitItemListFinal[j].group){ 
-	     				
 	     				items1={}
 	     				items1["id"]=worstFitItemListFinal[j].id
 	     				items1["content"]=worstFitItemListFinal[j].content
@@ -777,17 +650,11 @@ worstFitItemListFinal1=[]
 	     				items1["type"]= worstFitItemListFinal[j].type
 	     				items1["title"]= worstFitItemListFinal[j].title
 	     				worstFitItemListFinal1.push(items1)
-
 	     				}
 	   		} 
 	  
 	    worstFitGroupListFinal1.push(worstFitGroupListFinal[i]);
-	  
-	    	
-   
 	   }
- 
-
 	    groups.add(worstFitGroupListFinal1)  
 	    items.add(worstFitItemListFinal1) 
 
@@ -810,11 +677,8 @@ var endDate=statusValue[2];
   	        	
   	        	axis:'both'
   	        }
-		
-		        
-		     
-		    };
-		
+	    };
+	
  
     	worstFit= document.getElementById("worstFirst").checked;
    	    bestFit= document.getElementById("bestFirst").checked;
@@ -829,28 +693,7 @@ var endDate=statusValue[2];
     	}
     
     var timeline = new vis.Timeline(container, items, groups, options); 
-    /*function onClick (event) {
-    	  var properties = timeline.getEventProperties(event);
-    	  console.log(properties);
-    	  if(properties.item){
-    		  for (i = 0; i < report.itemList.length; i++) { 
-			    if(properties.item == report.itemList[i].id){
-			    	if(report.itemList[i].className == 'negative'){
-			    		document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block';
-			    	}
-			    }
-			  }
-    		  
-    	  }
-    	  
-    	}
-    	container.addEventListener('click', onClick) ;*/
       	paginationStatus();
-  
-	
-	<!-- //////////Timeline range////////// -->
-	
-	
 
 }
 
@@ -894,13 +737,7 @@ function pagination(value) {
       	  
       	}
       	container.addEventListener('click', onClick) ;
-
-      	
       	paginationStatus();
-  	
-
-
-  
 }
 
 
@@ -918,14 +755,8 @@ var paginationStatus=function(){
 					var previousStatus;
 					statusValue =status.split(',');
 					loadvalue.push(statusValue);
-
-					////alert("nextStatus"+nextStatus);
-					
-					
 					 var actual=report.groupList.length;
 					 var actualLength=Math.ceil(actual/25);
-					 
-					 
 					 //alert("actual length"+actualLength)
 					if(currentcount == actualLength){
 						document.getElementById("next").disabled=true;
@@ -939,13 +770,6 @@ var paginationStatus=function(){
 						document.getElementById("previous").disabled=false;
 					}
 					
-					
-					
-					
-					
-
-					
-
 					document.getElementById("dateRange").value = statusValue[0]+" - "+statusValue[1];
 					
 					var today = new Date();
@@ -961,7 +785,6 @@ var paginationStatus=function(){
 					} 
 					var fromDate = dd+'/'+mm+'/'+yyyy;
 					document.getElementById("currentDate").value = fromDate;
-						
 										
 		}
 	
@@ -973,11 +796,12 @@ var paginationStatus=function(){
 </script>
 
 
-  <div id="light" class="white_content">Removal Data:          <a style="text-align: right;" href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">Close</a>
-<br/>Date: 2014-11-21
-<br/>Removal Reason: 02
-  
-  </div>
-  <div id="fade" class="black_overlay"></div>
+	<div id="light" class="white_content">
+		Removal Data: <a style="text-align: right;" href="javascript:void(0)"
+			onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">Close</a>
+		<br />Date: 2014-11-21 <br />Removal Reason: 02
+
+	</div>
+	<div id="fade" class="black_overlay"></div>
 </body>
 </html>
