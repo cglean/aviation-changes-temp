@@ -11,7 +11,7 @@ public class PathConstants {
 		super();
 	}
 
-	public static final String LOAD_COMPONENT_BY_START_END_DATE = "/loadComponent/{startDate}/{endDate}";
+	public static final String LOAD_COMPONENT_BY_START_END_DATE = "/loadComponent";
 	
 	public static final String DATEFORMAT = "yyyy-MM-dd";
 	

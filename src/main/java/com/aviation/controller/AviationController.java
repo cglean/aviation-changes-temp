@@ -13,6 +13,7 @@ import static com.aviation.util.PathConstants.UPDATE_FILTER;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -20,11 +21,13 @@ import java.util.List;
 import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,6 +36,7 @@ import com.aviation.entity.Filter;
 import com.aviation.entity.Login;
 import com.aviation.service.AviationService;
 import com.aviation.vo.ComponentReport;
+import com.aviation.vo.PostComponentRequestVO;
 //import com.mysql.fabric.xmlrpc.base.Array;
 
 @RestController
@@ -48,18 +52,10 @@ public class AviationController {
 	private AviationService aviationService;
 
 	@RequestMapping(value = LOAD_COMPONENT_BY_START_END_DATE, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Component> loadComponentData(@PathVariable final String startDate, @PathVariable final String endDate)
+	public List<Component> loadComponentData(@RequestParam(required = false) @DateTimeFormat(pattern = DATEFORMAT) Date start,@RequestParam(required = false) @DateTimeFormat(pattern = DATEFORMAT) Date end)
 			throws ParseException {
-		final String pattern = DATEFORMAT;
-		Date sDate = null;
-		Date eDate = null;
-		try {
-			sDate = new SimpleDateFormat(pattern).parse(startDate);
-			eDate = new SimpleDateFormat(pattern).parse(endDate);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		return aviationService.getComponent(sDate, eDate);
+		
+		return aviationService.getComponent(start, end);
 	}
 
 	@RequestMapping(value = SAVEFILTER, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -202,18 +198,18 @@ public class AviationController {
 	}
 	
     
-	@RequestMapping(value = "/postComponentIds/{components}/{fromDate}/{toDate}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public void getComponentsIds(@RequestBody final List<Component> components,@PathVariable final String fromDate, @PathVariable final String toDate) throws ParseException {
+	@RequestMapping(value = "/postComponentIds", method = RequestMethod.POST)
+	public void getComponentsIds(@RequestBody final PostComponentRequestVO requestVO) throws ParseException {
 		componentsIds = new ArrayList<Long>();
-		for (Component component : components) {
+		for (Component component : requestVO.getComponents()) {
 			componentsIds.add(component.getComponentID());
 		}
 		 DateFormat df = new SimpleDateFormat("yyyy-MM-dd"); 
-	     System.out.println("fromdate "+fromDate+" to date "+toDate);
-	     optionEnd=toDate;
-	     optionStart=fromDate;
-	     Date frmDate= df.parse(fromDate);
-         Date tDate= df.parse(toDate);
+	     System.out.println("fromdate "+requestVO.getFromDate()+" to date "+requestVO.getToDate());
+	     optionEnd=requestVO.getToDate();
+	     optionStart=requestVO.getFromDate();
+	     Date frmDate= df.parse(requestVO.getFromDate());
+         Date tDate= df.parse(requestVO.getToDate());
 		 SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 		 String  startDate=formatter.format(frmDate);
 		 String  endDate=formatter.format(tDate);

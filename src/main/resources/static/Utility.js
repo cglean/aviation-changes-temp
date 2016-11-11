@@ -70,7 +70,8 @@ var getComponent = function(start,end){
 ////////////////////alert('I m in getcomponent');
 
 	$.ajax({
-		url : "/loadComponent/" + start + "/" + end,
+		url : "/loadComponent",
+		data:{start: start, end: end},
 		success : function(data) {
 		
 			AllData=data;
@@ -1246,215 +1247,10 @@ function filterStatus(){
 		filteredData=AllData;
 	}
 	
-	////////alert(" filterdata "+filteredData.length+" checked value "+checkedStatus);
 	
 }
 	 
 
-
-/* Final return filtered data */
-
-/*function getFilteredData()
-{
-
-   ////////////////alert(filteredData.length)
-   return  filteredData;
-
-}
-	 */
-	 
-
-/*
-
-function getFilterValue(){
-	
-	var  filterID = $('#filterId').val();
-	var  filterName = $('#filterName').val();
-	var fromDate =  $('#fromDate').val();
-	var toDate =  $('#toDate').val();
-	var selectedFleets=document.getElementById("fleetValue");;
-	var selectedSubfleets=document.getElementById("subfleetValue");;
-	var selectedTails=document.getElementById("tailValue");
-	var selectedATAs=document.getElementById("ataValue");
-	var selectedCPNs=document.getElementById("companyValue");;
-	var selectedMFGs=document.getElementById("mfgValue");;
-	var fleets=''
-	var subfleets=''
-	var tails='';
-	var atas=''
-	var cpns=''
-	var mfgs=''
-		
-		
-		
-	
-		for(var i=0; i<selectedFleets.length; i++)
-		{
-		
-			fleets=selectedFleets[i].innerHTML+','+fleets
-		}
-		for(var i=0; i<selectedSubfleets.length; i++)
-		{
-		
-			subfleets=selectedSubfleets[i].innerHTML+','+subfleets
-		}
-		for(var i=0; i<selectedATAs.length; i++)
-		{
-		
-		    atas=selectedATAs[i].innerHTML+','+atas
-		}			
-		
-	for(var i=0; i<selectedTails.length; i++)
-		{
-		tails=selectedTails[i].innerHTML+','+tails
-		}
-	
-	for(var i=0; i<selectedCPNs.length; i++)
-	{
-	
-		cpns=selectedCPNs[i].innerHTML+','+cpns
-	}
-	for(var i=0; i<selectedMFGs.length; i++)
-	{
-	
-		mfgs=selectedMFGs[i].innerHTML+','+mfgs
-	}
-
-	
-	
-	//var sortByEle = document.getElementById("sortBy");
-	//var sortBySelected = sortByEle.options[sortByEle.selectedIndex].value;
-	
-	var installedUnit= document.getElementById("installedUnit").checked ? true:false;
-	var newUnit =  document.getElementById("newUnit").checked ? true:false;
-	var removedUnit =   document.getElementById("removedUnit").checked ? true:false;
-	
-	//////////////////alert(removedUnit);
-	//var problemUnit =  document.getElementById("problemUnit").checked ? true:false;
-	//var overhauledUnit =   document.getElementById("overhauledUnit").checked ? true:false;
-   	 var filterJson = {"filterID" :filterID, "filterName":filterName, "fromDate":fromDate,"toDate":toDate, "sortBy": sortChecked,
-   			          "filterBy":{ "newUnit":newUnit, "removedUnit":removedUnit, "installedUnit":installedUnit, "problemUnit" :problemUnit , "overhauledUnit":overhauledUnit},
-   	                 "selectedFleets":fleets,"selectedSubfleets":subfleets,"selectedTails":tails,"selectedATAs":atas,"selectedCPNs":cpns,"selectedMFGs":mfgs};
-   	 
-	 return  JSON.stringify(filterJson)
-}
-*/
-
-
-/* Function Name: saveFilter
- * Return Type : void
- * Description: Save the filter into database
- * Author: Suman Pandey
- * Date:18-10-2016
- */
-/*var saveFilter = function(){
-	var info=''
-		var msgType="msg";
-	
-	if(isValidSaveForm())
-		{
-	var  filterName = $('#filterName').val();
-	var  fromDate = $('#fromDate').val();
-	var toDate =  $('#toDate').val();
-////////////////alert(JSON.stringify(getFilterValue()));
-		$.ajax({
-			 type : "POST",
-			 contentType : "application/json",
-			 url : "/saveFilter",
-			 data : getFilterValue(),
-			 dataType : 'json',
-	         success : function(data) { 
-	         }
-	         
-	  });
-		 info="Filter saved successfully"
-			
-	      display(info,msgType);
-
-	}
-
-} 
-
-
-
- Function Name: loadFilter
- * Return Type : void
- * Description: load the filter into the unitbased filter editor, selected by user from the filters list which is showed in popups
- * Author: Manwar Singh
- * Date:17-10-2016
- 
-function loadFilter(filterName)
-{
-	document.getElementById("modelClose").click(); //close the filter list tables popup
-	var components=["fleetNo", "subfleetNo", "ataSystemNo", "tailNo", "companyPartNo", "mfgPartNo"];
-	var radioId=["fleetRdio", "subFleetRdio", "ataRdio", "tailRdio", "cpnRdio", "mfgRdio"];
-	var filterName;
-	clearAll();
-	for (var i = 0; i < filters.length; i++) {
-		var filter=filters[i].filterName;
-		if (filter==filterName)
-		{
-			checkedStatus=[]
-			document.getElementById("filterName").value=filterName
-			document.getElementById("fromDate").value=filters[i].fromDate;
-			document.getElementById("toDate").value=filters[i].toDate;
-			
-			document.getElementById("installedUnit").checked=filters[i].filterBy.installedUnit;
-			document.getElementById("newUnit").checked=filters[i].filterBy.newUnit;
-			document.getElementById("removedUnit").checked=filters[i].filterBy.removedUnit;
-			if(filters[i].filterBy.installedUnit || filters[i].filterBy.newUnit || filters[i].filterBy.removedUnit){
-				checkedStatus.push("true");
-				
-			}
-			
-			fleetString=filters[i].selectedFleets;
-			subfleetString=filters[i].selectedSubfleets;
-			tailString=filters[i].selectedTails;
-			ataString=filters[i].selectedATAs;
-			mfgString=filters[i].selectedMFGs;
-			cpnString=filters[i].selectedCPNs;
-			
-			if(fleetString!=null){
-				fleets =fleetString.split(',');
-				loadvalue.push(fleets);
-			}
-			if(subfleetString!=null){
-				subfleets =subfleetString.split(',');
-				loadvalue.push("fleets");
-			}
-			if(subfleetString!=null){
-				atas =ataString.split(',');
-				loadvalue.push("subfleet");
-			}
-			if(tailString!=null){
-				tails =tailString.split(',');
-				loadvalue.push("tails");
-			}
-			if(cpnString!=null){
-				cpns =cpnString.split(',');
-				loadvalue.push("cpn");
-			}
-			if(mfgString!=null){
-					mfgs =mfgString.split(',');
-					loadvalue.push("mfgs");
-			}
-			
-			functionFromDate();
-			
-			
-			//populateSavedFilterdData(fleets,subfleets,atas,tails,cpns,mfgs);
-			
-			
-			
-			
-			
-			//document.getElementById("problemUnit").checked=filters[i].filterBy.problemUnit;
-		//	document.getElementById("overhauledUnit").checked=filters[i].filterBy.overhauledUnit;
-			
-	}
-}
-	////////////////alert(" filterdata"+filteredData)
-}*/
 
 
 function populateSavedFilterdData()
@@ -1557,10 +1353,6 @@ function populateSavedSubFleets()
 	
 			}
 	
-	
-	
-	
-	
 }
 
 
@@ -1568,11 +1360,7 @@ function populateSavedATAs()
 {
 	
 	
-	////////alert("Hi I amin fleet populateSavedFleets")
 	x=document.getElementById("ataValue");
-	////////alert('Fleets length'+fleets.length)
-	////////alert('Fleetdata  length'+filteredData.length)
-	////////alert('tempdata  length'+atas.length)
 		var r=new Array();
   
 			a:for(var i=0; i<filteredData.length; i++){	 
@@ -1659,10 +1447,6 @@ function  populateSavedCPNs()
 	
 			}
 	
-	
-	
-	
-	
 }
 
 
@@ -1692,11 +1476,6 @@ function populateSavedMFGs()
 			 }
 	
 			}
-	
-	
-	
-	
-	
 }
 
 function getFilteredData()
@@ -1704,29 +1483,19 @@ function getFilteredData()
 	var fromDate=document.getElementById("fromDate").value;       
 	var toDate=document.getElementById("toDate").value;
   componentIds=[];
-   //////alert(filteredData.length)
-   for(i=0; i<filteredData.length; i++)
-	   {
-         //////alert(filteredData[i].componentID)
+   for(i=0; i<filteredData.length; i++){
          componentIds=filteredData[i].componentID
 	   }
-            
-//////alert('Componetes'+componentIds)
-           $.ajax({
+       $.ajax({
   			 type : "POST",
   			 contentType : "application/json",
-  			 url : "/postComponentIds/"+componentIds+ "/" +fromDate+ "/" +toDate,
-  			 data : JSON.stringify(filteredData),
+  			 url : "/postComponentIds",
+  			 data : JSON.stringify({components: filteredData, toDate: toDate, fromDate: fromDate}),
   			 dataType : 'json',
   	         success : function(data) { 
-  	         //////alert("Sucess")
   	         }
   	         
   	  });
-  
-           
-           //////alert(JSON.stringify(componentIds))
-   
    
 }
 
