@@ -13,7 +13,6 @@ import static com.aviation.util.PathConstants.UPDATE_FILTER;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -37,7 +36,6 @@ import com.aviation.entity.Login;
 import com.aviation.service.AviationService;
 import com.aviation.vo.ComponentReport;
 import com.aviation.vo.PostComponentRequestVO;
-//import com.mysql.fabric.xmlrpc.base.Array;
 
 @RestController
 public class AviationController {
@@ -124,7 +122,7 @@ public class AviationController {
 	
 	
 	@RequestMapping(value = "/splashScreenCPNSerial", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Object> splashScreenCPNSerial(/*@RequestBody   List<Long> componentIds*/) {
+	public List<Object> splashScreenCPNSerial() {
 		String pattern = DATEFORMATNEW;
 		Date sDate=null;
 		Date eDate=null;
@@ -219,7 +217,7 @@ public class AviationController {
 	}
 
 	@RequestMapping(value = "/paginationStatus", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<String> paginationStatus(/*@RequestBody   List<Long> componentIds*/) {
+	public List<String> paginationStatus() {
 		List<String> status =  new ArrayList<String>();
 		status.add(removalFromDate);
 		status.add(removalToDate);
